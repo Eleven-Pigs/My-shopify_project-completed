@@ -1,0 +1,34 @@
+import { createReducer, createActions } from 'reduxsauce'
+import Immutable from 'seamless-immutable'
+
+const { Types, Creators } = createActions({
+    helloWorld: null,
+  })
+
+export const ProductDetailTypes = Types
+export default Creators
+
+const INITIAL_STATE = Immutable({
+    text: 'Expo with Redux and Saga',
+})
+
+const helloWorld = (state, action) => {
+    return state.merge({
+        text: 'Changed using Redux!',
+    })
+}
+
+export const user = createReducer(INITIAL_STATE, {
+    [Types.HELLO_WORLD]: helloWorld,
+})
+
+const getReducer = (rootState) => {
+    return rootState.user
+}
+
+export const getText = (rootState) => {
+    const state = getReducer(rootState)
+
+    return state.text
+}
+
