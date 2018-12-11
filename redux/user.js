@@ -18,14 +18,9 @@ const helloWorld = (state, action) => {
     })
 }
 
-const reducer = createReducer(INITIAL_STATE, {
+export const user = createReducer(INITIAL_STATE, {
     [Types.HELLO_WORLD]: helloWorld,
 })
-
-export const user = () => {
-    return reducer()
-
-}
 
 const getReducer = (rootState) => {
     return rootState.user
@@ -33,6 +28,7 @@ const getReducer = (rootState) => {
 
 export const getText = (rootState) => {
     const state = getReducer(rootState)
+
     return state.text
 }
 

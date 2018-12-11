@@ -15,12 +15,9 @@ const INITIAL_STATE = Immutable({
 })
 
 
-const reducer = createReducer(INITIAL_STATE, {
+export const config = createReducer(INITIAL_STATE, {
 })
 
-export const config = () => {
-    return reducer()
-}
 
 const getReducer = (rootState) => {
     return rootState.config

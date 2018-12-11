@@ -19,7 +19,7 @@ export function* helloWorld(action) {
     const response = yield call(testRequest)
     if(response.ok){
         const text = yield select(getText);
-        console.log(text, 'dfdfdf')
+        console.log(text)
     }else{
         console.log("not okay")
     }
