@@ -2,6 +2,7 @@ import React from 'react';
 
 import { connect } from 'react-redux'
 import { ProductDetailComponent } from '../components/ProductDetail'
+import ProductDetailAction, { getTitle } from '../redux/productDetail'
 
 class ProductDetail extends React.Component {
   static navigationOptions = {
@@ -9,7 +10,7 @@ class ProductDetail extends React.Component {
   };
 
   handleAlert = () => {
-
+    this.props.onClick('Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0LzE3NTk4NTk2MzgzMzY=')
   }
 
   render() {
@@ -22,13 +23,13 @@ class ProductDetail extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    text: 'whattt'
+    text: getTitle(state)
   }
 }
 const mapDispatchToProps = dispatch => {
   return {
-    onClick: () => {
-      dispatch(UserActions.helloWorld())
+    onClick: (id) => {
+      dispatch(ProductDetailAction.requestProductDetail(id))
     }
   }
 }

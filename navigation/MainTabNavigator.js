@@ -16,6 +16,9 @@ const HomeStack = createStackNavigator({
   Product: ProductStack,
 },
 {
+  defaultNavigationOptions: {
+    headerTransparent: true
+  },
 }
 );
 

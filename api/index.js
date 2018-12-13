@@ -2,7 +2,7 @@ import { jsonToGraphQLQuery } from 'json-to-graphql-query';
 import { SHOPIFY_STOREFRONT_ACCESS_TOKEN } from '../config/application'
 
 const fetchShopify = (query) => {
-    const graphQLQuery = jsonToGraphQLQuery(query, {pretty: true})
+    const graphQLQuery = '{' +  jsonToGraphQLQuery(query, {pretty: true}) + '}'
     return fetch('https://aslkdfjlasdfj.myshopify.com/api/graphql', {
         method: 'POST',
         headers: {
@@ -12,7 +12,6 @@ const fetchShopify = (query) => {
         },
         body: graphQLQuery,
     })
-    .then((response) => {return response})
 }
 
 export const testRequest = () => {
@@ -26,5 +25,53 @@ export const testRequest = () => {
         }
     } 
 
+    return fetchShopify(query)
+}
+
+export const getProduct = (id) => {
+    const query = {
+        node: {
+            __args: {
+                id: id 
+            },
+            __on: {
+                __typeName: "Product",
+                title: true,
+                descriptionHtml: true,
+                id: true,
+                vendor: true,
+                availableForSale: true,
+                productType: true,
+                images: {
+                    __args:{
+                        first: 250
+                    },
+                    edges: {
+                        node: {
+                            id: true
+                        }
+                    }
+                },
+                variants: {
+                    __args:{
+                        first: 100
+                    },
+                    edges: {
+                        node: {
+                            id: true,
+                            price: true,
+                            image: {
+                                id: true
+                            },
+                            selectedOptions: {
+                                name: true,
+                                value: true
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    } 
     return fetchShopify(query)
 }

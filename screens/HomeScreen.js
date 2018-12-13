@@ -12,7 +12,7 @@ class Home extends React.Component {
 
   handleAlert = () => {
     this.props.navigation.navigate('ProductDetailScreen')
-   // this.props.onClick()
+   //this.props.onClick()
   }
 
   render() {
