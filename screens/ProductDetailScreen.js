@@ -4,13 +4,14 @@ import { connect } from 'react-redux'
 import { ProductDetailComponent } from '../components/ProductDetail'
 import ProductDetailAction, { getTitle } from '../redux/productDetail'
 
+
 class ProductDetail extends React.Component {
   static navigationOptions = {
     header: null,
   };
 
-  handleAlert = () => {
-    this.props.onClick('Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0LzE3NTk4NTk2MzgzMzY=')
+  componentDidMount() {
+    this.props.requestProductDetail('Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0LzE3NTk4NTk2MzgzMzY=')
   }
 
   render() {
@@ -28,7 +29,7 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = dispatch => {
   return {
-    onClick: (id) => {
+    requestProductDetail: (id) => {
       dispatch(ProductDetailAction.requestProductDetail(id))
     }
   }

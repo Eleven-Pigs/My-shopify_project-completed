@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/local/Cellar/node/10.7.0/bin/node /usr/local/Cellar/yarn/1.7.0/libexec/bin/yarn.js info
+  /usr/local/Cellar/node/10.7.0/bin/node /usr/local/Cellar/yarn/1.7.0/libexec/bin/yarn.js add react-native-svg-animated-linear-gradien
 
 PATH: 
   /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/Wireshark.app/Contents/MacOS:/Users/hazmiirfan/Library/Android/sdk/tools:/Users/hazmiirfan/Library/Android/sdk/tools/bin:/Users/hazmiirfan/Library/Android/sdk/platform-tools:/Users/hazmiirfan/Library/Android/sdk/tools:/Users/hazmiirfan/Library/Android/sdk/tools/bin:/Users/hazmiirfan/Library/Android/sdk/platform-tools
@@ -14,12 +14,17 @@ Platform:
   darwin x64
 
 Trace: 
-  TypeError: Cannot read property '1' of null
-      at parsePackageName (/usr/local/Cellar/yarn/1.7.0/libexec/lib/cli.js:97589:29)
-      at Object.<anonymous> (/usr/local/Cellar/yarn/1.7.0/libexec/lib/cli.js:86839:90)
-      at Generator.next (<anonymous>)
-      at step (/usr/local/Cellar/yarn/1.7.0/libexec/lib/cli.js:98:30)
-      at /usr/local/Cellar/yarn/1.7.0/libexec/lib/cli.js:109:13
+  Error: https://registry.yarnpkg.com/react-native-svg-animated-linear-gradien: Not found
+      at Request.params.callback [as _callback] (/usr/local/Cellar/yarn/1.7.0/libexec/lib/cli.js:65656:18)
+      at Request.self.callback (/usr/local/Cellar/yarn/1.7.0/libexec/lib/cli.js:134675:22)
+      at Request.emit (events.js:182:13)
+      at Request.<anonymous> (/usr/local/Cellar/yarn/1.7.0/libexec/lib/cli.js:135658:10)
+      at Request.emit (events.js:182:13)
+      at IncomingMessage.<anonymous> (/usr/local/Cellar/yarn/1.7.0/libexec/lib/cli.js:135578:12)
+      at Object.onceWrapper (events.js:273:13)
+      at IncomingMessage.emit (events.js:187:15)
+      at endReadableNT (_stream_readable.js:1081:12)
+      at process._tickCallback (internal/process/next_tick.js:63:19)
 
 npm manifest: 
   {
