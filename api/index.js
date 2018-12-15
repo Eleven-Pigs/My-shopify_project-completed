@@ -39,7 +39,6 @@ export const getProduct = (id) => {
                 title: true,
                 descriptionHtml: true,
                 id: true,
-                vendor: true,
                 availableForSale: true,
                 productType: true,
                 images: {
@@ -48,7 +47,8 @@ export const getProduct = (id) => {
                     },
                     edges: {
                         node: {
-                            id: true
+                            id: true,
+                            originalSrc: true
                         }
                     }
                 },
@@ -60,6 +60,7 @@ export const getProduct = (id) => {
                         node: {
                             id: true,
                             price: true,
+                            availableForSale: true,
                             image: {
                                 id: true
                             },

@@ -2,17 +2,15 @@ import React from 'react';
 import { Title, StyledImage } from './style'
 import { Main, Center } from '../Styled'
 import { Button, View } from 'react-native'
+import Slideshow from 'react-native-slideshow';
 
-export const ProductDetailComponent = ({ handleAlert, text }) => {
+export const ProductDetailComponent = ({ requestProductDetail, text }) => {
     return(
     <Main>
         <Center>
-            <StyledImage
-                resizeMode="contain"
-                source={{uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/RHB_Logo.svg/1200px-RHB_Logo.svg.png'}}
-            />
+
             <Title>{text}</Title>
-            <Button onPress={ handleAlert } title="Press Me"/>
+            <Button onPress={ () => requestProductDetail('Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0LzE2OTA5MTUzNDAzNTI=') } title="Press Me"/>
         </Center>
     </Main>
     )
