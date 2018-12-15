@@ -8,11 +8,10 @@ export function* fetchProductDetail(action) {
     const { id } = action 
     const response =  yield call(getProduct, id)
     const payload = yield response.json()
-    if(response.ok){
-        
+    if(response.ok){      
         yield put(ProductDetailAction.requestProductDetailSuccess(payload))
     }else{
-        console.log("not okay")
+        yield put(ProductDetailAction.requestProductDetailFailed())
     }
 }
 export const productDetailSaga = [

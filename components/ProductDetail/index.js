@@ -1,8 +1,7 @@
 import React from 'react';
-import { Title, StyledImage } from './style'
+import { Title } from './style'
 import { Main, Center } from '../Styled'
-import { Button, View } from 'react-native'
-import Slideshow from 'react-native-slideshow';
+import { Button, } from 'react-native'
 
 export const ProductDetailComponent = ({ requestProductDetail, text }) => {
     return(

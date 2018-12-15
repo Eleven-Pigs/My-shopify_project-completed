@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import ProductDetailAction, { getTitle } from '../redux/productDetail'
+import { getTitle } from '../redux/productDetail'
 import { ProductDetailComponent } from '../components/ProductDetail'
 
 const mapStateToProps = state => {
@@ -7,17 +7,9 @@ const mapStateToProps = state => {
     text: getTitle(state)
   }
 }
-const mapDispatchToProps = dispatch => {
-  return {
-    requestProductDetail: (id) => {
-      dispatch(ProductDetailAction.requestProductDetail(id))
-    }
-  }
-}
 
 const ProductDetailContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps
+  mapStateToProps
 )(ProductDetailComponent)
 
 export default ProductDetailContainer

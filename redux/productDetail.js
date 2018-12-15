@@ -3,7 +3,8 @@ import Immutable from 'seamless-immutable'
 
 const { Types, Creators } = createActions({
     requestProductDetail: ['id'],
-    requestProductDetailSuccess: ['payload']
+    requestProductDetailSuccess: ['payload'],
+    requestProductDetailFailed: null,
   })
 
 export const ProductDetailTypes = Types
@@ -39,10 +40,16 @@ const requestProductDetailSuccess = (state, action) => {
         ...product
     })
 }
+const requestProductDetailFailed = (state) => {
+    return state.merge({
+        ...INITIAL_STATE
+    })
+}
 
 export const productDetail = createReducer(INITIAL_STATE, {
     [Types.REQUEST_PRODUCT_DETAIL]: requestProductDetail,
     [Types.REQUEST_PRODUCT_DETAIL_SUCCESS]: requestProductDetailSuccess,
+    [Types.REQUEST_PRODUCT_DETAIL_FAILED]: requestProductDetailFailed,
 })
 
 const getReducer = (rootState) => {
@@ -57,7 +64,7 @@ export const getTitle = (rootState) => {
 export const getImageById = (rootState, id) => {
     const state = getReducer(rootState)
     const image = state.images.byId[id]
-    return {url: image.originalSrc}
+    return image.originalSrc
 }
 
 export const getAllImages = (rootState) => {
