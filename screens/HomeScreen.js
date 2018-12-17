@@ -4,15 +4,15 @@ import { connect } from 'react-redux'
 import UserActions from '../redux/user'
 import { HomeComponent } from '../components/Home'
 import { getText } from '../redux/user'
-
+import CartActions from '../redux/cart'
 class Home extends React.Component {
   static navigationOptions = {
     header: null,
   };
 
   handleAlert = () => {
-    this.props.navigation.navigate('ProductDetailScreen')
-   //this.props.onClick()
+  //this.props.navigation.navigate('ProductDetailScreen')
+  // this.props.onClick()
   }
 
   render() {
@@ -31,7 +31,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onClick: () => {
-      dispatch(UserActions.helloWorld())
+      dispatch(CartActions.requestCreateCheckout())
     }
   }
 }

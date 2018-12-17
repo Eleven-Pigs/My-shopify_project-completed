@@ -1,8 +1,8 @@
 import { jsonToGraphQLQuery } from 'json-to-graphql-query';
 import { SHOPIFY_STOREFRONT_ACCESS_TOKEN } from '../config/application'
 
-const fetchShopify = (query) => {
-    const graphQLQuery = '{' +  jsonToGraphQLQuery(query, {pretty: true}) + '}'
+const fetchShopify = (body) => {
+    
     return fetch('https://aslkdfjlasdfj.myshopify.com/api/graphql', {
         method: 'POST',
         headers: {
@@ -10,7 +10,7 @@ const fetchShopify = (query) => {
             'Content-Type': 'application/graphql',
             'X-Shopify-Storefront-Access-Token': SHOPIFY_STOREFRONT_ACCESS_TOKEN
         },
-        body: graphQLQuery,
+        body: body,
     })
 }
 
@@ -74,5 +74,11 @@ export const getProduct = (id) => {
             }
         }
     } 
-    return fetchShopify(query)
+    const graphQLQuery = '{' +  jsonToGraphQLQuery(query, {pretty: true}) + '}'
+    return fetchShopify(graphQLQuery)
+}
+
+export const createCheckout = () => {
+    const mutation = 'mutation {checkoutCreate(input: { lineItems: [] }) { checkout { id webUrl } } }'
+    return fetchShopify(mutation)
 }
