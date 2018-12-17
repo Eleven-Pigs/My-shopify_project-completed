@@ -78,7 +78,66 @@ export const getProduct = (id) => {
     return fetchShopify(graphQLQuery)
 }
 
+export const getCheckout = (id) => {
+    const query = {
+        node: {
+            __args: {
+                id: id 
+            },
+            __on: {
+                __typeName: "Checkout",
+                id: true,
+                totalPrice: true,
+                subtotalPrice: true,
+                lineItems: {
+                    __args:{
+                        first: 250
+                    },
+                    edges: {
+                        node: {
+                            id: true,
+                            title: true,
+                            variant: {
+                                title: true,
+                                selectedOptions: {
+                                    name: true,
+                                    value: true,
+                                }
+                            }
+                        }
+                    }
+                },
+
+            }
+        }
+    } 
+    const graphQLQuery = '{' +  jsonToGraphQLQuery(query, {pretty: true}) + '}'
+    return fetchShopify(graphQLQuery)
+}
+
 export const createCheckout = () => {
     const mutation = 'mutation {checkoutCreate(input: { lineItems: [] }) { checkout { id webUrl } } }'
+    return fetchShopify(mutation)
+}
+export const addProductToCheckout = (product, checkoutId) => {
+    const variantId = product.variantId
+    const quantity = product.quantity
+    const mutation = `mutation {
+        checkoutLineItemsAdd(lineItems: [{ variantId: "${variantId}", quantity: ${quantity} }], checkoutId: "${checkoutId}",
+        ) {
+          checkout {
+             id
+             lineItems(first:100) {
+               edges {
+                 node {
+                   id
+                   title
+                   quantity
+                 }
+               }
+             }
+          }
+        }
+      }`
     return fetchShopify(mutation)
 }

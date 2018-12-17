@@ -11,6 +11,7 @@ export function* start() {
     }else{
         yield put(CartActions.requestCreateCheckout())
     }
+    
 
 }
 

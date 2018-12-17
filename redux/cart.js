@@ -7,8 +7,10 @@ const { Types, Creators } = createActions({
     requestCreateCheckout: null,
     requestCreateCheckoutSuccess: ['payload'],
     requestCreateCheckoutFail: null,
-    getAsyncStorageCheckoutId: null,
-    setCartId: ['id']
+    setCartId: ['id'],
+    requestAddProductToCheckout: ['product'],
+    requestAddProductToCheckoutSuccess: ['payload'],
+    requestAddProductToCheckoutFail: null,
   })
 
 export const CartTypes = Types
@@ -25,7 +27,6 @@ const addNumberOfItems = (state) => {
     const numberOfItems = state.numberOfItems + 1
     return state.merge({
         numberOfItems: numberOfItems
-
     })
 }
 
@@ -45,10 +46,23 @@ const setCartId = (state, action) => {
     })  
 }
 
+const requestAddProductToCheckout = (state, action) => {
+    return state.merge({
+        isFetching: true
+    })  
+}
+const requestAddProductToCheckoutSuccess = (state, action) => {
+    return state.merge({
+        isFetching: false
+    })  
+}
+
 export const cart = createReducer(INITIAL_STATE, {
     [Types.ADD_NUMBER_OF_ITEMS]: addNumberOfItems,
     [Types.REQUEST_CREATE_CHECKOUT_SUCCESS]: requestCreateCheckoutSuccess,
     [Types.SET_CART_ID]: setCartId,
+    [Types.REQUEST_ADD_PRODUCT_TO_CHECKOUT]: requestAddProductToCheckout,
+    [Types.REQUEST_ADD_PRODUCT_TO_CHECKOUT_SUCCESS]: requestAddProductToCheckoutSuccess
 })
 
 const getReducer = (rootState) => {

@@ -12,7 +12,7 @@ class Home extends React.Component {
 
   handleAlert = () => {
   //this.props.navigation.navigate('ProductDetailScreen')
-  // this.props.onClick()
+  this.props.onClick()
   }
 
   render() {
@@ -31,7 +31,10 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onClick: () => {
-      dispatch(CartActions.requestCreateCheckout())
+      dispatch(CartActions.requestAddProductToCheckout({
+        variantId: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8xNzE2ODgzODk1MDk3Ng==',
+        quantity: 1
+      }))
     }
   }
 }
