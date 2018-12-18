@@ -1,7 +1,7 @@
 import { jsonToGraphQLQuery } from 'json-to-graphql-query';
 import { SHOPIFY_STOREFRONT_ACCESS_TOKEN } from '../config/application'
 
-const fetchShopify = (body) => {
+const fetchShopifyGraphql = (body) => {
     
     return fetch('https://aslkdfjlasdfj.myshopify.com/api/graphql', {
         method: 'POST',
@@ -11,6 +11,17 @@ const fetchShopify = (body) => {
             'X-Shopify-Storefront-Access-Token': SHOPIFY_STOREFRONT_ACCESS_TOKEN
         },
         body: body,
+    })
+}
+
+const fetchShopify = (path) => {
+    return fetch(`https://aslkdfjlasdfj.myshopify.com/admin/${path}`, {
+        method: 'GET',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/graphql',
+            'X-Shopify-Storefront-Access-Token': SHOPIFY_STOREFRONT_ACCESS_TOKEN
+        },
     })
 }
 
@@ -25,7 +36,7 @@ export const testRequest = () => {
         }
     } 
 
-    return fetchShopify(query)
+    return fetchShopifyGraphql(query)
 }
 
 export const getProduct = (id) => {
@@ -75,7 +86,7 @@ export const getProduct = (id) => {
         }
     } 
     const graphQLQuery = '{' +  jsonToGraphQLQuery(query, {pretty: true}) + '}'
-    return fetchShopify(graphQLQuery)
+    return fetchShopifyGraphql(graphQLQuery)
 }
 
 export const getCheckout = (id) => {
@@ -89,6 +100,15 @@ export const getCheckout = (id) => {
                 id: true,
                 totalPrice: true,
                 subtotalPrice: true,
+
+                shippingAddress: {
+                    address1: true,
+                    address2: true,
+                    city: true,
+                },
+                order:{
+                    id: true,
+                },
                 lineItems: {
                     __args:{
                         first: 250
@@ -97,6 +117,7 @@ export const getCheckout = (id) => {
                         node: {
                             id: true,
                             title: true,
+                            quantity: true,
                             variant: {
                                 title: true,
                                 selectedOptions: {
@@ -112,12 +133,12 @@ export const getCheckout = (id) => {
         }
     } 
     const graphQLQuery = '{' +  jsonToGraphQLQuery(query, {pretty: true}) + '}'
-    return fetchShopify(graphQLQuery)
+    return fetchShopifyGraphql(graphQLQuery)
 }
 
 export const createCheckout = () => {
     const mutation = 'mutation {checkoutCreate(input: { lineItems: [] }) { checkout { id webUrl } } }'
-    return fetchShopify(mutation)
+    return fetchShopifyGraphql(mutation)
 }
 export const addProductToCheckout = (product, checkoutId) => {
     const variantId = product.variantId
@@ -139,5 +160,72 @@ export const addProductToCheckout = (product, checkoutId) => {
           }
         }
       }`
-    return fetchShopify(mutation)
+    return fetchShopifyGraphql(mutation)
+}
+
+export const addAddresstoCheckout = (address, checkoutId) => {
+    const {
+        address1,
+        address2,
+        province,
+        city,
+        zip,
+        lastName,
+        firstName,
+        country,       
+    } = address
+
+    const mutation = `mutation {
+        checkoutShippingAddressUpdateV2(shippingAddress: {
+          address1: "${address1}"
+          address2: "${address2}"
+          province: "${province}"
+          city: "${city}"
+          zip: "${zip}"
+          country: "${country}"
+          firstName: "${firstName}"
+          lastName: "${lastName}"
+        }, checkoutId: "${checkoutId}" ) {
+          userErrors {
+            field
+            message
+          }
+          checkout {
+            id
+            shippingAddress {
+              firstName
+              lastName
+              address1
+              province
+              country
+              city
+              zip
+            }
+          }
+        }
+      }`
+    return fetchShopifyGraphql(mutation)
+}
+
+export const associateUserToCheckout = (accessToken, checkoutId) => {
+    const mutation = `mutation {
+        checkoutCustomerAssociateV2(checkoutId: ${checkoutId}, customerAccessToken: ${accessToken}) {
+          userErrors {
+            field
+            message
+          }
+          checkout {
+            id
+          }
+          customer {
+            id
+          }
+        }
+      }`
+    return fetchShopifyGraphql(mutation)
+}
+
+export const fetchCountry = () => {
+    const path = 'countries.json'
+    return fetchShopify(path)
 }

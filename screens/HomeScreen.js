@@ -32,7 +32,7 @@ const mapDispatchToProps = dispatch => {
   return {
     onClick: () => {
       dispatch(CartActions.requestAddProductToCheckout({
-        variantId: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8xNzE2ODgzODk1MDk3Ng==',
+        variantId: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8xNjQ3NTE3MTU1MzM0NA==',
         quantity: 1
       }))
     }

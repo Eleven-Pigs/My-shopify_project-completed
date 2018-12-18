@@ -4,6 +4,8 @@ import Immutable from 'seamless-immutable'
 const { Types, Creators } = createActions({
     addNumberOfItems: null,
     requestCartDetail: null,
+    requestCartDetailSuccess: ['payload'],
+    requestCartDetailFail: null,
     requestCreateCheckout: null,
     requestCreateCheckoutSuccess: ['payload'],
     requestCreateCheckoutFail: null,

@@ -1,13 +1,20 @@
 import { CartTypes } from '../redux/cart'
 import { takeLatest, call, select, put } from 'redux-saga/effects';
-import { createCheckout, addProductToCheckout } from '../api'
+import { createCheckout, addProductToCheckout, getCheckout } from '../api'
 import { getId } from '../redux/cart'
 import CartActions from '../redux/cart'
 import { AsyncStorage } from "react-native"
 
-export function* fetchCartDetail() {
-    const cartId = yield select(getId) 
-    console.log('id = ',cartId)
+export function* fetchCartDetail(action) {
+    const cartId = action.id
+
+    const response =  yield call(getCheckout, cartId)
+    const payload = yield response.json()
+    if(response.ok){     
+        yield put(CartActions.requestCartDetailSuccess(payload))   
+    }else{
+        yield put(CartActions.requestCartDetailFail())
+    }
 }
 
 export function* requestCreateCheckout() {
