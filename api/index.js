@@ -120,6 +120,7 @@ export const getCheckout = (id) => {
                             quantity: true,
                             variant: {
                                 title: true,
+                                id: true,
                                 selectedOptions: {
                                     name: true,
                                     value: true,
@@ -224,6 +225,175 @@ export const associateUserToCheckout = (accessToken, checkoutId) => {
       }`
     return fetchShopifyGraphql(mutation)
 }
+
+export const registerUser = (user) => {
+ const  {
+            email,
+            password
+        } = user
+
+    const mutation = `mutation {
+        customerCreate(input: {
+            "email": ${email}
+            "password": ${password}
+        }) {
+          userErrors {
+            field
+            message
+          }
+          customer {
+            id
+          }
+          customerUserErrors {
+            field
+            message
+          }
+        }
+      }`
+    return fetchShopifyGraphql(mutation)
+}
+
+export const createAccessToken = (user) => {
+ const  {
+            email,
+            password
+        } = user
+    const mutation = `mutation {
+        customerAccessTokenCreate(input: {
+            "email": ${email}
+            "password": ${password}
+        }) {
+          userErrors {
+            field
+            message
+          }
+          customerAccessToken {
+            accessToken
+            expiresAt
+          }
+          customerUserErrors {
+            field
+            message
+          }
+        }
+      }`
+    return fetchShopifyGraphql(mutation)
+}
+
+export const renewAccessToken = (accessToken) => {
+
+    const mutation = `mutation {
+        customerAccessTokenRenew(customerAccessToken: ${accessToken}) {
+          userErrors {
+            field
+            message
+          }
+          customerAccessToken {
+            accessToken
+            expiresAt
+          }
+        }
+      }`
+    return fetchShopifyGraphql(mutation)
+}
+
+export const createAddress = (accessToken, address) => {
+    const {
+        address1,
+        address2,
+        province,
+        city,
+        zip,
+        lastName,
+        firstName,
+        country,       
+    } = address
+    const mutation = `mutation {
+        customerAddressCreate(customerAccessToken: ${accessToken}, address:{
+            address1: "${address1}"
+            address2: "${address2}"
+            province: "${province}"
+            city: "${city}"
+            zip: "${zip}"
+            country: "${country}"
+            firstName: "${firstName}"
+            lastName: "${lastName}"
+        } ) {
+          userErrors {
+            field
+            message
+          }
+          customerAddress {
+            id
+          }
+          customerUserErrors {
+            field
+            message
+          }
+        }
+      }`
+    return fetchShopifyGraphql(mutation)
+}
+
+export const updateAddress = (accessToken, address) => {
+    const {
+        address1,
+        address2,
+        province,
+        city,
+        zip,
+        lastName,
+        firstName,
+        country,
+        id,   
+    } = address
+    const mutation = `mutation {
+        customerAddressUpdate(customerAccessToken: ${accessToken}, id: ${id}, address:{
+            address1: "${address1}"
+            address2: "${address2}"
+            province: "${province}"
+            city: "${city}"
+            zip: "${zip}"
+            country: "${country}"
+            firstName: "${firstName}"
+            lastName: "${lastName}"
+        } ) {
+          userErrors {
+            field
+            message
+          }
+          customerAddress {
+            id
+          }
+          customerUserErrors {
+            field
+            message
+          }
+        }
+      }`
+    return fetchShopifyGraphql(mutation)
+}
+
+export const setDefaultAddress = (accessToken, addressId) => {
+
+    const mutation = `mutation {
+        customerDefaultAddressUpdate(customerAccessToken: ${accessToken}, addressId: ${addressId}) {
+          userErrors {
+            field
+            message
+          }
+          customer {
+            id
+          }
+          customerUserErrors {
+            field
+            message
+          }
+        }
+      }`
+    return fetchShopifyGraphql(mutation)
+}
+
 
 export const fetchCountry = () => {
     const path = 'countries.json'

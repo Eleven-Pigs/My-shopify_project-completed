@@ -56,6 +56,10 @@ const getReducer = (rootState) => {
     return rootState.productDetail
 }
 
+
+
+//SELECTOR
+
 export const getTitle = (rootState) => {
     const state = getReducer(rootState)
     return state.title
@@ -69,8 +73,24 @@ export const getImageById = (rootState, id) => {
 
 export const getAllImages = (rootState) => {
     const state = getReducer(rootState)
-    const images = state.images.allImages.map(imageId => {
+    const images = state.images.allIds.map(imageId => {
          const image = getImageById(rootState, imageId)
+         return image
+    })
+    
+    return images
+}
+
+export const getVariantById = (rootState, id) => {
+    const state = getReducer(rootState)
+    const variant = state.variants.byId[id]
+    return variant
+}
+
+export const getVariants = (rootState) => {
+    const state = getReducer(rootState)
+    const images = state.variants.allIds.map(variantId => {
+         const image = getImageById(rootState, variantId)
          return image
     })
     
@@ -132,11 +152,11 @@ const normalizeProductDetail = (graphQLProduct) => {
         title: node.title,
         images: {
             byId: images,
-            allImages: allImages
+            allIds: allImages
         },
         variants:{
             byId: variants,
-            allVariants: allVariants
+            allIds: allVariants
         },
         selectedVariant
     }

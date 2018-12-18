@@ -5,9 +5,8 @@ import { getId } from '../redux/cart'
 import CartActions from '../redux/cart'
 import { AsyncStorage } from "react-native"
 
-export function* fetchCartDetail(action) {
-    const cartId = action.id
-
+export function* fetchCartDetail() {
+    const cartId = yield select(getId)
     const response =  yield call(getCheckout, cartId)
     const payload = yield response.json()
     if(response.ok){     
@@ -47,8 +46,6 @@ export function* requestAddProductToCheckout(action) {
 export const cartSaga = [
     takeLatest(CartTypes.REQUEST_CART_DETAIL, fetchCartDetail),
     takeLatest(CartTypes.REQUEST_CREATE_CHECKOUT, requestCreateCheckout),
-    takeLatest(CartTypes.SET_CART_ID, fetchCartDetail),
-    takeLatest(CartTypes.REQUEST_CREATE_CHECKOUT_SUCCESS, fetchCartDetail),
     takeLatest(CartTypes.REQUEST_ADD_PRODUCT_TO_CHECKOUT, requestAddProductToCheckout),
     
 ]

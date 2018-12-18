@@ -21,8 +21,16 @@ export default Creators
 const INITIAL_STATE = Immutable({
     isFetching: false,
     numberOfItems: 0,
-    id: 0,
+    id: '',
     webUrl: '',
+    products:{
+        byIds: {},
+        allIds: []
+    },
+    order: {},
+    shippingAddress: {},
+    subTotalPrice: '',
+    totalPrice: '',
 })
 
 const addNumberOfItems = (state) => {
@@ -59,12 +67,27 @@ const requestAddProductToCheckoutSuccess = (state, action) => {
     })  
 }
 
+const requestCartDetail = (state, action) => {
+    return state.merge({
+        isFetching: true
+    }) 
+}
+
+const requestCartDetailSuccess = (state, action) => {
+    const cart = normalizeCartDetail(action.payload) 
+    return state.merge({
+        isFetching: false
+    }) 
+}
+
 export const cart = createReducer(INITIAL_STATE, {
     [Types.ADD_NUMBER_OF_ITEMS]: addNumberOfItems,
     [Types.REQUEST_CREATE_CHECKOUT_SUCCESS]: requestCreateCheckoutSuccess,
     [Types.SET_CART_ID]: setCartId,
     [Types.REQUEST_ADD_PRODUCT_TO_CHECKOUT]: requestAddProductToCheckout,
-    [Types.REQUEST_ADD_PRODUCT_TO_CHECKOUT_SUCCESS]: requestAddProductToCheckoutSuccess
+    [Types.REQUEST_ADD_PRODUCT_TO_CHECKOUT_SUCCESS]: requestAddProductToCheckoutSuccess,
+    [Types.REQUEST_CART_DETAIL]: requestCartDetail,
+    [Types.REQUEST_CART_DETAIL_SUCCESS]: requestCartDetailSuccess,
 })
 
 const getReducer = (rootState) => {
@@ -74,4 +97,38 @@ const getReducer = (rootState) => {
 export const getId = (rootState) => {
     const state = getReducer(rootState)
     return state.id
+}
+
+
+const normalizeCartDetail = (graphQLCart) => {
+    console.log('heloooo',graphQLCart)
+    const node = graphQLCart.data.node
+    const {
+        shippingAddress,
+        subTotalPrice,
+        totalPrice,
+        webUrl,
+        ready,
+    } = node
+
+    const product = node.lineItems.edges.map(lineItem => {
+        const node = lineItem.node
+        const id = node.id
+        const title = node.title
+        
+        return({
+            [id]: {
+                originalSrc: node.originalSrc,
+            }
+        })
+    }).reduce((acc,ele) => {
+        const keys = Object.keys(ele)
+        const key = keys[0]
+        acc[key] = ele[key]
+        return acc
+    }, {});
+
+
+    return null
+
 }

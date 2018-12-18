@@ -8,6 +8,8 @@ export function* start() {
     const id = yield call([AsyncStorage, 'getItem'], 'cartId')
     if (id){
         yield put(CartActions.setCartId(id))
+        yield put(CartActions.requestCartDetail())
+        
     }else{
         yield put(CartActions.requestCreateCheckout())
     }
