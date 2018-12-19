@@ -76,7 +76,8 @@ const requestCartDetail = (state, action) => {
 const requestCartDetailSuccess = (state, action) => {
     const cart = normalizeCartDetail(action.payload) 
     return state.merge({
-        isFetching: false
+        isFetching: false,
+        ...cart
     }) 
 }
 
@@ -101,7 +102,6 @@ export const getId = (rootState) => {
 
 
 const normalizeCartDetail = (graphQLCart) => {
-    console.log('heloooo',graphQLCart)
     const node = graphQLCart.data.node
     const {
         shippingAddress,
@@ -111,14 +111,23 @@ const normalizeCartDetail = (graphQLCart) => {
         ready,
     } = node
 
-    const product = node.lineItems.edges.map(lineItem => {
+    const allProducts = node.lineItems.edges.map(lineItem => {
         const node = lineItem.node
         const id = node.id
+        return id
+    })
+
+    const productsByIds = node.lineItems.edges.map(lineItem => {
+        const node = lineItem.node
+        const id = node.variant.id
         const title = node.title
-        
+        const quantity = node.quantity
+        const variantTitle = node.variant.title
         return({
             [id]: {
-                originalSrc: node.originalSrc,
+                title: title,
+                quantity: quantity,
+                variantTitle: variantTitle,
             }
         })
     }).reduce((acc,ele) => {
@@ -128,7 +137,16 @@ const normalizeCartDetail = (graphQLCart) => {
         return acc
     }, {});
 
-
-    return null
+    return {
+        products: {
+            byIds: productsByIds,
+            allIds: allProducts
+        },
+        shippingAddress: shippingAddress,
+        subTotalPrice: subTotalPrice,
+        totalPrice: totalPrice,
+        webUrl: webUrl,
+        ready: ready,
+    }
 
 }
