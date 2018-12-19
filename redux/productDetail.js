@@ -5,6 +5,8 @@ const { Types, Creators } = createActions({
     requestProductDetail: ['id'],
     requestProductDetailSuccess: ['payload'],
     requestProductDetailFailed: null,
+    setTitle: ['title'],
+    clearProductDetail: null,
   })
 
 export const ProductDetailTypes = Types
@@ -46,10 +48,25 @@ const requestProductDetailFailed = (state) => {
     })
 }
 
+const setTitle = (state, action) => {
+    const title = action.title
+    return state.merge({
+        title: title
+    })
+}
+
+const clearProductDetail = (state) => {
+    return state.merge({
+        ...INITIAL_STATE
+    })
+}
+
 export const productDetail = createReducer(INITIAL_STATE, {
     [Types.REQUEST_PRODUCT_DETAIL]: requestProductDetail,
     [Types.REQUEST_PRODUCT_DETAIL_SUCCESS]: requestProductDetailSuccess,
     [Types.REQUEST_PRODUCT_DETAIL_FAILED]: requestProductDetailFailed,
+    [Types.SET_TITLE]: setTitle,
+    [Types.CLEAR_PRODUCT_DETAIL]: clearProductDetail,
 })
 
 const getReducer = (rootState) => {

@@ -1,17 +1,17 @@
 import React from 'react';
 
 import { connect } from 'react-redux'
-import UserActions from '../redux/user'
 import { HomeComponent } from '../components/Home'
 import { getText } from '../redux/user'
 import CartActions from '../redux/cart'
+import ProductDetailActions from '../redux/productDetail'
 class Home extends React.Component {
   static navigationOptions = {
     header: null,
   };
 
   handleProductClick = () => {
-    this.props.navigation.navigate('ProductDetailScreen',{title:"helo"})
+    this.props.navigation.navigate('ProductDetailScreen')
   }
 
   render() {
@@ -34,6 +34,9 @@ const mapDispatchToProps = dispatch => {
         variantId: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8xNjQ3NTE3MTU1MzM0NA==',
         quantity: 1
       }))
+    },
+    setTitle: (title) => {
+      dispatch(ProductDetailActions.setTitle(title))
     }
   }
 }

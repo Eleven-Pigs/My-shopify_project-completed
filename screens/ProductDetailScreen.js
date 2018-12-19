@@ -16,6 +16,9 @@ class ProductDetailScreen extends React.Component {
   componentDidMount(){
     this.props.requestProductDetail('Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0LzE2OTA5MTUzNDAzNTI=')
   }
+  componentWillUnmount(){
+    this.props.clearProductDetail()
+  }
 
   render = () => {
     return (
@@ -37,6 +40,9 @@ const mapDispatchToProps = dispatch => {
   return {
     requestProductDetail: (id) => {
       dispatch(ProductDetailAction.requestProductDetail(id))
+    },
+    clearProductDetail: () => {
+      dispatch(ProductDetailAction.clearProductDetail())
     }
   }
 }
