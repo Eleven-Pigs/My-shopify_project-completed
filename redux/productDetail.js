@@ -19,11 +19,11 @@ const INITIAL_STATE = Immutable({
     productType :'',
     images: {
         byId: {},
-        allImages: []
+        allIds: []
     },
     variants: {
         byId: {},
-        allVariants: []
+        allIds: []
     },
     selectedVariant: '',
 })

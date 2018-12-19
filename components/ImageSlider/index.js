@@ -9,13 +9,10 @@ export const ImageSlider = ({ images }) => {
             url: image
         }
     })
-    const isReady = sliderImages.length > 0 ? true: false
     return(
     <Main>
-        <ProductDetailImagePlaceholder onReady={isReady} bgColor="grey" animate="fade">
-            <Slideshow 
-                dataSource={sliderImages}/>
-        </ProductDetailImagePlaceholder>
+        <Slideshow 
+            dataSource={sliderImages}/>
     </Main>
     )
 }

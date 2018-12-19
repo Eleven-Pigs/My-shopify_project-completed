@@ -1,20 +1,51 @@
 import React from 'react';
 import { Title, StyledImage } from './style'
 import { Main, Center } from '../Styled'
-import { Button } from 'react-native'
+import { WebView } from 'react-native'
+import ProductDetailImagePlaceholder from '../Placeholder/ProductDetailPlaceholder';
 
-export const HomeComponent = ({ handleAlert, text }) => {
-    return(
-    <Main>
-        <Center>
-            <StyledImage
-                resizeMode="contain"
-                source={{uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/RHB_Logo.svg/1200px-RHB_Logo.svg.png'}}
-            />
-            <Title>{text}</Title>
-            <Button onPress={ handleAlert } title="Press Me"/>
-        </Center>
-    </Main>
-    )
+export class HomeComponent extends React.Component {
+    constructor(props){
+        super(props)
+    }
+    loadingIndicator = () => {
+        return (
+            <ProductDetailImagePlaceholder bgColor="grey" animate="fade">
+
+            </ProductDetailImagePlaceholder>
+        )
+    }
+    navigationStateChangedHandler = ({url}) => {
+        
+        if (url.includes('collections') || url.includes('products')) {
+          this.WebView.stopLoading();
+          this.WebView.goBack();
+          this.props.handleProductClick()
+        }
+      };
+
+    render() {
+        const jsCode = `
+            document.getElementById("shopify-section-header").style.display = "none";
+            document.getElementById("shopify-section-footer").style.display = "none";
+            
+        `;
+        return(
+                <WebView
+                source={{uri: 'https://aslkdfjlasdfj.myshopify.com/'}}
+                
+                injectedJavaScript={jsCode}
+                javaScriptEnabledAndroid={true}
+                onNavigationStateChange={this.navigationStateChangedHandler}
+                ref={c => {
+                    this.WebView = c;
+                  }}
+                startInLoadingState= {true}
+                renderLoading={this.loadingIndicator}
+                />
+
+        )
+    }
+
 }
 

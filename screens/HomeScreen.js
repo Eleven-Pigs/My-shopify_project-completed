@@ -10,14 +10,13 @@ class Home extends React.Component {
     header: null,
   };
 
-  handleAlert = () => {
-  //this.props.navigation.navigate('ProductDetailScreen')
-  this.props.onClick()
+  handleProductClick = () => {
+    this.props.navigation.navigate('ProductDetailScreen',{title:"helo"})
   }
 
   render() {
     return (
-      <HomeComponent handleAlert = {this.handleAlert} text = {this.props.text}/>
+      <HomeComponent handleProductClick = {this.handleProductClick}/>
     );
   }
 

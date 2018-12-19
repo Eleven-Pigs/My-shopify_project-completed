@@ -5,22 +5,11 @@ import { createStackNavigator, createBottomTabNavigator } from 'react-navigation
 import TabBarIcon from '../components/Reusable/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import LinksScreen from '../screens/LinksScreen';
-import ProductDetailScreen from '../screens/ProductDetailScreen'
-
-const ProductStack = createStackNavigator({
-  ProductDetailScreen: ProductDetailScreen
-})
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
-  Product: ProductStack,
-},
-{
-  defaultNavigationOptions: {
-    headerTransparent: true
-  },
-}
-);
+},);
+
 
 HomeStack.navigationOptions = {
   tabBarLabel: 'Home',

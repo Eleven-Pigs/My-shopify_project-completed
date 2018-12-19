@@ -1,13 +1,16 @@
 import React from 'react';
-import { View } from 'react-native'
+import { View, Button } from 'react-native'
 import ProductDetail from '../containers/ProductDetail'
 import ProductImage from '../containers/ProductImage'
 import ProductDetailAction from '../redux/productDetail'
 import { connect } from 'react-redux'
 
 class ProductDetailScreen extends React.Component {
+  constructor(props){
+    super(props)
+  }
   static navigationOptions = {
-    header: null,
+   
   };
 
   componentDidMount(){
