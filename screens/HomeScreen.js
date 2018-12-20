@@ -11,7 +11,9 @@ class Home extends React.Component {
   };
 
   handleProductClick = () => {
-    this.props.navigation.navigate('ProductDetailScreen')
+    this.props.navigation.navigate('ProductDetailScreen',{
+      productId: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0LzE2OTA5MTUzNDAzNTI='
+    })
   }
 
   render() {

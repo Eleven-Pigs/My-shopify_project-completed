@@ -2,12 +2,12 @@ import { createSwitchNavigator, createAppContainer, createStackNavigator, Header
 import MainTabNavigator from './MainTabNavigator';
 import React from 'react';
 import ProductDetailScreen from '../screens/ProductDetailScreen'
-
+import { theme } from '../constants/Theme'
 const ProductStack = createStackNavigator({
   ProductDetailScreen: ProductDetailScreen
 },{
   defaultNavigationOptions: ({navigation}) => ({
-    headerLeft: <HeaderBackButton onPress={() => navigation.goBack(null)} />,
+    headerLeft: <HeaderBackButton onPress={() => navigation.goBack(null)} tintColor={theme.background}/>,
     headerTransparent: true,
   })
 })

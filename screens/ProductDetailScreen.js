@@ -14,8 +14,10 @@ class ProductDetailScreen extends React.Component {
   };
 
   componentDidMount(){
-    this.props.requestProductDetail('Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0LzE2OTA5MTUzNDAzNTI=')
+    const productId = this.props.navigation.getParam('productId');
+    this.props.requestProductDetail(productId)
   }
+
   componentWillUnmount(){
     this.props.clearProductDetail()
   }

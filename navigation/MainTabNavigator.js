@@ -1,10 +1,12 @@
 import React from 'react';
 import { Platform } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
-
-import TabBarIcon from '../components/Reusable/TabBarIcon';
+import { theme } from '../constants/Theme'
+import Ionicons from '../components/Reusable/TabBarIcon/Ionicons';
+import Materialicons from '../components/Reusable/TabBarIcon/Materialicons';
 import HomeScreen from '../screens/HomeScreen';
 import LinksScreen from '../screens/LinksScreen';
+import CollectionScreen from '../screens/CollectionScreen';
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
@@ -14,7 +16,7 @@ const HomeStack = createStackNavigator({
 HomeStack.navigationOptions = {
   tabBarLabel: 'Home',
   tabBarIcon: ({ focused }) => (
-    <TabBarIcon
+    <Ionicons
       focused={focused}
       name={
         Platform.OS === 'ios'
@@ -24,6 +26,21 @@ HomeStack.navigationOptions = {
     />
   ),
 };
+const CollectionStack = createStackNavigator({
+  Collection: CollectionScreen,
+},);
+
+
+CollectionStack.navigationOptions = {
+  tabBarLabel: 'Collection',
+  tabBarIcon: ({ focused }) => (
+    <Materialicons
+      focused={focused}
+      name='collections'
+    />
+  ),
+};
+
 
 const LinksStack = createStackNavigator({
   Links: LinksScreen,
@@ -32,7 +49,7 @@ const LinksStack = createStackNavigator({
 LinksStack.navigationOptions = {
   tabBarLabel: 'Links',
   tabBarIcon: ({ focused }) => (
-    <TabBarIcon
+    <Ionicons
       focused={focused}
       name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'}
     />
@@ -41,5 +58,19 @@ LinksStack.navigationOptions = {
 
 export default createBottomTabNavigator({
   HomeStack,
+  CollectionStack,
   LinksStack,
+},{
+  tabBarOptions: {
+    activeTintColor: theme.secondary.dark,
+    inactiveTintColor: theme.secondary.light,
+    labelStyle: {
+      fontSize: 12,
+    },
+    style: {
+      backgroundColor: theme.background,
+    },
+  }
+  
 });
+
