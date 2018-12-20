@@ -6,9 +6,9 @@ import { withNavigation } from 'react-navigation';
 
 class CollectionItem extends React.Component {
   navigateToProductDetail = () => {
-    const handle = this.props.collection.handle
-     this.props.navigation.navigate('ProductDetailScreen',{
-       productId: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0LzE2OTA5MTUzNDAzNTI='
+    const id = this.props.collection.id
+     this.props.navigation.navigate('ProductListScreen',{
+       id: id
      })
   }
 

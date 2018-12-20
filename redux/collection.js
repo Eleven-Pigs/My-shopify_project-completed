@@ -67,6 +67,7 @@ const normalizeCollectionList = (graphQLCollection) => {
         const cursor = node.products.edges[0].cursor
         return({
             [id]: {
+                id: id,
                 handle: handle,
                 description: description,
                 cursor: cursor

@@ -5,6 +5,7 @@ import { AsyncStorage } from "react-native"
 import CollectionActions from '../redux/collection'
 
 export function* start() {
+    yield put(CollectionActions.requestCollectionList())
     
     const id = yield call([AsyncStorage, 'getItem'], 'cartId')
     if (id){
@@ -15,10 +16,7 @@ export function* start() {
     }else{
         yield put(CartActions.requestCreateCheckout())
     }
-
-    yield put(CollectionActions.requestCollectionList())
     
-
 }
 
 export const startupSaga = [

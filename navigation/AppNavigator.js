@@ -2,9 +2,11 @@ import { createSwitchNavigator, createAppContainer, createStackNavigator, Header
 import MainTabNavigator from './MainTabNavigator';
 import React from 'react';
 import ProductDetailScreen from '../screens/ProductDetailScreen'
+import ProductListScreen from '../screens/ProductListScreen'
 import { theme } from '../constants/Theme'
-const ProductStack = createStackNavigator({
-  ProductDetailScreen: ProductDetailScreen
+
+const ProductDetailStack = createStackNavigator({
+  ProductDetailScreen: ProductDetailScreen,
 },{
   defaultNavigationOptions: ({navigation}) => ({
     headerLeft: <HeaderBackButton onPress={() => navigation.goBack(null)} tintColor={theme.background}/>,
@@ -12,14 +14,28 @@ const ProductStack = createStackNavigator({
   })
 })
 
-ProductStack.navigationOptions = {
+ProductDetailStack.navigationOptions = {
   headerTransparent: true,
 };
 
 
+const ProductListStack = createStackNavigator({
+  ProductListScreen: ProductListScreen,
+},{
+  defaultNavigationOptions: ({navigation}) => ({
+    headerLeft: <HeaderBackButton onPress={() => navigation.goBack(null)} tintColor={theme.background}/>,
+    headerTransparent: true,
+  })
+})
+
+ProductListStack.navigationOptions = {
+  headerTransparent: true,
+};
+
 const MainStack = createStackNavigator({
   Main: MainTabNavigator,
-  Product: ProductStack,
+  Product: ProductDetailStack,
+  ProductList: ProductListStack,
 },{
   headerMode: 'none'
 })

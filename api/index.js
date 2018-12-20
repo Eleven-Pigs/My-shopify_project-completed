@@ -89,6 +89,46 @@ export const getProduct = (id) => {
     return fetchShopifyGraphql(graphQLQuery)
 }
 
+export const getProductFromCollection = (id) => {
+    
+    const query = {
+        node: {
+            __args: {
+                id: id 
+            },
+            __on: {
+                __typeName: "Collection",
+                title: true,
+                id: true,
+                products: {
+                    __args:{
+                        first: 15
+                    },
+                    edges: {
+                        cursor: true,
+                        node: {
+                            id: true,
+                            title: true,
+                            images: {
+                                __args: {
+                                    first: 1 
+                                },
+                                edges: {
+                                    node: {
+                                        originalSrc: true
+                                    }
+                                }
+                            },
+                        }
+                    }
+                }
+            }
+        }
+    }
+    const graphQLQuery = '{' +  jsonToGraphQLQuery(query, {pretty: true}) + '}'
+    return fetchShopifyGraphql(graphQLQuery)
+}
+
 export const getCollections = () => {
     const query = {
         shop: {
