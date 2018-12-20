@@ -28,11 +28,11 @@ const CollectionStack = createStackNavigator({
 
 
 CollectionStack.navigationOptions = {
-  tabBarLabel: 'Collection',
+  tabBarLabel: 'Search',
   tabBarIcon: ({ focused }) => (
     <Materialicons
       focused={focused}
-      name='collections'
+      name='search'
     />
   ),
 };
