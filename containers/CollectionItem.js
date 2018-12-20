@@ -1,19 +1,20 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import { getCollectionById } from '../redux/collection'
-import { CollectionItem } from '../components/CollectionItem'
+import { getCollectionById, getProductCursor} from '../redux/collection'
+import { CollectionItem as Item}  from '../components/CollectionItem'
 import { withNavigation } from 'react-navigation';
 
-class Collection extends React.Component {
+class CollectionItem extends React.Component {
   navigateToProductDetail = () => {
-    this.props.navigation.navigate('ProductDetailScreen',{
-      productId: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0LzE2OTA5MTUzNDAzNTI='
-    })
+    const handle = this.props.collection.handle
+     this.props.navigation.navigate('ProductDetailScreen',{
+       productId: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0LzE2OTA5MTUzNDAzNTI='
+     })
   }
 
   render() {
     return (
-        <CollectionItem collection={this.props.collection} onPressItem={this.navigateToProductDetail} />
+        <Item collection={this.props.collection} onPressItem={this.navigateToProductDetail} />
     );
   }
 
@@ -21,12 +22,12 @@ class Collection extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    collection: getCollectionById(state, ownProps.id)
+    collection: getCollectionById(state, ownProps.id),
   }
 }
 
 const CollectionItemContainer = connect(
   mapStateToProps
-)(Collection)
+)(CollectionItem)
 
 export default withNavigation(CollectionItemContainer)

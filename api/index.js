@@ -103,6 +103,14 @@ export const getCollections = () => {
                         description: true,
                         image: {
                           originalSrc: true,
+                        },
+                        products: {
+                            __args: {
+                                first: 1
+                            },
+                            edges: {
+                                cursor: true
+                            }
                         }
                     }
                 }
