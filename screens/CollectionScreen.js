@@ -1,8 +1,7 @@
 import React from 'react';
-import { View } from 'react-native'
-
+import { SafeAreaView } from 'react-native'
 import { connect } from 'react-redux'
-
+import  CollectionListContainer  from '../containers/CollectionList'
 class Collection extends React.Component {
   constructor(props){
     super(props)
@@ -11,19 +10,11 @@ class Collection extends React.Component {
    header: null,
   };
 
-  componentDidMount(){
-
-  }
-
-  componentWillUnmount(){
-
-  }
-
   render = () => {
     return (
-        <View style = {{flex:1}}>
-
-        </View>
+        <SafeAreaView>
+            <CollectionListContainer/>
+        </SafeAreaView>
     )
   }
 
@@ -35,8 +26,7 @@ const mapStateToProps = state => {
 
 
 const mapDispatchToProps = dispatch => {
-  return {
-  }
+  return {}
 }
 
 const CollectionScreen = connect(

@@ -11,3 +11,7 @@ export const Center = styled(View)`
     align-items: center;
     justify-content: center;
 `
+export const Separator = styled(View)`
+    height: 1;
+    background-color: #CED0CE
+`

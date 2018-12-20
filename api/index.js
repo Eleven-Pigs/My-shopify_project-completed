@@ -102,7 +102,7 @@ export const getCollections = () => {
                         handle: true,
                         description: true,
                         image: {
-                          originalSrc
+                          originalSrc: true,
                         }
                     }
                 }
