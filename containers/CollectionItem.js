@@ -5,7 +5,7 @@ import { CollectionItem as Item}  from '../components/CollectionItem'
 import { withNavigation } from 'react-navigation';
 
 class CollectionItem extends React.Component {
-  navigateToProductDetail = () => {
+  navigateToProductList = () => {
     const id = this.props.collection.id
      this.props.navigation.navigate('ProductListScreen',{
        id: id
@@ -14,7 +14,7 @@ class CollectionItem extends React.Component {
 
   render() {
     return (
-        <Item collection={this.props.collection} onPressItem={this.navigateToProductDetail} />
+        <Item collection={this.props.collection} onPressItem={this.navigateToProductList} />
     );
   }
 

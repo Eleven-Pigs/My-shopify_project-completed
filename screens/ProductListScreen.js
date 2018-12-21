@@ -2,6 +2,9 @@ import React from 'react';
 import { SafeAreaView } from 'react-native'
 import { connect } from 'react-redux'
 import ProductListActions  from '../redux/productList'
+import ProductListContainer  from '../containers/ProductList'
+
+
 class ProductList extends React.Component {
   constructor(props){
     super(props)
@@ -23,7 +26,7 @@ class ProductList extends React.Component {
   render = () => {
     return (
         <SafeAreaView>
-
+          <ProductListContainer/>
         </SafeAreaView>
     )
   }

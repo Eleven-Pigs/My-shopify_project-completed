@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 import { CollectionList } from '../components/CollectionList'
 import { getAllCollectionsIds } from '../redux/collection'
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
   return {
     collectionIds: getAllCollectionsIds(state)
   }

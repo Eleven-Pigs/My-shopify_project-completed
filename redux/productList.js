@@ -43,8 +43,20 @@ export const productList = createReducer(INITIAL_STATE, {
 })
 
 const getReducer = (rootState) => {
-    return rootState.collection
+    return rootState.productList
 }
+
+export const getAllProductIds = (rootState) => {
+    const state = getReducer(rootState)
+    return state.products.allIds
+}
+
+export const getProductById = (rootState, id) => {
+    const state = getReducer(rootState)
+    return state.products.byIds[id]
+}
+
+
 const normalizeProducts = (graphQLProducts) => {
     const node = graphQLProducts.data.node
     const {
