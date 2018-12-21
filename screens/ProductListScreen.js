@@ -5,6 +5,9 @@ import ProductListActions  from '../redux/productList'
 class ProductList extends React.Component {
   constructor(props){
     super(props)
+    this.state = {
+      cursor: null
+    }
   }
   static navigationOptions = {
    header: null,
@@ -12,7 +15,7 @@ class ProductList extends React.Component {
 
   componentDidMount(){
     const id = this.props.navigation.getParam('id');
-    this.props.requestProductListFromCollection(id)
+    this.props.requestProductListFromCollection(id, this.state.cursor)
   }
 
   
@@ -34,8 +37,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    requestProductListFromCollection: (id) => {
-      dispatch(ProductListActions.requestProductListFromCollection(id))
+    requestProductListFromCollection: (id, cursor) => {
+      dispatch(ProductListActions.requestProductListFromCollection(id, cursor))
     },
   }
 }

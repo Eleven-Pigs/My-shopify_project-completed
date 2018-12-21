@@ -5,11 +5,13 @@ import { config } from './config'
 import { productDetail } from './productDetail'
 import { cart } from './cart'
 import { collection } from './collection'
+import { productList } from './productList'
 export default combineReducers({
   user,
   config,
   productDetail,
   cart,
-  collection
+  collection,
+  productList
 })
 

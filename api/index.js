@@ -89,7 +89,7 @@ export const getProduct = (id) => {
     return fetchShopifyGraphql(graphQLQuery)
 }
 
-export const getProductFromCollection = (id) => {
+export const getProductFromCollection = (id, cursor) => {
     
     const query = {
         node: {
@@ -102,13 +102,24 @@ export const getProductFromCollection = (id) => {
                 id: true,
                 products: {
                     __args:{
-                        first: 15
+                        first: 30,
+                        after: cursor ? cursor : null
                     },
                     edges: {
                         cursor: true,
                         node: {
                             id: true,
                             title: true,
+                            priceRange: {
+                                maxVariantPrice: {
+                                    amount: true,
+                                    currencyCode: true,
+                                },
+                                minVariantPrice: {
+                                    amount: true,
+                                    currencyCode: true,
+                                },
+                            },
                             images: {
                                 __args: {
                                     first: 1 

@@ -4,10 +4,9 @@ import { getProductFromCollection } from '../api'
 import ProductListActions from '../redux/productList'
 
 export function* fetchProductListFromCollection(action) {
-    const { id } = action 
+    const { id, cursor } = action 
     try{
-        console.log('ddddd')
-        const response =  yield call(getProductFromCollection, id)
+        const response =  yield call(getProductFromCollection, id, cursor)
         const payload = yield response.json()
         if(response.ok){     
             yield put(ProductListActions.requestProductListFromCollectionSuccess(payload))   
