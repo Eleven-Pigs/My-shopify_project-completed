@@ -143,7 +143,7 @@ const normalizeProductDetail = (graphQLProduct) => {
         return({
             [id]: {
                 price: node.price,
-                imageId: node.image.id,
+                imageId: node.image ? node.image.id : null,
                 availableForSale: node.availableForSale,
                 selectedOptions: node.selectedOptions,
             }
