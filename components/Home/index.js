@@ -1,6 +1,4 @@
 import React from 'react';
-import { Title, StyledImage } from './style'
-import { Main, Center } from '../Styled'
 import { WebView } from 'react-native'
 import ProductDetailImagePlaceholder from '../Placeholder/ProductDetailPlaceholder';
 
@@ -17,10 +15,16 @@ export class HomeComponent extends React.Component {
     }
     navigationStateChangedHandler = ({url}) => {
         
-        if (url.includes('collections') || url.includes('products')) {
-          this.WebView.stopLoading();
-          this.WebView.goBack();
-          this.props.handleProductClick()
+        if (url.includes('products')) {
+            this.WebView.stopLoading();
+            this.WebView.goBack();
+            const urls = url.split('/');
+            const handle = urls[urls.length-1]
+            this.props.handleProductClick(handle)
+        }else if(url.includes('collections')){
+            this.WebView.stopLoading();
+            this.WebView.goBack();     
+
         }
       };
 

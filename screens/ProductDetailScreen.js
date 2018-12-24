@@ -15,7 +15,13 @@ class ProductDetailScreen extends React.Component {
 
   componentDidMount(){
     const productId = this.props.navigation.getParam('productId');
-    this.props.requestProductDetail(productId)
+    if (productId){
+      this.props.requestProductDetail(productId)
+    }else{
+      const handle = this.props.navigation.getParam('handle');
+      this.props.requestProductDetailByHandle(handle)
+    }
+    
   }
 
   componentWillUnmount(){
@@ -42,6 +48,9 @@ const mapDispatchToProps = dispatch => {
   return {
     requestProductDetail: (id) => {
       dispatch(ProductDetailAction.requestProductDetail(id))
+    },
+    requestProductDetailByHandle: (handle) => {
+      dispatch(ProductDetailAction.requestProductDetailByHandle(handle))
     },
     clearProductDetail: () => {
       dispatch(ProductDetailAction.clearProductDetail())

@@ -3,6 +3,7 @@ import Immutable from 'seamless-immutable'
 
 const { Types, Creators } = createActions({
     requestProductDetail: ['id'],
+    requestProductDetailByHandle: ['handle'],
     requestProductDetailSuccess: ['payload'],
     requestProductDetailFailed: null,
     setTitle: ['title'],
@@ -115,7 +116,7 @@ export const getVariants = (rootState) => {
 }
 
 const normalizeProductDetail = (graphQLProduct) => {
-    const node = graphQLProduct.data.node
+    const node = graphQLProduct
     const images = node.images.edges.map(image => {
         const node = image.node
         const id = node.id

@@ -10,9 +10,9 @@ class Home extends React.Component {
     header: null,
   };
 
-  handleProductClick = () => {
+  handleProductClick = (handle) => {
     this.props.navigation.navigate('ProductDetailScreen',{
-      productId: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0LzE2OTA5MTUzNDAzNTI='
+      handle: handle
     })
   }
 
