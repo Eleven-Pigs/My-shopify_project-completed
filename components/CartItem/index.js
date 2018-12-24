@@ -4,7 +4,7 @@ import { Item, Title } from './style'
 export const CartItem = ({ product, onPressItem }) => {
     return(
         <Item onPress={onPressItem}>
-            <Title>{product.title}</Title>
+            <Title>{product.title} {product.quantity}</Title>
         </Item>
     )
 }
