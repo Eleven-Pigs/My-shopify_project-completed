@@ -5,8 +5,9 @@ import { theme } from '../constants/Theme'
 import Ionicons from '../components/Reusable/TabBarIcon/Ionicons';
 import Materialicons from '../components/Reusable/TabBarIcon/Materialicons';
 import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
+import AccountScreen from '../screens/AccountScreen';
 import CollectionScreen from '../screens/CollectionScreen';
+import ShoppingCartScreen from '../screens/ShoppingCartScreen';
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
@@ -37,17 +38,32 @@ CollectionStack.navigationOptions = {
   ),
 };
 
+const ShoppingCartStack = createStackNavigator({
+  ShoppingCart: ShoppingCartScreen,
+},);
 
-const LinksStack = createStackNavigator({
-  Links: LinksScreen,
+
+ShoppingCartStack.navigationOptions = {
+  tabBarLabel: 'Shopping Cart',
+  tabBarIcon: ({ focused }) => (
+    <Materialicons
+      focused={focused}
+      name='shopping-cart'
+    />
+  ),
+};
+
+
+const AccountStack = createStackNavigator({
+  Account: AccountScreen,
 });
 
-LinksStack.navigationOptions = {
-  tabBarLabel: 'Links',
+AccountStack.navigationOptions = {
+  tabBarLabel: 'Account',
   tabBarIcon: ({ focused }) => (
-    <Ionicons
+    <Materialicons
       focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'}
+      name='account-box'
     />
   ),
 };
@@ -55,7 +71,8 @@ LinksStack.navigationOptions = {
 export default createBottomTabNavigator({
   HomeStack,
   CollectionStack,
-  LinksStack,
+  ShoppingCartStack,
+  AccountStack,
 },{
   tabBarOptions: {
     activeTintColor: theme.secondary.dark,

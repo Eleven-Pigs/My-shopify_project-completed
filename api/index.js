@@ -89,6 +89,54 @@ export const getProduct = (id) => {
     return fetchShopifyGraphql(graphQLQuery)
 }
 
+export const getProductByHandle = (handle) => {
+    const query = {
+        productByHandle: {
+            __args: {
+                handle: handle 
+            },
+                title: true,
+                descriptionHtml: true,
+                id: true,
+                availableForSale: true,
+                productType: true,
+                images: {
+                    __args:{
+                        first: 250
+                    },
+                    edges: {
+                        node: {
+                            id: true,
+                            originalSrc: true
+                        }
+                    }
+                },
+                variants: {
+                    __args:{
+                        first: 100
+                    },
+                    edges: {
+                        node: {
+                            id: true,
+                            price: true,
+                            availableForSale: true,
+                            image: {
+                                id: true
+                            },
+                            selectedOptions: {
+                                name: true,
+                                value: true
+                            }
+                        }
+                    }
+                }
+            
+        }
+    } 
+    const graphQLQuery = '{' +  jsonToGraphQLQuery(query, {pretty: true}) + '}'
+    return fetchShopifyGraphql(graphQLQuery)
+}
+
 export const getProductFromCollection = (id, cursor) => {
     
     const query = {
@@ -134,6 +182,56 @@ export const getProductFromCollection = (id, cursor) => {
                     }
                 }
             }
+        }
+    }
+    const graphQLQuery = '{' +  jsonToGraphQLQuery(query, {pretty: true}) + '}'
+    return fetchShopifyGraphql(graphQLQuery)
+}
+
+
+export const getProductFromCollectionByHandle = (handle, cursor) => {
+    
+    const query = {
+        collectionByHandle: {
+            __args: {
+                handle: handle 
+            },
+                title: true,
+                id: true,
+                products: {
+                    __args:{
+                        first: 30,
+                        after: cursor ? cursor : null
+                    },
+                    edges: {
+                        cursor: true,
+                        node: {
+                            id: true,
+                            title: true,
+                            priceRange: {
+                                maxVariantPrice: {
+                                    amount: true,
+                                    currencyCode: true,
+                                },
+                                minVariantPrice: {
+                                    amount: true,
+                                    currencyCode: true,
+                                },
+                            },
+                            images: {
+                                __args: {
+                                    first: 1 
+                                },
+                                edges: {
+                                    node: {
+                                        originalSrc: true
+                                    }
+                                }
+                            },
+                        }
+                    }
+                }
+            
         }
     }
     const graphQLQuery = '{' +  jsonToGraphQLQuery(query, {pretty: true}) + '}'
@@ -207,6 +305,9 @@ export const getCheckout = (id) => {
                                 selectedOptions: {
                                     name: true,
                                     value: true,
+                                },
+                                product: {
+                                    id: true,
                                 }
                             }
                         }

@@ -99,6 +99,16 @@ export const getId = (rootState) => {
     const state = getReducer(rootState)
     return state.id
 }
+export const getAllProductIds = (rootState) => {
+    const state = getReducer(rootState)
+    return state.products.allIds
+}
+
+export const getProductById = (rootState, id) => {
+    const state = getReducer(rootState)
+    return state.products.byIds[id]
+}
+
 
 
 const normalizeCartDetail = (graphQLCart) => {
@@ -119,15 +129,20 @@ const normalizeCartDetail = (graphQLCart) => {
 
     const productsByIds = node.lineItems.edges.map(lineItem => {
         const node = lineItem.node
-        const id = node.variant.id
+        const id = node.id
+        const variantId = node.variant.id
+        const productId = node.variant.product.id
         const title = node.title
         const quantity = node.quantity
         const variantTitle = node.variant.title
         return({
             [id]: {
+                id: id,
+                variantId: variantId,
                 title: title,
                 quantity: quantity,
                 variantTitle: variantTitle,
+                productId: productId
             }
         })
     }).reduce((acc,ele) => {
