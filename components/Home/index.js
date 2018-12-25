@@ -23,7 +23,10 @@ export class HomeComponent extends React.Component {
             this.props.handleProductClick(handle)
         }else if(url.includes('collections')){
             this.WebView.stopLoading();
-            this.WebView.goBack();     
+            this.WebView.goBack();  
+            const urls = url.split('/');
+            const handle = urls[urls.length-1]
+            this.props.handleCollectionClick(handle)
 
         }
       };

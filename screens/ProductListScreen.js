@@ -18,7 +18,13 @@ class ProductList extends React.Component {
 
   componentDidMount(){
     const id = this.props.navigation.getParam('id');
-    this.props.requestProductListFromCollection(id, this.state.cursor)
+    if (id){
+      this.props.requestProductListFromCollection(id, this.state.cursor)
+    }else{
+      const handle = this.props.navigation.getParam('handle');
+      this.props.requestProductListFromCollectionByHandle(handle, this.state.cursor)
+    }
+    
   }
 
   
@@ -42,6 +48,9 @@ const mapDispatchToProps = dispatch => {
   return {
     requestProductListFromCollection: (id, cursor) => {
       dispatch(ProductListActions.requestProductListFromCollection(id, cursor))
+    },
+    requestProductListFromCollectionByHandle: (handle, cursor) => {
+      dispatch(ProductListActions.requestProductListFromCollectionByHandle(handle, cursor))
     },
   }
 }

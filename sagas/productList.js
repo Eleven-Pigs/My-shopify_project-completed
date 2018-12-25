@@ -1,6 +1,6 @@
 import { ProductListTypes } from '../redux/productList'
 import { takeLatest, call, select, put } from 'redux-saga/effects';
-import { getProductFromCollection } from '../api'
+import { getProductFromCollection, getProductFromCollectionByHandle } from '../api'
 import ProductListActions from '../redux/productList'
 
 export function* fetchProductListFromCollection(action) {
@@ -9,7 +9,21 @@ export function* fetchProductListFromCollection(action) {
         const response =  yield call(getProductFromCollection, id, cursor)
         const payload = yield response.json()
         if(response.ok){     
-            yield put(ProductListActions.requestProductListFromCollectionSuccess(payload))   
+            yield put(ProductListActions.requestProductListFromCollectionSuccess(payload.data.node))   
+        }else{
+            yield put(CartActions.requestProductListFromCollectionFail())
+        }
+    }catch(e){
+        console.log('error',e)
+    }
+}
+export function* fetchProductListFromCollectionByHandle(action) {
+    const { handle, cursor } = action 
+    try{
+        const response =  yield call(getProductFromCollectionByHandle, handle, cursor)
+        const payload = yield response.json()
+        if(response.ok){     
+            yield put(ProductListActions.requestProductListFromCollectionSuccess(payload.data.collectionByHandle))   
         }else{
             yield put(CartActions.requestProductListFromCollectionFail())
         }
@@ -20,8 +34,7 @@ export function* fetchProductListFromCollection(action) {
 
 
 
-
 export const productListSaga = [
     takeLatest(ProductListTypes.REQUEST_PRODUCT_LIST_FROM_COLLECTION, fetchProductListFromCollection),
-    
+    takeLatest(ProductListTypes.REQUEST_PRODUCT_LIST_FROM_COLLECTION_BY_HANDLE, fetchProductListFromCollectionByHandle),
 ]

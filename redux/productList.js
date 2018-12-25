@@ -3,6 +3,7 @@ import Immutable from 'seamless-immutable'
 
 const { Types, Creators } = createActions({
     requestProductListFromCollection: ['id', 'cursor'],
+    requestProductListFromCollectionByHandle: ['handle', 'cursor'],
     requestProductListFromCollectionSuccess: ['payload'],
     requestProductListFromCollectionFail: null,
   })
@@ -39,6 +40,7 @@ const requestProductListFromCollectionSuccess = (state, action) => {
 
 export const productList = createReducer(INITIAL_STATE, {
     [Types.REQUEST_PRODUCT_LIST_FROM_COLLECTION]: requestProductListFromCollection,
+    [Types.REQUEST_PRODUCT_LIST_FROM_COLLECTION_BY_HANDLE]: requestProductListFromCollection,
     [Types.REQUEST_PRODUCT_LIST_FROM_COLLECTION_SUCCESS]: requestProductListFromCollectionSuccess,
 })
 
@@ -58,7 +60,7 @@ export const getProductById = (rootState, id) => {
 
 
 const normalizeProducts = (graphQLProducts) => {
-    const node = graphQLProducts.data.node
+    const node = graphQLProducts
     const {
         title,
         id,
