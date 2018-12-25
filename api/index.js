@@ -281,7 +281,7 @@ export const getCheckout = (id) => {
                 id: true,
                 totalPrice: true,
                 subtotalPrice: true,
-
+                webUrl: true,
                 shippingAddress: {
                     address1: true,
                     address2: true,

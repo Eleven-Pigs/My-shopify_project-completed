@@ -9,19 +9,19 @@ class Home extends React.Component {
   };
 
   handleProductClick = (handle) => {
-    this.props.navigation.navigate('ProductDetailScreen',{
+    this.props.navigation.navigate('ProductDetailScreen', {
       handle: handle
     })
   }
   handleCollectionClick = (handle) => {
-    this.props.navigation.navigate('ProductListScreen',{
+    this.props.navigation.navigate('ProductListScreen', {
       handle: handle
     })
   }
 
   render() {
     return (
-      <HomeComponent handleProductClick = {this.handleProductClick} handleCollectionClick = {this.handleCollectionClick}/>
+      <HomeComponent handleProductClick={this.handleProductClick} handleCollectionClick={this.handleCollectionClick} />
     );
   }
 

@@ -112,6 +112,10 @@ export const getCartItemCount = (rootState) => {
     const state = getReducer(rootState)
     return state.numberOfItems
 }
+export const getWebUrl = (rootState) => {
+    const state = getReducer(rootState)
+    return state.webUrl
+}
 
 
 const normalizeCartDetail = (graphQLCart) => {

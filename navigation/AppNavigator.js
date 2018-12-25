@@ -3,6 +3,7 @@ import MainTabNavigator from './MainTabNavigator';
 import React from 'react';
 import ProductDetailScreen from '../screens/ProductDetailScreen'
 import ProductListScreen from '../screens/ProductListScreen'
+import PaymentScreen from '../screens/PaymentScreen'
 import { theme } from '../constants/Theme'
 
 const ProductDetailStack = createStackNavigator({
@@ -32,12 +33,23 @@ ProductListStack.navigationOptions = {
   headerTransparent: true,
 };
 
+const PaymentStack = createStackNavigator({
+  PaymentScreen: PaymentScreen,
+},{
+  
+  defaultNavigationOptions: ({navigation}) => ({
+    headerLeft: <HeaderBackButton onPress={() => navigation.goBack(null)} tintColor={theme.background}/>,
+    headerTransparent: true,
+  })
+})
+
 const MainStack = createStackNavigator({
   Main: MainTabNavigator,
   Product: ProductDetailStack,
   ProductList: ProductListStack,
+  Payment: PaymentStack
 },{
-  headerMode: 'none'
+  headerMode: 'none',
 })
 
 

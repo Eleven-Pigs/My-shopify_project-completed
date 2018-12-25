@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView } from 'react-native'
+import { SafeAreaView, Button } from 'react-native'
 import { connect } from 'react-redux'
 import CartListContainer  from '../containers/CartList'
 class ShoppingCart extends React.Component {
@@ -9,11 +9,15 @@ class ShoppingCart extends React.Component {
   static navigationOptions = {
    header: null,
   };
+  onPress = () => {
+    this.props.navigation.navigate('PaymentScreen',{})
+  }
 
   render = () => {
     return (
-        <SafeAreaView>
+        <SafeAreaView style = {{flex:1}}>
             <CartListContainer/>
+            <Button onPress={this.onPress} title="Make Payment"/>
         </SafeAreaView>
     )
   }
