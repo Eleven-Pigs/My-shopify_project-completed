@@ -1,5 +1,5 @@
 import React from 'react';
-import { Platform } from 'react-native';
+import { Platform, View, Text } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 import { theme } from '../constants/Theme'
 import Ionicons from '../components/Reusable/TabBarIcon/Ionicons';
@@ -8,7 +8,7 @@ import HomeScreen from '../screens/HomeScreen';
 import AccountScreen from '../screens/AccountScreen';
 import CollectionScreen from '../screens/CollectionScreen';
 import ShoppingCartScreen from '../screens/ShoppingCartScreen';
-
+import CartCounterContainer  from '../containers/CartCounter'
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
 },);
@@ -46,10 +46,14 @@ const ShoppingCartStack = createStackNavigator({
 ShoppingCartStack.navigationOptions = {
   tabBarLabel: 'Shopping Cart',
   tabBarIcon: ({ focused }) => (
+    <View>
     <Materialicons
       focused={focused}
       name='shopping-cart'
     />
+    <CartCounterContainer/>
+    </View>
+
   ),
 };
 

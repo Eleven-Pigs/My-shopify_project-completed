@@ -108,7 +108,10 @@ export const getProductById = (rootState, id) => {
     const state = getReducer(rootState)
     return state.products.byIds[id]
 }
-
+export const getCartItemCount = (rootState) => {
+    const state = getReducer(rootState)
+    return state.numberOfItems
+}
 
 
 const normalizeCartDetail = (graphQLCart) => {
@@ -152,6 +155,8 @@ const normalizeCartDetail = (graphQLCart) => {
         return acc
     }, {});
 
+    const numberOfItems = allProducts.length
+
     return {
         products: {
             byIds: productsByIds,
@@ -162,6 +167,7 @@ const normalizeCartDetail = (graphQLCart) => {
         totalPrice: totalPrice,
         webUrl: webUrl,
         ready: ready,
+        numberOfItems: numberOfItems,
     }
 
 }
