@@ -391,6 +391,26 @@ export const addAddresstoCheckout = (address, checkoutId) => {
       }`
     return fetchShopifyGraphql(mutation)
 }
+export const addEmailToCheckout = (email, checkoutId) => {
+
+    const mutation = `mutation{
+        checkoutEmailUpdateV2(checkoutId: "${checkoutId}", email: "${email}") {
+          userErrors {
+            field
+            message
+          }
+          checkout {
+            id
+          }
+          checkoutUserErrors {
+            field
+            message
+          }
+        }
+      }
+      `
+    return fetchShopifyGraphql(mutation)
+}
 
 export const associateUserToCheckout = (accessToken, checkoutId) => {
     const mutation = `mutation {
