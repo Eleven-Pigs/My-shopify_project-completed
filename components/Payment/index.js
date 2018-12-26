@@ -6,11 +6,12 @@ export class PaymentComponent extends React.Component {
         super(props)
     }
     navigationStateChangedHandler = ({url}) => {
-        
         if (url.includes('checkouts') && url.includes('thank_you')) {
             this.props.paymentCompleted()
-        }else{
-
+        }else if(url.includes('login')){
+            //Go to login page
+            this.WebView.stopLoading();
+            this.WebView.goBack();
         }
       };
 
@@ -19,6 +20,7 @@ export class PaymentComponent extends React.Component {
                 <WebView
                 source={{uri: this.props.url}}
                 javaScriptEnabledAndroid={true}
+                onNavigationStateChange={this.navigationStateChangedHandler}
                 ref={c => {
                     this.WebView = c;
                   }}

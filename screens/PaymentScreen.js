@@ -9,8 +9,7 @@ class Payment extends React.Component {
   };
 
   paymentCompleted = () => {
-    console.log('done')
-    this.props.navigation.goBack()
+    this.props.navigation.goBack(null)
   }
 
   render() {

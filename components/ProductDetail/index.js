@@ -9,7 +9,7 @@ export const ProductDetailComponent = ({addToCart, text }) => {
         <Center>
 
             <Title>{text}</Title>
-            <Button onPress={ () =>  addToCart({variantId: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8xNjQ3NTE3MTU1MzM0NA==', quantity: 1}) } title="Add To Cart"/>
+            <Button onPress={ () =>  addToCart({variantId: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8xNzE2ODgzODk1MDk3Ng==', quantity: 1}) } title="Add To Cart"/>
         </Center>
     </Main>
     )
