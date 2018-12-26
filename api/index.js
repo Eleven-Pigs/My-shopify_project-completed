@@ -462,10 +462,10 @@ export const createAccessToken = (user) => {
             email,
             password
         } = user
-    const mutation = `mutation {
+    const mutation = `mutation customerAccessTokenCreate {
         customerAccessTokenCreate(input: {
-            "email": ${email}
-            "password": ${password}
+          email: "${email}"
+          password: "${password}"
         }) {
           userErrors {
             field
@@ -487,7 +487,7 @@ export const createAccessToken = (user) => {
 export const renewAccessToken = (accessToken) => {
 
     const mutation = `mutation {
-        customerAccessTokenRenew(customerAccessToken: ${accessToken}) {
+        customerAccessTokenRenew(customerAccessToken: "${accessToken}") {
           userErrors {
             field
             message

@@ -8,11 +8,11 @@ export default class LoginComponent extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = { username: '', password: '' };
+        this.state = { email: '', password: '' };
     }
 
     loginPressed = () => {
-        console.log(this.state.username, this.state.password)
+        this.props.onPressed(this.state.email, this.state.password)
     }
 
     render(){
@@ -23,7 +23,7 @@ export default class LoginComponent extends React.Component {
                 <TextInput
                     style={{height: 40}}
                     placeholder="Type here to translate!"
-                    onChangeText={(text) => this.setState({username: text})}
+                    onChangeText={(text) => this.setState({email: text})}
                 />
                 <TextInput
                     style={{height: 40}}

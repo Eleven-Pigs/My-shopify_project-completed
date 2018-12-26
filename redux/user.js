@@ -2,24 +2,24 @@ import { createReducer, createActions } from 'reduxsauce'
 import Immutable from 'seamless-immutable'
 
 const { Types, Creators } = createActions({
-    helloWorld: null,
+    requestLogin: ['email','password'],
   })
 
 export const UserProfileTypes = Types
 export default Creators
 
 const INITIAL_STATE = Immutable({
-    text: 'Expo with Redux and Saga',
+    isFetching: false,
 })
 
-const helloWorld = (state, action) => {
+const requestLogin = (state, action) => {
     return state.merge({
-        text: 'Changed using Redux!',
+        text: true,
     })
 }
 
 export const user = createReducer(INITIAL_STATE, {
-    [Types.HELLO_WORLD]: helloWorld,
+    [Types.REQUEST_LOGIN]: requestLogin,
 })
 
 const getReducer = (rootState) => {
