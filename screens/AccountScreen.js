@@ -1,14 +1,19 @@
 import React from 'react';
-import { LinkComponent } from '../components/Link'
+import { Button } from 'react-native'
 
 export default class AccountScreen extends React.Component {
   static navigationOptions = {
     title: 'Account',
   };
+  componentDidMount(){
+    
+    
+  }
+  
 
   render() {
     return (
-      <LinkComponent/>
+      <Button onPress={() => this.props.navigation.navigate('LoginScreen')} title="Login"/>
     );
   }
 }
