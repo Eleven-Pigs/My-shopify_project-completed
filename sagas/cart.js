@@ -10,7 +10,11 @@ export function* fetchCartDetail() {
     const response =  yield call(getCheckout, cartId)
     const payload = yield response.json()
     if(response.ok){     
-        yield put(CartActions.requestCartDetailSuccess(payload))   
+        if(payload.data.node.order === null ){
+            yield put(CartActions.requestCartDetailSuccess(payload)) 
+        }else{
+            yield put(CartActions.requestCreateCheckout()) 
+        }
     }else{
         yield put(CartActions.requestCartDetailFail())
     }

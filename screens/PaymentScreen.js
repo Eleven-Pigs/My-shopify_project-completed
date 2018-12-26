@@ -8,10 +8,15 @@ class Payment extends React.Component {
 
   };
 
+  paymentCompleted = () => {
+    console.log('done')
+    this.props.navigation.goBack()
+  }
+
   render() {
     return (
         <SafeAreaView style = {{flex:1}}>
-            <PaymentComponent url={this.props.url}/>
+            <PaymentComponent url={this.props.url} paymentCompleted={this.paymentCompleted}/>
         </SafeAreaView>
     );
   }

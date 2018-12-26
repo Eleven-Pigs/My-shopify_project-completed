@@ -7,18 +7,9 @@ export class PaymentComponent extends React.Component {
     }
     navigationStateChangedHandler = ({url}) => {
         
-        if (url.includes('products')) {
-            this.WebView.stopLoading();
-            this.WebView.goBack();
-            const urls = url.split('/');
-            const handle = urls[urls.length-1]
-            this.props.handleProductClick(handle)
-        }else if(url.includes('collections')){
-            this.WebView.stopLoading();
-            this.WebView.goBack();  
-            const urls = url.split('/');
-            const handle = urls[urls.length-1]
-            this.props.handleCollectionClick(handle)
+        if (url.includes('checkouts') && url.includes('thank_you')) {
+            this.props.paymentCompleted()
+        }else{
 
         }
       };
