@@ -2,7 +2,7 @@ import React from 'react';
 
 import { connect } from 'react-redux'
 import { HomeComponent } from '../components/Home'
-import { getText } from '../redux/user'
+
 class Home extends React.Component {
   static navigationOptions = {
     header: null,
@@ -28,9 +28,7 @@ class Home extends React.Component {
 }
 
 const mapStateToProps = state => {
-  return {
-    text: getText(state)
-  }
+  return {}
 }
 const mapDispatchToProps = dispatch => {
   return {}
