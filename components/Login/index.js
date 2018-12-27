@@ -14,6 +14,9 @@ export default class LoginComponent extends React.Component {
     loginPressed = () => {
         this.props.onPressed(this.state.email, this.state.password)
     }
+    registerPressed = () => {
+        this.props.registerPressed()
+    }
 
     render(){
     return(
@@ -32,6 +35,7 @@ export default class LoginComponent extends React.Component {
                     secureTextEntry={true}
                 />
                 <Button onPress={ this.loginPressed } title="Login"/>
+                <Button onPress={ this.registerPressed } title="Register"/>
             </Center>
         </Main>
         )

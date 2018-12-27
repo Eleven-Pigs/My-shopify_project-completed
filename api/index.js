@@ -438,8 +438,8 @@ export const registerUser = (user) => {
 
     const mutation = `mutation {
         customerCreate(input: {
-            "email": ${email}
-            "password": ${password}
+          email: "${email}"
+          password: "${password}"
         }) {
           userErrors {
             field
@@ -498,7 +498,6 @@ export const renewAccessToken = (accessToken) => {
           }
         }
       }`
-    console.log('mutation', mutation)
     return fetchShopifyGraphql(mutation)
 }
 

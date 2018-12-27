@@ -1,10 +1,15 @@
 import { connect } from 'react-redux'
-import { RegisterComponent } from '../components/Register'
+import RegisterComponent from '../components/Register'
+import UserActions from '../redux/user'
 const mapStateToProps = state => {
   return {}
 }
 const mapDispatchToProps = dispatch => {
-  return {}
+  return {
+    onPressed: (email, password) => {
+      dispatch(UserActions.requestRegister(email, password))
+    }
+  }
 }
 
 const RegisterContainer = connect(
