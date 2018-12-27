@@ -64,13 +64,13 @@ const normalizeCollectionList = (graphQLCollection) => {
         const id = node.id
         const handle = node.handle
         const description = node.description
-        const cursor = node.products.edges[0].cursor
+        const title = node.title
         return({
             [id]: {
                 id: id,
+                title: title,
                 handle: handle,
                 description: description,
-                cursor: cursor
             }
         })
     }).reduce((acc,ele) => {

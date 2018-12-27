@@ -250,6 +250,7 @@ export const getCollections = () => {
                         id: true,
                         handle: true,
                         description: true,
+                        title: true,
                         image: {
                           originalSrc: true,
                         },

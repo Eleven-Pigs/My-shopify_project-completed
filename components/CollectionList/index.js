@@ -9,7 +9,6 @@ export const CollectionList = ({ collectionIds }) => {
         data={collectionIds}
         renderItem={({item}) => <CollectionItemContainer id={item}/> }
         keyExtractor={(item) => item}
-        ItemSeparatorComponent={ Separator }
         />
     )
 }
