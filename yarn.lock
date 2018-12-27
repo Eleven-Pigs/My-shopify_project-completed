@@ -4852,6 +4852,12 @@ react-native-screens@1.0.0-alpha.15:
   version "1.0.0-alpha.17"
   resolved "https://registry.yarnpkg.com/react-native-screens/-/react-native-screens-1.0.0-alpha.17.tgz#8c1a7224b967c476670963fce7d06b946e7158e9"
 
+react-native-search-box@^0.0.19:
+  version "0.0.19"
+  resolved "https://registry.yarnpkg.com/react-native-search-box/-/react-native-search-box-0.0.19.tgz#19a7baef309341a507bee89802df90218d4cc0a4"
+  dependencies:
+    prop-types "^15.5.10"
+
 react-native-slideshow@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/react-native-slideshow/-/react-native-slideshow-1.0.1.tgz#1eac6bd5d1362aac52b8a2f33f3ebc1f88da9402"

@@ -25,7 +25,11 @@ HomeStack.navigationOptions = {
 };
 const CollectionStack = createStackNavigator({
   Collection: CollectionScreen,
-},);
+},
+{
+  headerMode: 'none',
+}
+);
 
 
 CollectionStack.navigationOptions = {
@@ -78,6 +82,7 @@ export default createBottomTabNavigator({
   ShoppingCartStack,
   AccountStack,
 },{
+  lazy: false,
   tabBarOptions: {
     activeTintColor: theme.secondary.dark,
     inactiveTintColor: theme.secondary.light,
@@ -87,6 +92,7 @@ export default createBottomTabNavigator({
     style: {
       backgroundColor: theme.background,
     },
+    
   }
   
 });

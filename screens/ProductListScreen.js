@@ -3,7 +3,7 @@ import { SafeAreaView } from 'react-native'
 import { connect } from 'react-redux'
 import ProductListActions  from '../redux/productList'
 import ProductListContainer  from '../containers/ProductList'
-
+import SearchContainer from '../containers/Search'
 
 class ProductList extends React.Component {
   constructor(props){
@@ -32,6 +32,7 @@ class ProductList extends React.Component {
   render = () => {
     return (
         <SafeAreaView>
+          <SearchContainer/>
           <ProductListContainer/>
         </SafeAreaView>
     )

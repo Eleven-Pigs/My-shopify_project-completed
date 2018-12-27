@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { View } from 'react-native'
+import { View, SafeAreaView } from 'react-native'
 
 export const Main = styled(View)`
     flex: 1;
@@ -14,4 +14,7 @@ export const Center = styled(View)`
 export const Separator = styled(View)`
     height: 1;
     background-color: #CED0CE
+`
+export const StyledSafeAreaView = styled(SafeAreaView)`
+    background-color: ${props => props.theme.background}
 `

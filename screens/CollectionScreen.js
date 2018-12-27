@@ -1,20 +1,25 @@
 import React from 'react';
-import { SafeAreaView } from 'react-native'
+import { StyledSafeAreaView} from '../components/Styled'
 import { connect } from 'react-redux'
 import  CollectionListContainer  from '../containers/CollectionList'
+import SearchContainer from '../containers/Search'
+
+
 class Collection extends React.Component {
   constructor(props){
     super(props)
   }
+  
   static navigationOptions = {
-   header: null,
+
   };
 
   render = () => {
     return (
-        <SafeAreaView>
-            <CollectionListContainer/>
-        </SafeAreaView>
+        <StyledSafeAreaView >
+          <SearchContainer/>
+          <CollectionListContainer/>
+        </StyledSafeAreaView>
     )
   }
 
