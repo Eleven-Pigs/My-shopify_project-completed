@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView } from 'react-native'
+import { StyledSafeAreaView } from '../components/Styled'
 import { connect } from 'react-redux'
 import ProductListActions  from '../redux/productList'
 import ProductListContainer  from '../containers/ProductList'
@@ -13,7 +13,7 @@ class ProductList extends React.Component {
     }
   }
   static navigationOptions = {
-   header: null,
+    header: null,
   };
 
   componentDidMount(){
@@ -31,10 +31,10 @@ class ProductList extends React.Component {
 
   render = () => {
     return (
-        <SafeAreaView>
+        <StyledSafeAreaView>
           <SearchContainer/>
           <ProductListContainer/>
-        </SafeAreaView>
+        </StyledSafeAreaView>
     )
   }
 

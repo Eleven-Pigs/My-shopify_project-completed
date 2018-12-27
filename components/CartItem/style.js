@@ -5,6 +5,7 @@ export const Title = styled(Text)`
     margin-top: 20;
 `
 export const Item = styled(TouchableOpacity)`
+   
 `
 
 

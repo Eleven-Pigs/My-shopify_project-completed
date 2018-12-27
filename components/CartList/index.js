@@ -9,7 +9,6 @@ export const CartList = ({ productIds }) => {
         data={productIds}
         renderItem={({item}) => <CartItemContainer id={item}/> }
         keyExtractor={(item) => item}
-        ItemSeparatorComponent={ Separator }
         />
     )
 }

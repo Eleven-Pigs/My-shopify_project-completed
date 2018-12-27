@@ -9,7 +9,8 @@ export const ProductList = ({ productIds }) => {
         data={productIds}
         renderItem={({item}) => <ProductItem id={item} /> }
         keyExtractor={(item) => item}
-        ItemSeparatorComponent={ Separator }
+        numColumns= {2}
+        
         />
     )
 }
