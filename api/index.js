@@ -498,6 +498,7 @@ export const renewAccessToken = (accessToken) => {
           }
         }
       }`
+    console.log('mutation', mutation)
     return fetchShopifyGraphql(mutation)
 }
 

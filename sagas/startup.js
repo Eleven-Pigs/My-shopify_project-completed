@@ -3,6 +3,7 @@ import { StartupTypes } from '../redux/startup'
 import CartActions from '../redux/cart'
 import { AsyncStorage } from "react-native"
 import CollectionActions from '../redux/collection'
+import UserActions from '../redux/user'
 
 function checkExpiry(expiryAt){
     const tokenDate = new Date(expiryAt)
@@ -28,7 +29,11 @@ export function* start() {
     if(accessToken){
         const expiryAt = yield call([AsyncStorage, 'getItem'], 'expiryAt')
         const isExpired = checkExpiry(expiryAt)
-
+        if(isExpired){
+            yield put(UserActions.requestRenewAccessToken(accessToken))
+        }else{
+            yield put(UserActions.setAccessToken(accessToken, expiryAt))
+        }
     }else{
         console.log('not login')
     }

@@ -5,8 +5,10 @@ const { Types, Creators } = createActions({
     requestLogin: ['email','password'],
     requestLoginSuccess: ['payload'],
     requestLoginFail: null,
-    accessToken: '',
-    expiresAt: '',
+    requestRenewAccessToken: ['accessToken'],
+    requestRenewAccessSuccess: ['payload'],
+    requestRenewAccessFail: null,
+    setAccessToken: ['accessToken', 'expiresAt']
   })
 
 export const UserProfileTypes = Types
@@ -14,6 +16,8 @@ export default Creators
 
 const INITIAL_STATE = Immutable({
     isFetching: false,
+    accessToken: '',
+    expiresAt: '',
 })
 
 const requestLogin = (state, action) => {
@@ -22,17 +26,27 @@ const requestLogin = (state, action) => {
     })
 }
 const requestLoginSuccess = (state, action) => {
-    const {accessToken, expiresAt} = action.payload.data.customerAccessTokenCreate.customerAccessToken
+    const {accessToken, expiresAt} = action.payload
     return state.merge({
         isFetching: false,
         accessToken: accessToken,
         expiresAt: expiresAt
     })
 }
+const setAccessToken = (state, action) => {
+    const { accessToken, expiresAt} = action
+    return state.merge({
+        accessToken: accessToken,
+        expiresAt: expiresAt
+    })
+}
+
 
 export const user = createReducer(INITIAL_STATE, {
     [Types.REQUEST_LOGIN]: requestLogin,
     [Types.REQUEST_LOGIN_SUCCESS]: requestLoginSuccess,
+    [Types.SET_ACCESS_TOKEN]: setAccessToken,
+    
 })
 
 const getReducer = (rootState) => {
