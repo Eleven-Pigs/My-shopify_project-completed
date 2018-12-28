@@ -8,7 +8,7 @@ export const ProductItem = ({ product, onPressItem }) => {
                 source={{uri: product.image ? product.image : 'https://yoast.com/app/uploads/sites/5/2015/11/Show_post_search_results.png'}}
             />
             <DescriptionContainer>
-                <Title>{product.title}</Title>
+                <Title numberOfLines={2} >{product.title}</Title>
                 <Price>{product.currencyCode} {product.minVariantPrice}</Price>
             </DescriptionContainer>
         </Item>

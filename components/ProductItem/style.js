@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { Text, TouchableOpacity, Image, View } from 'react-native'
 
 export const Title = styled(Text)`
+    height: 35px;
 `
 export const Price = styled(Text)`
     margin-top:5px;
