@@ -4,12 +4,13 @@ import { connect } from 'react-redux'
 import ProductListActions  from '../redux/productList'
 import ProductListContainer  from '../containers/ProductList'
 import SearchContainer from '../containers/Search'
+import { getEndOfProduct } from '../redux/productList'
 
 class ProductList extends React.Component {
   constructor(props){
     super(props)
     this.state = {
-      cursor: null
+      id: null,
     }
   }
   static navigationOptions = {
@@ -18,13 +19,16 @@ class ProductList extends React.Component {
 
   componentDidMount(){
     const id = this.props.navigation.getParam('id');
+    this.setState({id: id})
     if (id){
-      this.props.requestProductListFromCollection(id, this.state.cursor)
+      this.props.requestProductListFromCollection(id)
     }else{
       const handle = this.props.navigation.getParam('handle');
-      this.props.requestProductListFromCollectionByHandle(handle, this.state.cursor)
+      this.props.requestProductListFromCollectionByHandle(handle)
     }
-    
+  }
+  loadMore = () => {
+     this.props.requestProductListFromCollection(this.state.id, this.state.cursor)
   }
 
   
@@ -33,7 +37,7 @@ class ProductList extends React.Component {
     return (
         <StyledSafeAreaView>
           <SearchContainer/>
-          <ProductListContainer/>
+          <ProductListContainer endReached = {this.loadMore}/>
         </StyledSafeAreaView>
     )
   }
@@ -41,7 +45,9 @@ class ProductList extends React.Component {
 }
 
 const mapStateToProps = state => {
-  return {}
+  return {
+    endOfProduct: getEndOfProduct(state)
+  }
 }
 
 

@@ -5,7 +5,9 @@ const { Types, Creators } = createActions({
     requestProductListFromCollection: ['id', 'cursor'],
     requestProductListFromCollectionByHandle: ['handle', 'cursor'],
     requestProductListFromCollectionSuccess: ['payload'],
+    requestProductListFromCollectionSuccessEmpty: null,
     requestProductListFromCollectionFail: null,
+
   })
 
 export const ProductListTypes = Types
@@ -15,13 +17,14 @@ const INITIAL_STATE = Immutable({
     isFetching: false,
     query: '',
     type: '',
-    cursor: '',
+    cursor: null,
     collectionId: '',
     title: '',
     products:{
         byIds: {},
         allIds: []
     },
+    endOfProduct: false,
 })
 
 const requestProductListFromCollection = (state) => {
@@ -31,17 +34,35 @@ const requestProductListFromCollection = (state) => {
 }
 
 const requestProductListFromCollectionSuccess = (state, action) => {
-    const products = normalizeProducts(action.payload)
+    const productList = normalizeProducts(action.payload)
+    const lastProductId = productList.products.allIds[productList.products.allIds.length - 1]
+    const lastProduct = productList.products.byIds[lastProductId]
+    const cursor = lastProduct.cursor
+ 
     return state.merge({
         isFetching: false,
-        ...products
+        title: productList.title,
+        collectionId: productList.collectionId,
+        products:{
+            byIds: {...state.products.byIds, ...productList.products.byIds},
+            allIds: state.products.allIds.concat(productList.products.allIds)
+        },
+        cursor: cursor,
     })
 }
 
+const requestProductListFromCollectionSuccessEmpty = (state) => {
+ 
+    return state.merge({
+        isFetching: false,
+        endOfProduct: true,
+    })
+}
 export const productList = createReducer(INITIAL_STATE, {
     [Types.REQUEST_PRODUCT_LIST_FROM_COLLECTION]: requestProductListFromCollection,
     [Types.REQUEST_PRODUCT_LIST_FROM_COLLECTION_BY_HANDLE]: requestProductListFromCollection,
     [Types.REQUEST_PRODUCT_LIST_FROM_COLLECTION_SUCCESS]: requestProductListFromCollectionSuccess,
+    [Types.REQUEST_PRODUCT_LIST_FROM_COLLECTION_SUCCESS_EMPTY]: requestProductListFromCollectionSuccessEmpty,
 })
 
 const getReducer = (rootState) => {
@@ -56,6 +77,15 @@ export const getAllProductIds = (rootState) => {
 export const getProductById = (rootState, id) => {
     const state = getReducer(rootState)
     return state.products.byIds[id]
+}
+
+export const getCursor = (rootState) => {
+    const state = getReducer(rootState)
+    return state.cursor
+}
+export const getEndOfProduct = (rootState) => {
+    const state = getReducer(rootState)
+    return state.endOfProduct
 }
 
 

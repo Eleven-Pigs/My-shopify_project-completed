@@ -7,9 +7,16 @@ const mapStateToProps = (state) => {
     productIds: getAllProductIds(state)
   }
 }
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    endReached: ownProps.endReached
+  }
+}
+
 
 const ProductListContainer = connect(
-  mapStateToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(ProductList)
 
 export default ProductListContainer

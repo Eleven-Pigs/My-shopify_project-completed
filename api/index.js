@@ -150,7 +150,7 @@ export const getProductFromCollection = (id, cursor) => {
                 id: true,
                 products: {
                     __args:{
-                        first: 30,
+                        first: 10,
                         after: cursor ? cursor : null
                     },
                     edges: {
