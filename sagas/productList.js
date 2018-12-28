@@ -1,7 +1,29 @@
 import { ProductListTypes, getCursor } from '../redux/productList'
 import { takeLatest, call, select, put } from 'redux-saga/effects';
-import { getProductFromCollection, getProductFromCollectionByHandle } from '../api'
+import { getProductFromCollection, getProductFromCollectionByHandle, getProductListBySearch } from '../api'
 import ProductListActions from '../redux/productList'
+
+export function* fetchProductListBySearch(action) {
+    const { search } = action 
+    const cursor = yield select(getCursor)
+    try{
+        const response =  yield call(getProductListBySearch, search, cursor)
+        const payload = yield response.json()
+        if(response.ok){ 
+            console.log('weee',payload)
+            if(payload.data.products.edges.length > 0){
+                console.log('sfsdfsdfs')
+                yield put(ProductListActions.requestProductListFromCollectionSuccess(payload.data))  
+            }else{
+                yield put(ProductListActions.requestProductListFromCollectionSuccessEmpty())
+            }
+        }else{
+            yield put(CartActions.requestProductListFromCollectionFail())
+        }
+    }catch(e){
+        console.log('error',e)
+    }
+}
 
 export function* fetchProductListFromCollection(action) {
     const { id } = action 
@@ -13,7 +35,7 @@ export function* fetchProductListFromCollection(action) {
             if(payload.data.node.products.edges.length > 0){
                 yield put(ProductListActions.requestProductListFromCollectionSuccess(payload.data.node))  
             }else{
-                yield put(ProductListActions.requestProductListFromCollectionSuccessEmpty(payload.data.node))
+                yield put(ProductListActions.requestProductListFromCollectionSuccessEmpty())
             }
         }else{
             yield put(CartActions.requestProductListFromCollectionFail())
@@ -43,4 +65,5 @@ export function* fetchProductListFromCollectionByHandle(action) {
 export const productListSaga = [
     takeLatest(ProductListTypes.REQUEST_PRODUCT_LIST_FROM_COLLECTION, fetchProductListFromCollection),
     takeLatest(ProductListTypes.REQUEST_PRODUCT_LIST_FROM_COLLECTION_BY_HANDLE, fetchProductListFromCollectionByHandle),
+    takeLatest(ProductListTypes.REQUEST_PRODUCT_LIST_BY_SEARCH, fetchProductListBySearch),
 ]

@@ -2,12 +2,13 @@ import { createReducer, createActions } from 'reduxsauce'
 import Immutable from 'seamless-immutable'
 
 const { Types, Creators } = createActions({
-    requestProductListFromCollection: ['id', 'cursor'],
-    requestProductListFromCollectionByHandle: ['handle', 'cursor'],
+    requestProductListFromCollection: ['id'],
+    requestProductListFromCollectionByHandle: ['handle'],
+    requestProductListBySearch: ['search'],
     requestProductListFromCollectionSuccess: ['payload'],
     requestProductListFromCollectionSuccessEmpty: null,
     requestProductListFromCollectionFail: null,
-
+    clearProductList: null,
   })
 
 export const ProductListTypes = Types
@@ -58,11 +59,17 @@ const requestProductListFromCollectionSuccessEmpty = (state) => {
         endOfProduct: true,
     })
 }
+const clearProductList = (state) => {
+ 
+    return INITIAL_STATE 
+}
 export const productList = createReducer(INITIAL_STATE, {
     [Types.REQUEST_PRODUCT_LIST_FROM_COLLECTION]: requestProductListFromCollection,
     [Types.REQUEST_PRODUCT_LIST_FROM_COLLECTION_BY_HANDLE]: requestProductListFromCollection,
+    [Types.REQUEST_PRODUCT_LIST_BY_SEARCH]: requestProductListFromCollection,
     [Types.REQUEST_PRODUCT_LIST_FROM_COLLECTION_SUCCESS]: requestProductListFromCollectionSuccess,
     [Types.REQUEST_PRODUCT_LIST_FROM_COLLECTION_SUCCESS_EMPTY]: requestProductListFromCollectionSuccessEmpty,
+    [Types.CLEAR_PRODUCT_LIST]: clearProductList,
 })
 
 const getReducer = (rootState) => {

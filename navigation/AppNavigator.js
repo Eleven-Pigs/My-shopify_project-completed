@@ -20,12 +20,15 @@ const ProductDetailStack = createStackNavigator({
 
 const ProductListStack = createStackNavigator({
   ProductListScreen: ProductListScreen,
+},{
+  defaultNavigationOptions: ({navigation}) => ({
+    headerLeft: <HeaderBackButton onPress={() => navigation.goBack(null)}/>,
+  })
 })
 
 const PaymentStack = createStackNavigator({
   PaymentScreen: PaymentScreen,
 },{
-  
   defaultNavigationOptions: ({navigation}) => ({
     headerLeft: <HeaderBackButton onPress={() => navigation.goBack(null)} tintColor={theme.background}/>,
     headerTransparent: true,

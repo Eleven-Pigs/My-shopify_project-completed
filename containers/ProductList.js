@@ -8,8 +8,9 @@ const mapStateToProps = (state) => {
   }
 }
 const mapDispatchToProps = (dispatch, ownProps) => {
+  
   return {
-    endReached: ownProps.endReached
+    endReached: ownProps.endReached,
   }
 }
 

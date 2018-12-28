@@ -25,11 +25,7 @@ HomeStack.navigationOptions = {
 };
 const CollectionStack = createStackNavigator({
   Collection: CollectionScreen,
-},
-{
-  headerMode: 'none',
-}
-);
+});
 
 
 CollectionStack.navigationOptions = {

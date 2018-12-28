@@ -3,7 +3,7 @@ import { StyledSafeAreaView} from '../components/Styled'
 import { connect } from 'react-redux'
 import  CollectionListContainer  from '../containers/CollectionList'
 import SearchContainer from '../containers/Search'
-
+import { theme }  from '../constants/Theme'
 
 class Collection extends React.Component {
   constructor(props){
@@ -11,13 +11,16 @@ class Collection extends React.Component {
   }
   
   static navigationOptions = {
-
+    headerTitle: <SearchContainer/>,
+    headerStyle: {
+      backgroundColor: theme.background,
+    },
   };
 
   render = () => {
     return (
         <StyledSafeAreaView >
-          <SearchContainer/>
+          
           <CollectionListContainer/>
         </StyledSafeAreaView>
     )

@@ -89,6 +89,8 @@ export const getProduct = (id) => {
     return fetchShopifyGraphql(graphQLQuery)
 }
 
+
+
 export const getProductByHandle = (handle) => {
     const query = {
         productByHandle: {
@@ -233,6 +235,50 @@ export const getProductFromCollectionByHandle = (handle, cursor) => {
                 }
             
         }
+    }
+    const graphQLQuery = '{' +  jsonToGraphQLQuery(query, {pretty: true}) + '}'
+    return fetchShopifyGraphql(graphQLQuery)
+}
+
+export const getProductListBySearch = (search, cursor) => {
+    
+    const query = {
+                products: {
+                    __args:{
+                        first: 30,
+                        query: `${search}`,
+                        after: cursor ? cursor : null
+                    },
+                    edges: {
+                        cursor: true,
+                        node: {
+                            id: true,
+                            title: true,
+                            priceRange: {
+                                maxVariantPrice: {
+                                    amount: true,
+                                    currencyCode: true,
+                                },
+                                minVariantPrice: {
+                                    amount: true,
+                                    currencyCode: true,
+                                },
+                            },
+                            images: {
+                                __args: {
+                                    first: 1 
+                                },
+                                edges: {
+                                    node: {
+                                        originalSrc: true
+                                    }
+                                }
+                            },
+                        }
+                    }
+                }
+            
+        
     }
     const graphQLQuery = '{' +  jsonToGraphQLQuery(query, {pretty: true}) + '}'
     return fetchShopifyGraphql(graphQLQuery)

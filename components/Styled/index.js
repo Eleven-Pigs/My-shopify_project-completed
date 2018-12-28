@@ -16,5 +16,4 @@ export const Separator = styled(View)`
     background-color: #CED0CE
 `
 export const StyledSafeAreaView = styled(SafeAreaView)`
-    background-color: ${props => props.theme.background}
 `
