@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { Text, TouchableOpacity, ImageBackground } from 'react-native'
 
 export const Title = styled(Text)`
-    font-size: 18px;
+    font-size: 20px;
     color: white;
     font-weight: bold;
     margin-top: 10px;

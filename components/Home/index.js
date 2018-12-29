@@ -1,6 +1,6 @@
 import React from 'react';
 import { WebView } from 'react-native'
-import ProductDetailImagePlaceholder from '../Placeholder/ProductDetailPlaceholder';
+import HomePlaceholder from '../Placeholder/HomePlaceholder';
 
 export class HomeComponent extends React.Component {
     constructor(props){
@@ -8,9 +8,7 @@ export class HomeComponent extends React.Component {
     }
     loadingIndicator = () => {
         return (
-            <ProductDetailImagePlaceholder bgColor="grey" animate="fade">
-
-            </ProductDetailImagePlaceholder>
+            <HomePlaceholder/>
         )
     }
     navigationStateChangedHandler = ({url}) => {

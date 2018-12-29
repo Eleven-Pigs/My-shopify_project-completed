@@ -63,6 +63,10 @@ const getCollectionImage = (products) => {
     }
     
 }
+export const getIsLoading = (rootState) => {
+    const state = getReducer(rootState)
+    return state.isFetching
+}
 //Normalize
 
 const normalizeCollectionList = (graphQLCollection) => {

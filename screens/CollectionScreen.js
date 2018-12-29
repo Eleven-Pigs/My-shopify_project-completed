@@ -3,8 +3,8 @@ import { StyledSafeAreaView} from '../components/Styled'
 import { connect } from 'react-redux'
 import  CollectionListContainer  from '../containers/CollectionList'
 import SearchContainer from '../containers/Search'
-import { theme }  from '../constants/Theme'
-
+import CollectionPlaceholder from '../components/Placeholder/CollectionPlaceholder'
+import { getIsLoading } from '../redux/collection'
 class Collection extends React.Component {
   constructor(props){
     super(props)
@@ -25,11 +25,18 @@ class Collection extends React.Component {
     },
   });
 
+  _renderContent = (isLoading) => {
+    if(isLoading){
+      return <CollectionPlaceholder/>
+    }else{
+      return <CollectionListContainer/>
+    }
+  }
 
   render = () => {
     return (
         <StyledSafeAreaView >
-          <CollectionListContainer/>
+          {this._renderContent(this.props.isLoading)}
         </StyledSafeAreaView>
     )
   }
@@ -37,7 +44,9 @@ class Collection extends React.Component {
 }
 
 const mapStateToProps = state => {
-  return {}
+  return {
+    isLoading: getIsLoading(state)
+  }
 }
 
 
