@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyledSafeAreaView } from '../components/Styled'
-import { View } from 'react-native'
+import { View, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import ProductListActions  from '../redux/productList'
 import ProductListContainer  from '../containers/ProductList'
@@ -8,7 +8,7 @@ import SearchContainer from '../containers/Search'
 import { getEndOfProduct, getIsLoading, getProductCount } from '../redux/productList'
 import { theme } from '../constants/Theme'
 import ProductListPlaceholder from '../components/Placeholder/ProductListPlaceholder'
-
+import Materialicons from '../components/Reusable/TabBarIcon/Materialicons';
 
 class ProductList extends React.Component {
   constructor(props){
@@ -87,10 +87,23 @@ class ProductList extends React.Component {
   render = () => {
     return (
         <StyledSafeAreaView>
-          <View style = {{backgroundColor: 'blue', width: '100%'}}>
-            {this._renderContent(this.props.isLoading, this.props.productCount)}
-          </View>
-          
+            <View style = {{marginBottom: 40}}>
+              {this._renderContent(this.props.isLoading, this.props.productCount)}
+            </View>
+            <View style = {{flex: 1, flexDirection: 'row', borderColor: theme.listBackground, borderTopWidth: 1,backgroundColor: 'white',height: 80, width:'100%',position: 'absolute',bottom:0,left:0,}}>
+              <TouchableOpacity style = {{paddingTop: 10, flex: 1, alignItems: 'center'}}>
+                <Materialicons
+                  focused={true}
+                  name='sort'
+                />
+              </TouchableOpacity>
+              <TouchableOpacity style = {{paddingTop: 10, flex: 1, alignItems: 'center'}}>
+                <Materialicons
+                  focused={true}
+                  name='filter-list'
+                />
+              </TouchableOpacity>
+            </View>
         </StyledSafeAreaView>
     )
   }
