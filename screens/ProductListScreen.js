@@ -1,11 +1,14 @@
 import React from 'react';
 import { StyledSafeAreaView } from '../components/Styled'
+import { View } from 'react-native'
 import { connect } from 'react-redux'
 import ProductListActions  from '../redux/productList'
 import ProductListContainer  from '../containers/ProductList'
 import SearchContainer from '../containers/Search'
-import { getEndOfProduct } from '../redux/productList'
+import { getEndOfProduct, getIsLoading, getProductCount } from '../redux/productList'
 import { theme } from '../constants/Theme'
+import ProductListPlaceholder from '../components/Placeholder/ProductListPlaceholder'
+
 
 class ProductList extends React.Component {
   constructor(props){
@@ -66,15 +69,27 @@ class ProductList extends React.Component {
     }else{
       this.props.requestProductListBySearch(this.state.search)
     }
-     
   }
 
 
+  _renderContent = (isLoading, productCount) => {
+    if(isLoading && productCount === 0){
+      return <ProductListPlaceholder/>
+    }else if (!isLoading && productCount === 0){
+      //return empty
+      <ProductListContainer/>
+    }else{
+      return <ProductListContainer/>
+    }
+  }
 
   render = () => {
     return (
         <StyledSafeAreaView>
-          <ProductListContainer endReached = {this.loadMore}/>
+          <View style = {{backgroundColor: 'blue', width: '100%'}}>
+            {this._renderContent(this.props.isLoading, this.props.productCount)}
+          </View>
+          
         </StyledSafeAreaView>
     )
   }
@@ -83,7 +98,9 @@ class ProductList extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    endOfProduct: getEndOfProduct(state)
+    endOfProduct: getEndOfProduct(state),
+    isLoading: getIsLoading(state),
+    productCount: getProductCount(state)
   }
 }
 

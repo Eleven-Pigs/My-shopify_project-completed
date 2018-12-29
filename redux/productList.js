@@ -94,6 +94,14 @@ export const getEndOfProduct = (rootState) => {
     const state = getReducer(rootState)
     return state.endOfProduct
 }
+export const getIsLoading = (rootState) => {
+    const state = getReducer(rootState)
+    return state.isFetching
+}
+export const getProductCount = (rootState) => {
+    const state = getReducer(rootState)
+    return state.products.allIds.length
+}
 
 
 const normalizeProducts = (graphQLProducts) => {

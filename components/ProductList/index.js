@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyledFlatList } from './style'
 import ProductItem  from '../../containers/ProductItem'
-import { Separator } from '../Styled'
+
 
 export const ProductList = ({ productIds, endReached }) => {
     return(

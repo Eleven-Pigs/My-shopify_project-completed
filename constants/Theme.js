@@ -12,5 +12,5 @@ export const theme = {
         contrastText: '#000',
     },
     background: '#81cee6',
-    listBackground: '#efefef'
+    listBackground: '#e9ebee'
 };
