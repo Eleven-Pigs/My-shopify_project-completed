@@ -10,9 +10,7 @@ export function* fetchProductListBySearch(action) {
         const response =  yield call(getProductListBySearch, search, cursor)
         const payload = yield response.json()
         if(response.ok){ 
-            console.log('weee',payload)
             if(payload.data.products.edges.length > 0){
-                console.log('sfsdfsdfs')
                 yield put(ProductListActions.requestProductListFromCollectionSuccess(payload.data))  
             }else{
                 yield put(ProductListActions.requestProductListFromCollectionSuccessEmpty())
@@ -50,8 +48,13 @@ export function* fetchProductListFromCollectionByHandle(action) {
     try{
         const response =  yield call(getProductFromCollectionByHandle, handle, cursor)
         const payload = yield response.json()
-        if(response.ok){     
-            yield put(ProductListActions.requestProductListFromCollectionSuccess(payload.data.collectionByHandle))   
+        if(response.ok){ 
+            if(payload.data.collectionByHandle.products.edges.length > 0)  {
+                yield put(ProductListActions.requestProductListFromCollectionSuccess(payload.data.collectionByHandle))   
+            }else{
+                yield put(ProductListActions.requestProductListFromCollectionSuccessEmpty())
+            }
+            
         }else{
             yield put(CartActions.requestProductListFromCollectionFail())
         }

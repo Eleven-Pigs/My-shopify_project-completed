@@ -48,6 +48,10 @@ class ProductList extends React.Component {
     }
   }
 
+  componentWillUnmount(){
+    this.props.clearProductList()
+  }
+
   searchPressed = (text) => {
     this.setState({search: text, mode: 'SEARCH'})
     this.props.clearProductList()
@@ -64,6 +68,8 @@ class ProductList extends React.Component {
     }
      
   }
+
+
 
   render = () => {
     return (
