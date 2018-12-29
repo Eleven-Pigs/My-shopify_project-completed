@@ -7,8 +7,9 @@ export const CollectionList = ({ collectionIds }) => {
     return(
         <StyledFlatList
         data={collectionIds}
-        renderItem={({item}) => <CollectionItemContainer id={item}/> }
+        renderItem={({item, index}) => <CollectionItemContainer id={item} index={index}/> }
         keyExtractor={(item) => item}
+        numColumns= {2}
         />
     )
 }

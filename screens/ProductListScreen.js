@@ -78,9 +78,9 @@ class ProductList extends React.Component {
       return <ProductListPlaceholder/>
     }else if (!isLoading && productCount === 0){
       //return empty
-      <ProductListContainer/>
+      <ProductListContainer />
     }else{
-      return <ProductListContainer/>
+      return <ProductListContainer endReached={this.loadMore}/>
     }
   }
 

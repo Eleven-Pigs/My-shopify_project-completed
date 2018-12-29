@@ -14,7 +14,7 @@ class CollectionItem extends React.Component {
 
   render() {
     return (
-        <Item collection={this.props.collection} onPressItem={this.navigateToProductList} />
+        <Item collection={this.props.collection} onPressItem={this.navigateToProductList} index={this.props.index} />
     );
   }
 
