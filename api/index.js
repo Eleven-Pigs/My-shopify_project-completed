@@ -305,7 +305,19 @@ export const getCollections = () => {
                                 first: 1
                             },
                             edges: {
-                                cursor: true
+                                cursor: true,
+                                node: {
+                                    images: {
+                                        __args:{
+                                            first:1
+                                        },
+                                        edges: {
+                                            node: {
+                                                originalSrc: true
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         }
                     }

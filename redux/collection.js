@@ -54,6 +54,15 @@ export const getCollectionById = (rootState, id) => {
 
 
 
+
+const getCollectionImage = (products) => {
+    if(products.edges.length > 0 && products.edges[0].node.images.edges.length > 0){
+        return products.edges[0].node.images.edges[0].node.originalSrc
+    }else{
+        return null
+    }
+    
+}
 //Normalize
 
 const normalizeCollectionList = (graphQLCollection) => {
@@ -63,14 +72,15 @@ const normalizeCollectionList = (graphQLCollection) => {
         const node = edges.node
         const id = node.id
         const handle = node.handle
-        const description = node.description
         const title = node.title
+        const image = getCollectionImage(node.products)
+
         return({
             [id]: {
                 id: id,
                 title: title,
                 handle: handle,
-                description: description,
+                image: image
             }
         })
     }).reduce((acc,ele) => {
