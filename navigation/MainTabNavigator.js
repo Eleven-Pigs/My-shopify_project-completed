@@ -80,13 +80,11 @@ export default createBottomTabNavigator({
 },{
   lazy: false,
   tabBarOptions: {
-    activeTintColor: theme.secondary.dark,
-    inactiveTintColor: theme.secondary.light,
+    showLabel: false,
+    activeTintColor: theme.iconDark,
+    inactiveTintColor: theme.iconLight,
     labelStyle: {
       fontSize: 12,
-    },
-    style: {
-      backgroundColor: theme.background,
     },
     
   }

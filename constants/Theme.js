@@ -11,6 +11,8 @@ export const theme = {
         dark: '#ba000d',
         contrastText: '#000',
     },
+    iconLight: '#d7d7d7',
+    iconDark: '#000',
     background: '#81cee6',
     listBackground: '#e9ebee'
 };

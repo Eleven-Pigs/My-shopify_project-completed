@@ -2,6 +2,7 @@ import React from 'react';
 
 import { connect } from 'react-redux'
 import { HomeComponent } from '../components/Home'
+import { SafeAreaView } from 'react-native';
 
 class Home extends React.Component {
   static navigationOptions = {
@@ -21,7 +22,9 @@ class Home extends React.Component {
 
   render() {
     return (
-      <HomeComponent handleProductClick={this.handleProductClick} handleCollectionClick={this.handleCollectionClick} />
+      <SafeAreaView style = {{flex:1}}>
+        <HomeComponent handleProductClick={this.handleProductClick} handleCollectionClick={this.handleCollectionClick} />
+      </SafeAreaView>
     );
   }
 

@@ -26,13 +26,14 @@ class ProductList extends React.Component {
     return ({
     headerTitle: <SearchContainer defaultValue={navigation.state.params.query} searchPressed={navigation.state.params.searchPressed}/>,
     headerStyle: {
-      backgroundColor: theme.background,
+      backgroundColor: 'white',
       width: '120%',
     },
   })};
 
   componentDidMount(){
     this.props.navigation.setParams({ searchPressed: this.searchPressed });
+
     const id = this.props.navigation.getParam('id'); 
     if (id){
       this.setState({id: id, mode: 'ID'})

@@ -9,7 +9,7 @@ export default class Ionicons extends React.Component {
         name={this.props.name}
         size={26}
         style={ styles.icon }
-        color={this.props.focused ? theme.secondary.dark : theme.secondary.light }
+        color={this.props.focused ? theme.iconDark : theme.iconLight }
       />
     );
   }

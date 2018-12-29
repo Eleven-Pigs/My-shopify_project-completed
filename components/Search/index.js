@@ -6,7 +6,7 @@ import { theme } from '../../constants/Theme'
 export default class SearchBox extends React.Component {
   constructor(props){
     super(props)
-    this.state = {searchInput: ''}
+    this.state = {searchInput: this.props.defaultValue}
   }
   afterSearch = () => {
     return new Promise((resolve, reject) => {
@@ -24,11 +24,13 @@ export default class SearchBox extends React.Component {
             <StyledView>
                 <Search
                     ref="search_box"
-                    backgroundColor= {theme.background}
+                    backgroundColor= 'white'
                     afterSearch= {this.afterSearch}
                     returnKeyType= "search"
                     onChangeText= {(text) => this.changeTextInput(text)}
                     defaultValue={this.props.defaultValue}
+                    titleCancelColor= {theme.iconDark}
+                   
                     /**
                     * There many props that can customizable
                     * Please scroll down to Props section

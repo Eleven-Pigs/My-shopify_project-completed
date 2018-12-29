@@ -22,7 +22,7 @@ const ProductListStack = createStackNavigator({
   ProductListScreen: ProductListScreen,
 },{
   defaultNavigationOptions: ({navigation}) => ({
-    headerLeft: <HeaderBackButton onPress={() => navigation.goBack(null)}/>,
+    headerLeft: <HeaderBackButton onPress={() => navigation.goBack(null)} tintColor={theme.iconDark}/>,
   })
 })
 
