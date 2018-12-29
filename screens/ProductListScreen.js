@@ -19,13 +19,14 @@ class ProductList extends React.Component {
   }
 
 
-  static navigationOptions =  ({navigation}) => ({
-    headerTitle: <SearchContainer searchPressed={navigation.state.params.searchPressed}/>,
+  static navigationOptions =  ({navigation}) => { 
+    return ({
+    headerTitle: <SearchContainer defaultValue={navigation.state.params.query} searchPressed={navigation.state.params.searchPressed}/>,
     headerStyle: {
       backgroundColor: theme.background,
       width: '120%',
     },
-  });
+  })};
 
   componentDidMount(){
     this.props.navigation.setParams({ searchPressed: this.searchPressed });
@@ -35,8 +36,15 @@ class ProductList extends React.Component {
       this.props.requestProductListFromCollection(id)
     }else{
       const handle = this.props.navigation.getParam('handle');
-      this.setState({handle: handle, mode: 'HANDLE'})
-      this.props.requestProductListFromCollectionByHandle(handle)
+      if(handle){
+        this.setState({handle: handle, mode: 'HANDLE'})
+        this.props.requestProductListFromCollectionByHandle(handle)
+      }else{
+        const query = this.props.navigation.getParam('query');
+        this.setState({search: query, mode: 'SEARCH'})
+        this.props.navigation.setParams({ defaultValue: query });
+        this.props.requestProductListBySearch(query)
+      }
     }
   }
 

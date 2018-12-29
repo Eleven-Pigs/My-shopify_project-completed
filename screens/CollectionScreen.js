@@ -8,19 +8,27 @@ import { theme }  from '../constants/Theme'
 class Collection extends React.Component {
   constructor(props){
     super(props)
+    this.state = {
+      id: null,
+      mode: 'id',
+      handle: null,
+      search: null,
+    }
   }
-  
-  static navigationOptions = {
-    headerTitle: <SearchContainer/>,
+
+
+  static navigationOptions =  ({navigation}) => ({
+    headerTitle: <SearchContainer defaultValue="" searchPressed={(text) => {navigation.navigate("ProductListScreen",{query: text})}}/>,
     headerStyle: {
       backgroundColor: theme.background,
+      width: '100%',
     },
-  };
+  });
+
 
   render = () => {
     return (
         <StyledSafeAreaView >
-          
           <CollectionListContainer/>
         </StyledSafeAreaView>
     )

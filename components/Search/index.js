@@ -28,7 +28,7 @@ export default class SearchBox extends React.Component {
                     afterSearch= {this.afterSearch}
                     returnKeyType= "search"
                     onChangeText= {(text) => this.changeTextInput(text)}
-                    
+                    defaultValue={this.props.defaultValue}
                     /**
                     * There many props that can customizable
                     * Please scroll down to Props section

@@ -4,8 +4,10 @@ import  SearchBox  from '../components/Search'
 
 
 
-const mapStateToProps = (state) => {
-  return {}
+const mapStateToProps = (state, ownProps) => {
+  return {
+    defaultValue: ownProps.defaultValue
+  }
 }
 const mapDispatchToProps = (dispatch, ownProps) => {
 
