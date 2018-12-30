@@ -8,7 +8,7 @@ import SearchContainer from '../containers/Search'
 import { getEndOfProduct, getIsLoading, getProductCount } from '../redux/productList'
 import { theme } from '../constants/Theme'
 import ProductListPlaceholder from '../components/Placeholder/ProductListPlaceholder'
-import Materialicons from '../components/Reusable/TabBarIcon/Materialicons';
+import { FilterTab } from '../components/FilterTab';
 
 class ProductList extends React.Component {
   constructor(props){
@@ -84,26 +84,20 @@ class ProductList extends React.Component {
     }
   }
 
+  sortPressed = () => {
+    alert('sort')
+  }
+
+  filterPressed = () => {
+    alert('filter')
+  }
   render = () => {
     return (
         <StyledSafeAreaView>
             <View style = {{marginBottom: 40}}>
               {this._renderContent(this.props.isLoading, this.props.productCount)}
             </View>
-            <View style = {{flex: 1, flexDirection: 'row', borderColor: theme.listBackground, borderTopWidth: 1,backgroundColor: 'white',height: 80, width:'100%',position: 'absolute',bottom:0,left:0,}}>
-              <TouchableOpacity style = {{paddingTop: 10, flex: 1, alignItems: 'center'}}>
-                <Materialicons
-                  focused={true}
-                  name='sort'
-                />
-              </TouchableOpacity>
-              <TouchableOpacity style = {{paddingTop: 10, flex: 1, alignItems: 'center'}}>
-                <Materialicons
-                  focused={true}
-                  name='filter-list'
-                />
-              </TouchableOpacity>
-            </View>
+            <FilterTab sortPressed={this.sortPressed} filterPressed={this.filterPressed}/>
         </StyledSafeAreaView>
     )
   }
