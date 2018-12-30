@@ -1,4 +1,4 @@
-import { jsonToGraphQLQuery } from 'json-to-graphql-query';
+import { jsonToGraphQLQuery, EnumType } from 'json-to-graphql-query';
 import { SHOPIFY_STOREFRONT_ACCESS_TOKEN } from '../config/application'
 
 const fetchShopifyGraphql = (body) => {
@@ -139,7 +139,7 @@ export const getProductByHandle = (handle) => {
     return fetchShopifyGraphql(graphQLQuery)
 }
 
-export const getProductFromCollection = (id, cursor) => {
+export const getProductFromCollection = (id, cursor, sortKey, reverse) => {
     
     const query = {
         node: {
@@ -153,7 +153,9 @@ export const getProductFromCollection = (id, cursor) => {
                 products: {
                     __args:{
                         first: 10,
-                        after: cursor ? cursor : null
+                        after: cursor ? cursor : null,
+                        sortKey: sortKey ? new EnumType(sortKey) : null,
+                        reverse: reverse ? reverse : null
                     },
                     edges: {
                         cursor: true,
@@ -191,7 +193,7 @@ export const getProductFromCollection = (id, cursor) => {
 }
 
 
-export const getProductFromCollectionByHandle = (handle, cursor) => {
+export const getProductFromCollectionByHandle = (handle, cursor, sortKey, reverse) => {
     
     const query = {
         collectionByHandle: {
@@ -203,7 +205,9 @@ export const getProductFromCollectionByHandle = (handle, cursor) => {
                 products: {
                     __args:{
                         first: 30,
-                        after: cursor ? cursor : null
+                        after: cursor ? cursor : null,
+                        sortKey: sortKey ? new EnumType(sortKey) : null,
+                        reverse: reverse ? reverse : null
                     },
                     edges: {
                         cursor: true,
@@ -240,14 +244,16 @@ export const getProductFromCollectionByHandle = (handle, cursor) => {
     return fetchShopifyGraphql(graphQLQuery)
 }
 
-export const getProductListBySearch = (search, cursor) => {
+export const getProductListBySearch = (search, cursor, sortKey, reverse) => {
     
     const query = {
                 products: {
                     __args:{
                         first: 30,
                         query: `${search}`,
-                        after: cursor ? cursor : null
+                        after: cursor ? cursor : null,
+                        sortKey: sortKey ? new EnumType(sortKey) : null,
+                        reverse: reverse ? reverse : null
                     },
                     edges: {
                         cursor: true,

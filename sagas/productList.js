@@ -4,10 +4,10 @@ import { getProductFromCollection, getProductFromCollectionByHandle, getProductL
 import ProductListActions from '../redux/productList'
 
 export function* fetchProductListBySearch(action) {
-    const { search } = action 
+    const { search, sortKey, reverse } = action 
     const cursor = yield select(getCursor)
     try{
-        const response =  yield call(getProductListBySearch, search, cursor)
+        const response =  yield call(getProductListBySearch, search, cursor, sortKey, reverse)
         const payload = yield response.json()
         if(response.ok){ 
             if(payload.data.products.edges.length > 0){
@@ -24,10 +24,10 @@ export function* fetchProductListBySearch(action) {
 }
 
 export function* fetchProductListFromCollection(action) {
-    const { id } = action 
+    const { id, sortKey, reverse } = action 
     const cursor = yield select(getCursor)
     try{
-        const response =  yield call(getProductFromCollection, id, cursor)
+        const response =  yield call(getProductFromCollection, id, cursor, sortKey, reverse)
         const payload = yield response.json()
         if(response.ok){ 
             if(payload.data.node.products.edges.length > 0){
@@ -43,10 +43,10 @@ export function* fetchProductListFromCollection(action) {
     }
 }
 export function* fetchProductListFromCollectionByHandle(action) {
-    const { handle } = action
+    const { handle, sortKey, reverse } = action 
     const cursor = yield select(getCursor) 
     try{
-        const response =  yield call(getProductFromCollectionByHandle, handle, cursor)
+        const response =  yield call(getProductFromCollectionByHandle, handle, cursor, sortKey, reverse)
         const payload = yield response.json()
         if(response.ok){ 
             if(payload.data.collectionByHandle.products.edges.length > 0)  {

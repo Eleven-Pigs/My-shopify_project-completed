@@ -8,7 +8,7 @@ import SearchContainer from '../containers/Search'
 import { getEndOfProduct, getIsLoading, getProductCount } from '../redux/productList'
 import { theme } from '../constants/Theme'
 import ProductListPlaceholder from '../components/Placeholder/ProductListPlaceholder'
-import { FilterTab } from '../components/FilterTab';
+import  FilterTab  from '../components/FilterTab';
 
 class ProductList extends React.Component {
   constructor(props){
@@ -18,6 +18,8 @@ class ProductList extends React.Component {
       mode: 'id',
       handle: null,
       search: null,
+      sortKey: null,
+      reverse: false
     }
   }
 
@@ -37,17 +39,17 @@ class ProductList extends React.Component {
     const id = this.props.navigation.getParam('id'); 
     if (id){
       this.setState({id: id, mode: 'ID'})
-      this.props.requestProductListFromCollection(id)
+      this.props.requestProductListFromCollection(id, this.state.sortKey, this.state.reverse)
     }else{
       const handle = this.props.navigation.getParam('handle');
       if(handle){
         this.setState({handle: handle, mode: 'HANDLE'})
-        this.props.requestProductListFromCollectionByHandle(handle)
+        this.props.requestProductListFromCollectionByHandle(handle, this.state.sortKey, this.state.reverse)
       }else{
         const query = this.props.navigation.getParam('query');
         this.setState({search: query, mode: 'SEARCH'})
         this.props.navigation.setParams({ defaultValue: query });
-        this.props.requestProductListBySearch(query)
+        this.props.requestProductListBySearch(query, this.state.sortKey, this.state.reverse)
       }
     }
   }
@@ -59,16 +61,16 @@ class ProductList extends React.Component {
   searchPressed = (text) => {
     this.setState({search: text, mode: 'SEARCH'})
     this.props.clearProductList()
-    this.props.requestProductListBySearch(text)
+    this.props.requestProductListBySearch(text, this.state.sortKey, this.state.reverse)
   }
 
   loadMore = () => {
     if(this.state.mode === 'ID'){
-      this.props.requestProductListFromCollection(this.state.id)
+      this.props.requestProductListFromCollection(this.state.id, this.state.sortKey, this.state.reverse)
     }else if(this.state.mode === 'HANDLE'){
-      this.props.requestProductListFromCollectionByHandle(this.state.handle)
+      this.props.requestProductListFromCollectionByHandle(this.state.handle, this.state.sortKey, this.state.reverse)
     }else{
-      this.props.requestProductListBySearch(this.state.search)
+      this.props.requestProductListBySearch(this.state.search, this.state.sortKey, this.state.reverse)
     }
   }
 
@@ -85,19 +87,18 @@ class ProductList extends React.Component {
   }
 
   sortPressed = () => {
-    alert('sort')
+    this.props.clearProductList()
+    this.props.requestProductListFromCollection(this.state.id, 'PRICE', false)
+  
   }
 
-  filterPressed = () => {
-    alert('filter')
-  }
   render = () => {
     return (
         <StyledSafeAreaView>
             <View style = {{marginBottom: 40}}>
               {this._renderContent(this.props.isLoading, this.props.productCount)}
             </View>
-            <FilterTab sortPressed={this.sortPressed} filterPressed={this.filterPressed}/>
+            <FilterTab sortPressed={this.sortPressed}/>
         </StyledSafeAreaView>
     )
   }
@@ -115,8 +116,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    requestProductListFromCollection: (id) => {
-      dispatch(ProductListActions.requestProductListFromCollection(id))
+    requestProductListFromCollection: (id, sortKey, reverse) => {
+      dispatch(ProductListActions.requestProductListFromCollection(id, sortKey, reverse))
     },
     requestProductListFromCollectionByHandle: (handle) => {
       dispatch(ProductListActions.requestProductListFromCollectionByHandle(handle))

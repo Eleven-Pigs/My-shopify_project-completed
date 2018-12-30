@@ -1,16 +1,10 @@
 import styled from 'styled-components';
 import { View, TouchableOpacity, Text, Modal} from 'react-native'
 
+
 export const StyledView = styled(View)`
-    height: 35px;
-    border-color: ${props => props.theme.listBackground};
-    border-top-width: 1px;
-    background-color: white;
-    height: 80px;
-    width: 100%;
-    position: absolute;
-    bottom: 0;
-    left: 0;
+    flex: 1;
+    justify-content: flex-end;
 
 `
 export const StyledOpacity = styled(TouchableOpacity)`
@@ -28,4 +22,12 @@ export const SortContainer = styled(View)`
 `
 export const StyledModal = styled(Modal)`
     height: 50%;
+`
+export const ModalContainer = styled(View)`
+    width: 100%;
+    height: 40%;
+    background-color: white;
+    border-color: ${props => props.theme.listBackground};
+    border-top-width: 1px;
+    border-radius: 5px;
 `

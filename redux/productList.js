@@ -2,9 +2,9 @@ import { createReducer, createActions } from 'reduxsauce'
 import Immutable from 'seamless-immutable'
 
 const { Types, Creators } = createActions({
-    requestProductListFromCollection: ['id'],
-    requestProductListFromCollectionByHandle: ['handle'],
-    requestProductListBySearch: ['search'],
+    requestProductListFromCollection: ['id', 'sortKey', 'reverse'],
+    requestProductListFromCollectionByHandle: ['handle', 'sortKey', 'reverse'],
+    requestProductListBySearch: ['search', 'sortKey', 'reverse'],
     requestProductListFromCollectionSuccess: ['payload'],
     requestProductListFromCollectionSuccessEmpty: null,
     requestProductListFromCollectionFail: null,
@@ -36,7 +36,8 @@ const requestProductListFromCollection = (state) => {
 
 const requestProductListFromCollectionSuccess = (state, action) => {
     const productList = normalizeProducts(action.payload)
-    const lastProductId = productList.products.allIds[productList.products.allIds.length - 1]
+    const index = productList.products.allIds.length - 1
+    const lastProductId = productList.products.allIds[index]
     const lastProduct = productList.products.byIds[lastProductId]
     const cursor = lastProduct.cursor
  
