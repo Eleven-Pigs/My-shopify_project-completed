@@ -8,11 +8,6 @@ export default class FilterModal extends React.Component {
         this.state = {
             sorts: [
                 {
-                    title: 'Featured',
-                    checked: false,
-                    value: 1,
-                },
-                {
                     title: 'Best Selling',
                     checked: true,
                     value: 2,
@@ -72,7 +67,7 @@ export default class FilterModal extends React.Component {
         })
         const selectedSort = this.state.sorts.find( sort => sort.value == value)
         this.setState({sorts: newSortState})
-        this.props.cancelPressed(selectedSort.title)
+        this.props.itemSelected(selectedSort)
     }
 
     renderSort = (sorts) => {

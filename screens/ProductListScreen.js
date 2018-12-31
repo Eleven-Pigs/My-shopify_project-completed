@@ -28,7 +28,7 @@ class ProductList extends React.Component {
     return ({
     headerTitle: <SearchContainer defaultValue={navigation.state.params.query} searchPressed={navigation.state.params.searchPressed}/>,
     headerStyle: {
-      backgroundColor: 'white',
+      backgroundColor: theme.background,
       width: '120%',
     },
   })};
@@ -86,9 +86,50 @@ class ProductList extends React.Component {
     }
   }
 
-  sortPressed = () => {
+  sortPressed = (sort) => {
     this.props.clearProductList()
-    this.props.requestProductListFromCollection(this.state.id, 'PRICE', false)
+    switch (sort.value){
+      case 1:
+        //Featured does not have an api
+        
+        break;
+      case 2:
+        //Best Selling  
+        this.props.requestProductListFromCollection(this.state.id, 'BEST_SELLING', false)
+        this.setState({sortKey: 'BEST_SELLING', reverse: false})
+        break;
+      case 3:
+        //Alphabetically, A - Z 
+        this.props.requestProductListFromCollection(this.state.id, 'TITLE', false)
+        this.setState({sortKey: 'TITLE', reverse: false})
+        break;
+      case 4:
+        //Alphabetically, Z - A 
+        this.props.requestProductListFromCollection(this.state.id, 'TITLE', true)
+        this.setState({sortKey: 'TITLE', reverse: true})
+        break;
+      case 5:
+        this.props.requestProductListFromCollection(this.state.id, 'PRICE', false)
+        this.setState({sortKey: 'PRICE', reverse: false})
+        //Price, low to high
+        break;
+      case 6:
+        this.props.requestProductListFromCollection(this.state.id, 'PRICE', true)
+        this.setState({sortKey: 'PRICE', reverse: true})
+        //Price, high to low
+        break;
+      case 7:
+        //Date, new to old
+        this.props.requestProductListFromCollection(this.state.id, 'CREATED', false)
+        this.setState({sortKey: 'CREATED', reverse: false})
+        break;
+      case 8:
+        //Date, old to new
+        this.props.requestProductListFromCollection(this.state.id, 'CREATED', true)
+        this.setState({sortKey: 'CREATED', reverse: true})
+        break;
+    }
+    
   
   }
 

@@ -5,6 +5,7 @@ import  CollectionListContainer  from '../containers/CollectionList'
 import SearchContainer from '../containers/Search'
 import CollectionPlaceholder from '../components/Placeholder/CollectionPlaceholder'
 import { getIsLoading } from '../redux/collection'
+import { theme } from '../constants/Theme'
 class Collection extends React.Component {
   constructor(props){
     super(props)
@@ -20,7 +21,7 @@ class Collection extends React.Component {
   static navigationOptions =  ({navigation}) => ({
     headerTitle: <SearchContainer defaultValue="" searchPressed={(text) => {navigation.navigate("ProductListScreen",{query: text})}}/>,
     headerStyle: {
-     
+      backgroundColor: theme.background,
       width: '100%',
     },
   });
