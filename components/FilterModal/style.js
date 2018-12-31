@@ -57,7 +57,6 @@ export const ModalHeader = styled(View)`
 export const ModalContent= styled(View)`
     background-color: ${props => props.theme.listBackground};
     height: 100%;
-    padding-bottom: 90px;
 `
 
 export const StyledScrollView= styled(ScrollView)`

@@ -88,10 +88,7 @@ export default class FilterModal extends React.Component {
         <StyledModal
           animationType="slide"
           transparent={true}
-          visible={this.props.visible}
-          onRequestClose={() => {
-            Alert.alert('Modal has been closed.');
-          }}>
+          visible={this.props.visible}>
             <StyledView>
                     <ModalContainer>
                         <ModalHeader>
@@ -105,7 +102,7 @@ export default class FilterModal extends React.Component {
                             <StyledText>Sort By</StyledText>
                         </ModalHeader>
                         <ModalContent>
-                            <StyledScrollView>
+                            <StyledScrollView contentContainerStyle={{paddingBottom:80}}>
                                 {this.renderSort(this.state.sorts)} 
                             </StyledScrollView>
                         </ModalContent>
