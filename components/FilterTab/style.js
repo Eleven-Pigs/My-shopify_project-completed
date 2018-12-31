@@ -6,7 +6,7 @@ export const StyledView = styled(View)`
     border-color: ${props => props.theme.listBackground};
     border-top-width: 1px;
     background-color: white;
-    height: 80px;
+    height: 50px;
     width: 100%;
     position: absolute;
     bottom: 0;

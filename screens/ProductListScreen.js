@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyledSafeAreaView } from '../components/Styled'
-import { View, TouchableOpacity } from 'react-native'
+import { View } from 'react-native'
 import { connect } from 'react-redux'
 import ProductListActions  from '../redux/productList'
 import ProductListContainer  from '../containers/ProductList'
@@ -29,7 +29,7 @@ class ProductList extends React.Component {
     headerTitle: <SearchContainer defaultValue={navigation.state.params.query} searchPressed={navigation.state.params.searchPressed}/>,
     headerStyle: {
       backgroundColor: theme.background,
-      width: '120%',
+      width: '100%',
     },
   })};
 
@@ -136,10 +136,12 @@ class ProductList extends React.Component {
   render = () => {
     return (
         <StyledSafeAreaView>
-            <View style = {{marginBottom: 40}}>
+          <View>
+            <View>
               {this._renderContent(this.props.isLoading, this.props.productCount)}
             </View>
             <FilterTab sortPressed={this.sortPressed}/>
+          </View>
         </StyledSafeAreaView>
     )
   }

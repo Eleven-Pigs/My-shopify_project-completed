@@ -11,6 +11,7 @@ export const ProductList = ({ productIds, endReached }) => {
         keyExtractor={(item) => item}
         numColumns= {2}
         onEndReached= {endReached}
+        contentContainerStyle={{paddingBottom:60}}
         />
     )
 }
