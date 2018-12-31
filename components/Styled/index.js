@@ -3,7 +3,7 @@ import { View, SafeAreaView } from 'react-native'
 
 export const Main = styled(View)`
     flex: 1;
-    background-color: ${props => props.theme.background}
+    background-color: ${props => props.theme.listBackground}
 `;
 
 export const Center = styled(View)`

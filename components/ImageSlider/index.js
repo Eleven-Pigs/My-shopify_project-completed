@@ -1,19 +1,31 @@
 import React from 'react';
-import { Main, Center } from '../Styled'
-import Slideshow from 'react-native-slideshow';
-import ProductDetailImagePlaceholder from '../Placeholder/ProductDetailPlaceholder';
+import { theme } from '../../constants/Theme'
+import { StyledImage, StyledSwiper, StyledView } from './style'
+import Swiper from 'react-native-swiper';
+
+const renderImage = (images) => {
+    
+    return (
+        images.map((image, index) => {
+            return (
+                <StyledView key={index} >
+                    <StyledImage
+                            source={{uri: image}}
+                            style = {{resizeMode: 'center'}}
+                    />
+                </StyledView>
+            )
+        })
+    )
+}
 
 export const ImageSlider = ({ images }) => {
-    const sliderImages = images.map(image => {
-        return {
-            url: image
-        }
-    })
+
     return(
-    <Main>
-        <Slideshow 
-            dataSource={sliderImages}/>
-    </Main>
+        <Swiper loop={false} showsButtons={images.length > 1 ? true : false}>
+            {renderImage(images)}
+        </Swiper>
+            
     )
 }
 

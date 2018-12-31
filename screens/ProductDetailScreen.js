@@ -1,16 +1,16 @@
 import React from 'react';
-import { View, Button } from 'react-native'
+import { SafeAreaView } from 'react-native'
 import ProductDetail from '../containers/ProductDetail'
 import ProductImage from '../containers/ProductImage'
-import ProductDetailAction from '../redux/productDetail'
+import ProductDetailAction, { getTitle } from '../redux/productDetail'
 import { connect } from 'react-redux'
-
+import { theme } from '../constants/Theme'
 class ProductDetailScreen extends React.Component {
   constructor(props){
     super(props)
   }
   static navigationOptions = {
-   
+
   };
 
   componentDidMount(){
@@ -30,17 +30,19 @@ class ProductDetailScreen extends React.Component {
 
   render = () => {
     return (
-        <View style = {{flex:1}}>
+        <SafeAreaView style = {{flex:1}}>
           <ProductImage/>
           <ProductDetail/>
-        </View>
+        </SafeAreaView>
     )
   }
 
 }
 
 const mapStateToProps = state => {
-  return {}
+  return {
+    title: getTitle(state),
+  }
 }
 
 

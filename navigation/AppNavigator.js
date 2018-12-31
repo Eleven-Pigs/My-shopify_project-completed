@@ -12,8 +12,16 @@ const ProductDetailStack = createStackNavigator({
   ProductDetailScreen: ProductDetailScreen,
 },{
   defaultNavigationOptions: ({navigation}) => ({
-    headerLeft: <HeaderBackButton onPress={() => navigation.goBack(null)} tintColor={theme.background}/>,
+    headerTitle: 'Product Detail',
+    headerLeft: <HeaderBackButton onPress={() => navigation.goBack(null)} tintColor='white'/>,
     headerTransparent: true,
+    headerStyle: {
+      backgroundColor: theme.background,
+      
+    },
+    headerTitleStyle: {
+      color: 'white'
+    },
   })
 })
 
