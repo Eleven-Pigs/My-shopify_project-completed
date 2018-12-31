@@ -1,10 +1,13 @@
 import { connect } from 'react-redux'
-import { getTitle } from '../redux/productDetail'
+import { getTitle, getAvailableForSale,getDescriptionHtml, getPrice  } from '../redux/productDetail'
 import { ProductDetailComponent } from '../components/ProductDetail'
 import CartActions from '../redux/cart'
 const mapStateToProps = state => {
   return {
-    text: getTitle(state)
+    title: getTitle(state),
+    availableForSale: getAvailableForSale(state),
+    descriptionHtml: getDescriptionHtml(state),
+    price: getPrice(state)
   }
 }
 const mapDispatchToProps = dispatch => {

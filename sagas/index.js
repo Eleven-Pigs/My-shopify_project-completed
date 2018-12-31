@@ -6,9 +6,10 @@ import { cartSaga } from './cart'
 import { startupSaga } from './startup'
 import { collectionSaga } from './collection'
 import { productListSaga } from './productList'
+import { shopSaga } from './shop'
 
 function *watchAll() {
-    yield all([...userSaga, ...productDetailSaga, ...cartSaga, ...startupSaga, ...collectionSaga, ...productListSaga]);
+    yield all([...userSaga, ...productDetailSaga, ...cartSaga, ...startupSaga, ...collectionSaga, ...productListSaga, ...shopSaga]);
 }
 
 

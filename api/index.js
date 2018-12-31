@@ -386,6 +386,16 @@ export const getCheckout = (id) => {
     return fetchShopifyGraphql(graphQLQuery)
 }
 
+export const getMoneyFormat = () => {
+    const query = {
+        shop: {
+            moneyFormat: true
+        }
+    } 
+    const graphQLQuery = '{' +  jsonToGraphQLQuery(query, {pretty: true}) + '}'
+    return fetchShopifyGraphql(graphQLQuery)
+}
+
 export const createCheckout = () => {
     const mutation = 'mutation {checkoutCreate(input: { lineItems: [] }) { checkout { id webUrl } } }'
     return fetchShopifyGraphql(mutation)

@@ -1,6 +1,6 @@
 import { createReducer, createActions } from 'reduxsauce'
 import Immutable from 'seamless-immutable'
-
+import { getMoneyFormat } from './shop'
 const { Types, Creators } = createActions({
     requestProductDetail: ['id'],
     requestProductDetailByHandle: ['handle'],
@@ -28,7 +28,7 @@ const INITIAL_STATE = Immutable({
         byId: {},
         allIds: []
     },
-    selectedVariant: '',
+    selectedVariant: 0,
 })
 
 const requestProductDetail = (state, action) => {
@@ -38,9 +38,13 @@ const requestProductDetail = (state, action) => {
 }
 const requestProductDetailSuccess = (state, action) => {
     const product = normalizeProductDetail(action.payload)
+    const index = product.variants.allIds.length - 1
+    const defaultVariantId = product.variants.allIds[index]
+    
     return state.merge({
         isFetching: false,
-        ...product
+        ...product,
+        selectedVariant: defaultVariantId
     })
 }
 const requestProductDetailFailed = (state) => {
@@ -78,9 +82,28 @@ const getReducer = (rootState) => {
 
 //SELECTOR
 
+export const getPrice = (rootState) => {
+    const state = getReducer(rootState)
+    const selectedVariantId = state.selectedVariant
+    const selectedVariant = state.variants.byId[selectedVariantId]
+    const priceValue = selectedVariant ? selectedVariant.price : '0.00'
+    const moneyFormat = getMoneyFormat(rootState)
+    const price = moneyFormat.replace(/{{amount}}/,priceValue)
+    return price
+}
+
 export const getTitle = (rootState) => {
     const state = getReducer(rootState)
     return state.title
+}
+export const getAvailableForSale = (rootState) => {
+    const state = getReducer(rootState)
+    return state.availableForSale
+}
+
+export const getDescriptionHtml = (rootState) => {
+    const state = getReducer(rootState)
+    return state.descriptionHtml
 }
 
 export const getImageById = (rootState, id) => {
