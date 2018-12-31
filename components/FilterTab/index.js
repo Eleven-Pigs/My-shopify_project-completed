@@ -13,12 +13,16 @@ export default class FilterTab extends React.Component {
     openModal = () => {
         this.setState({visible: true})
     }
+    cancelPressed = () => {
+        this.setState({visible: false})
+    }
 
     render(){
         return(
         <StyledView>
             <FilterModal
                 visible={this.state.visible}
+                cancelPressed={this.cancelPressed}
             />
             <StyledOpacity onPress={this.openModal}>  
                 <SortContainer>
