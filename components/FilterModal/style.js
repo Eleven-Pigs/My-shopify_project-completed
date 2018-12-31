@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { View, TouchableOpacity, Text, Modal} from 'react-native'
+import { View, TouchableOpacity, Text, Modal, ScrollView} from 'react-native'
 
 
 export const StyledView = styled(View)`
@@ -18,6 +18,14 @@ export const StyledText = styled(Text)`
     font-size: 20px;
     font-weight: bold;
 `
+export const FilterText = styled(Text)`
+    font-size: 18
+`   
+export const FilterTouchableContainer = styled(TouchableOpacity)`
+    flex-direction: row;
+    align-items: center;
+    padding: 10px;
+`  
 
 export const SortContainer = styled(View)`
     flex-direction: row;
@@ -45,4 +53,13 @@ export const ModalHeader = styled(View)`
     padding: 10px;
     flex-direction: row;
     align-items: center;
+`
+export const ModalContent= styled(View)`
+    background-color: ${props => props.theme.listBackground};
+    height: 100%;
+    padding-bottom: 90px;
+`
+
+export const StyledScrollView= styled(ScrollView)`
+    padding-top: 10px;
 `

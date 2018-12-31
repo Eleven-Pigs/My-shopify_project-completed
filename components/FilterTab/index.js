@@ -1,19 +1,23 @@
 import React from 'react';
 import { StyledView, StyledOpacity, StyledText, SortContainer, StyledModal} from './style'
 import  Materialicons from '../Reusable/TabBarIcon/Materialicons'
-import { FilterModal } from '../FilterModal'
+import  FilterModal  from '../FilterModal'
 
 export default class FilterTab extends React.Component {
     constructor(props){
         super(props)
         this.state = {
-            visible: false
+            visible: false,
+            sortTitle: 'Best Selling'
         }
     }
     openModal = () => {
         this.setState({visible: true})
     }
-    cancelPressed = () => {
+    cancelPressed = (sortTitle) => {
+        if (sortTitle){
+            this.setState({sortTitle: sortTitle})
+        }
         this.setState({visible: false})
     }
 
@@ -28,7 +32,7 @@ export default class FilterTab extends React.Component {
                 <SortContainer>
                     <Materialicons focused={true} name='sort' />
                     <StyledText> Sort By :</StyledText>
-                    <StyledText> Popularity</StyledText>
+                    <StyledText> {this.state.sortTitle}</StyledText>
                 </SortContainer>
             </StyledOpacity>
           </StyledView>
