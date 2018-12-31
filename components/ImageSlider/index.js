@@ -2,7 +2,7 @@ import React from 'react';
 import { theme } from '../../constants/Theme'
 import { StyledImage, StyledView } from './style'
 import Swiper from 'react-native-swiper';
-
+import ImageResizeMode from 'react-native/Libraries/Image/ImageResizeMode'
 const renderImage = (images) => {
 
     return (
@@ -11,7 +11,7 @@ const renderImage = (images) => {
                 <StyledView key={index} >
                     <StyledImage
                             source={{uri: image}}
-                            style = {{resizeMode: 'center'}}
+                            resizeMode={ImageResizeMode.contain}
                     />
                 </StyledView>
             )

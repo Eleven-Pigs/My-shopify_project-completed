@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView } from 'react-native'
+import { SafeAreaView, View } from 'react-native'
 import ProductDetail from '../containers/ProductDetail'
 import ProductImage from '../containers/ProductImage'
 import ProductDetailAction, { getTitle } from '../redux/productDetail'
@@ -30,8 +30,10 @@ class ProductDetailScreen extends React.Component {
 
   render = () => {
     return (
-        <SafeAreaView style = {{flex:1}}>
-          <ProductImage/>
+        <SafeAreaView style = {{flex:1, backgroundColor: theme.listBackground}}>
+          <View style = {{ height: 400, backgroundColor: 'white'}}>
+            <ProductImage/>
+          </View>
           <ProductDetail/>
         </SafeAreaView>
     )

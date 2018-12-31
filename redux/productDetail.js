@@ -96,9 +96,21 @@ export const getSelectedVariantTitle = (rootState) => {
     const state = getReducer(rootState)
     const selectedVariantId = state.selectedVariant
     const selectedVariant = state.variants.byId[selectedVariantId]
-    console.log('sfsafd', selectedVariant)
     return selectedVariant ? selectedVariant.title : ''
 }
+
+export const getSelectedVariantImage = (rootState) => {
+    const state = getReducer(rootState)
+    const selectedVariantId = state.selectedVariant
+    const selectedVariant = state.variants.byId[selectedVariantId]
+    const imageId = selectedVariant ? selectedVariant.imageId : ''
+    if(imageId){
+        return getImageById(rootState, imageId)
+    }else{
+        return null
+    }
+}
+
 
 export const getTitle = (rootState) => {
     const state = getReducer(rootState)

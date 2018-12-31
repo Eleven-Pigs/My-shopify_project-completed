@@ -1,24 +1,22 @@
 import React from 'react';
-import { Title, HeaderView, PriceText, ProductInfoText, ProductInfoView } from './style'
-import { Main } from '../Styled'
-import { Button, } from 'react-native'
+import { MainView, VariantImage, Title, VariantView, VariantText, VariantTitle, HeaderView, PriceText, ProductInfoText, ProductInfoView } from './style'
+import { Button, Image, TouchableOpacity } from 'react-native'
 
-export const ProductDetailComponent = ({addToCart, title, availableForSale, descriptionHtml, price, variantTitle }) => {
+export const ProductDetailComponent = ({addToCart, title, availableForSale, descriptionHtml, price, variantTitle, variantImage }) => {
     return(
-    <Main>
+    <MainView>
         <HeaderView>
             <Title>{title}</Title>
-            <PriceText>{price}</PriceText>
+            <PriceText>More Info</PriceText>
         </HeaderView>
-        <ProductInfoView>
-            <ProductInfoText>Product Option</ProductInfoText>
-            <ProductInfoText>{variantTitle}</ProductInfoText>
-        </ProductInfoView>
-        <ProductInfoView>
-            <ProductInfoText>Product Info</ProductInfoText>
-        </ProductInfoView>
+        <VariantView>
+            <TouchableOpacity>
+                <VariantText>Selected Variant</VariantText>
+                <VariantTitle>{variantTitle}</VariantTitle>
+            </TouchableOpacity>
+        </VariantView>
             <Button onPress={ () =>  addToCart({variantId: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8xNzE2ODgzODk1MDk3Ng==', quantity: 1}) } title="Add To Cart"/>
-    </Main>
+    </MainView>
     )
 }
 

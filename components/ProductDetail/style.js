@@ -10,12 +10,34 @@ export const PriceText = styled(Text)`
     font-size: 15;
 
 `
+export const VariantImage = styled(Image)`
+    height: 200px;
+    width: 200px;
+`
+export const MainView = styled(View)`
+    
+`
+
+export const VariantText = styled(Text)`
+    font-size: 15;
+`
+export const VariantTitle = styled(Text)`
+    font-size: 15;
+    margin-top: 5px;
+    font-weight: bold;
+`
 export const ProductInfoText = styled(Text)`
     font-size: 15;
-    font-weight: bold;
 `
 export const ProductInfoView = styled(View)`
     padding: 20px;
+    background-color: white;
+    margin-top: 5px;
+`
+
+export const VariantView = styled(View)`
+    padding: 10px;
+    padding-left: 20px;
     background-color: white;
     margin-top: 5px;
 `
