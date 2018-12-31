@@ -137,9 +137,7 @@ class ProductList extends React.Component {
     return (
         <StyledSafeAreaView>
           <View>
-            <View>
-              {this._renderContent(this.props.isLoading, this.props.productCount)}
-            </View>
+            {this._renderContent(this.props.isLoading, this.props.productCount)}
             <FilterTab sortPressed={this.sortPressed}/>
           </View>
         </StyledSafeAreaView>

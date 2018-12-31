@@ -88,7 +88,10 @@ export default class FilterModal extends React.Component {
         <StyledModal
           animationType="slide"
           transparent={true}
-          visible={this.props.visible}>
+          visible={this.props.visible}
+          onRequestClose={() => {
+           
+          }}>
             <StyledView>
                     <ModalContainer>
                         <ModalHeader>

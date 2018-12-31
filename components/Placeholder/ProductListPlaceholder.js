@@ -77,7 +77,6 @@ const ProductListPlaceholder = (props) => {
     <View style = {{ backgroundColor: theme.listBackground, height: '100%'}}>
       <ProductListContent/>
       <ProductListContent/>
-      <ProductListContent/>
     </View>
 
   )
