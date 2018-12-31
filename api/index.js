@@ -72,6 +72,7 @@ export const getProduct = (id) => {
                             id: true,
                             price: true,
                             availableForSale: true,
+                            title: true,
                             image: {
                                 id: true
                             },
@@ -122,6 +123,7 @@ export const getProductByHandle = (handle) => {
                             id: true,
                             price: true,
                             availableForSale: true,
+                            title: true,
                             image: {
                                 id: true
                             },

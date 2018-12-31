@@ -1,10 +1,10 @@
 import React from 'react';
 import { theme } from '../../constants/Theme'
-import { StyledImage, StyledSwiper, StyledView } from './style'
+import { StyledImage, StyledView } from './style'
 import Swiper from 'react-native-swiper';
 
 const renderImage = (images) => {
-    
+
     return (
         images.map((image, index) => {
             return (
@@ -20,7 +20,6 @@ const renderImage = (images) => {
 }
 
 export const ImageSlider = ({ images }) => {
-
     return(
         <Swiper loop={false} showsButtons={images.length > 1 ? true : false}>
             {renderImage(images)}

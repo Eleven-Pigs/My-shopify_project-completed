@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { getTitle, getAvailableForSale,getDescriptionHtml, getPrice  } from '../redux/productDetail'
+import { getSelectedVariantTitle, getTitle, getAvailableForSale,getDescriptionHtml, getPrice  } from '../redux/productDetail'
 import { ProductDetailComponent } from '../components/ProductDetail'
 import CartActions from '../redux/cart'
 const mapStateToProps = state => {
@@ -7,7 +7,8 @@ const mapStateToProps = state => {
     title: getTitle(state),
     availableForSale: getAvailableForSale(state),
     descriptionHtml: getDescriptionHtml(state),
-    price: getPrice(state)
+    price: getPrice(state),
+    variantTitle: getSelectedVariantTitle(state)
   }
 }
 const mapDispatchToProps = dispatch => {

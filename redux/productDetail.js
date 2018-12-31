@@ -92,6 +92,14 @@ export const getPrice = (rootState) => {
     return price
 }
 
+export const getSelectedVariantTitle = (rootState) => {
+    const state = getReducer(rootState)
+    const selectedVariantId = state.selectedVariant
+    const selectedVariant = state.variants.byId[selectedVariantId]
+    console.log('sfsafd', selectedVariant)
+    return selectedVariant ? selectedVariant.title : ''
+}
+
 export const getTitle = (rootState) => {
     const state = getReducer(rootState)
     return state.title
@@ -164,12 +172,14 @@ const normalizeProductDetail = (graphQLProduct) => {
     const variants = node.variants.edges.map(variant => {
         const node = variant.node
         const id = node.id
+        const title = node.title
         return({
             [id]: {
                 price: node.price,
                 imageId: node.image ? node.image.id : null,
                 availableForSale: node.availableForSale,
                 selectedOptions: node.selectedOptions,
+                title: title
             }
         })
     }).reduce((acc,ele) => {
