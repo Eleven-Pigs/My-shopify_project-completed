@@ -21,7 +21,7 @@ const renderImage = (images) => {
 
 export const ImageSlider = ({ images }) => {
     return(
-        <Swiper loop={false} showsButtons={images.length > 1 ? true : false}>
+        <Swiper style = {{backgroundColor: 'white'}} loop={false} showsButtons={images.length > 1 ? true : false}>
             {renderImage(images)}
         </Swiper>
             

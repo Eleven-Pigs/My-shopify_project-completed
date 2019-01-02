@@ -40,9 +40,9 @@ class ProductDetailScreen extends React.Component {
             <ProductDetail/>
           </View>
         </View>
-        <View>
+
           <AddToCart/>
-        </View>
+
       </SafeAreaView>
     )
   }

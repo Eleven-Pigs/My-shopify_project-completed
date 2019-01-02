@@ -1,21 +1,47 @@
 import React from 'react';
-import { CartView, MainView, VariantImage, Title, VariantView, VariantText, VariantTitle, HeaderView, PriceText, ProductInfoText, ProductInfoView } from './style'
-import { Button, Image, TouchableOpacity } from 'react-native'
+import {  MainView,  Title, VariantView, VariantText, VariantTitle, HeaderView, PriceText, ProductInfoText, ProductInfoView } from './style'
+import { TouchableOpacity } from 'react-native'
+import VariantModalContainer  from '../../containers/VariantModal'
 
-export const ProductDetailComponent = ({ addToCart, title, availableForSale, descriptionHtml, price, variantTitle, variantImage }) => {
-    return (
-        <MainView>
-            <HeaderView>
-                <Title>{title}</Title>
-                <PriceText>More Info</PriceText>
-            </HeaderView>
-            <VariantView>
-                <TouchableOpacity>
-                    <VariantText>Selected Variant</VariantText>
-                    <VariantTitle>{variantTitle}</VariantTitle>
-                </TouchableOpacity>
-            </VariantView>
-        </MainView>
-    )
+export default class ProductDetailComponent extends React.Component {
+    constructor(props){
+        super(props)
+        this.state = {
+            visible: false,
+        }
+    }
+
+    openModal = () => {
+        this.setState({visible: true})
+    }
+    cancelPressed = () => {
+        this.setState({visible: false})
+        
+    }
+    itemSelected = (sort) => {
+
+    }
+
+    render() {
+        return (
+            <MainView>
+                <VariantModalContainer
+                    visible={this.state.visible}
+                    cancelPressed={this.cancelPressed}
+                    itemSelected={this.itemSelected}
+                />
+                <HeaderView>
+                    <Title>{this.props.title}</Title>
+                    <PriceText>More Info</PriceText>
+                </HeaderView>
+                <VariantView>
+                    <TouchableOpacity onPress = {this.openModal}>
+                        <VariantText>Selected Variant</VariantText>
+                        <VariantTitle>{this.props.variantTitle}</VariantTitle>
+                    </TouchableOpacity>
+                </VariantView>
+            </MainView>
+        )
+    }
 }
 

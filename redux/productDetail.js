@@ -3,11 +3,14 @@ import Immutable from 'seamless-immutable'
 import { getMoneyFormat } from './shop'
 const { Types, Creators } = createActions({
     requestProductDetail: ['id'],
+    setSelectedVariant: ['id'],
     requestProductDetailByHandle: ['handle'],
     requestProductDetailSuccess: ['payload'],
     requestProductDetailFailed: null,
     setTitle: ['title'],
     clearProductDetail: null,
+    addCount: null,
+    minusCount: null,
   })
 
 export const ProductDetailTypes = Types
@@ -29,6 +32,7 @@ const INITIAL_STATE = Immutable({
         allIds: []
     },
     selectedVariant: 0,
+    selectedCount: 1,
 })
 
 const requestProductDetail = (state, action) => {
@@ -65,6 +69,30 @@ const clearProductDetail = (state) => {
         ...INITIAL_STATE
     })
 }
+const setSelectedVariant = (state, action) => {
+    const id = action.id
+    return state.merge({
+        selectedVariant: id
+    })
+}
+const minusCount = (state) => {
+    const newCount = state.selectedCount - 1
+    if (newCount >= 1){
+        return state.merge({
+            selectedCount: newCount
+        })
+    }else{
+        return state
+    }
+
+}
+const addCount = (state,) => {
+    const newCount = state.selectedCount + 1
+    return state.merge({
+        selectedCount: newCount
+    })
+    
+}
 
 export const productDetail = createReducer(INITIAL_STATE, {
     [Types.REQUEST_PRODUCT_DETAIL]: requestProductDetail,
@@ -72,6 +100,9 @@ export const productDetail = createReducer(INITIAL_STATE, {
     [Types.REQUEST_PRODUCT_DETAIL_FAILED]: requestProductDetailFailed,
     [Types.SET_TITLE]: setTitle,
     [Types.CLEAR_PRODUCT_DETAIL]: clearProductDetail,
+    [Types.SET_SELECTED_VARIANT]: setSelectedVariant,
+    [Types.ADD_COUNT]: addCount,
+    [Types.MINUS_COUNT]: minusCount,
 })
 
 const getReducer = (rootState) => {
@@ -82,13 +113,24 @@ const getReducer = (rootState) => {
 
 //SELECTOR
 
-export const getPrice = (rootState) => {
+export const getVariantPrice = (rootState) => {
     const state = getReducer(rootState)
     const selectedVariantId = state.selectedVariant
     const selectedVariant = state.variants.byId[selectedVariantId]
     const priceValue = selectedVariant ? selectedVariant.price : '0.00'
     const moneyFormat = getMoneyFormat(rootState)
     const price = moneyFormat.replace(/{{amount}}/,priceValue)
+    return price
+}
+
+export const getTotalPrice = (rootState) => {
+    const state = getReducer(rootState)
+    const selectedVariantId = state.selectedVariant
+    const selectedVariant = state.variants.byId[selectedVariantId]
+    const priceValue = selectedVariant ? selectedVariant.price : '0.00'
+    const totalPrice = priceValue * state.selectedCount
+    const moneyFormat = getMoneyFormat(rootState)
+    const price = moneyFormat.replace(/{{amount}}/,totalPrice)
     return price
 }
 
@@ -112,6 +154,7 @@ export const getSelectedVariantImage = (rootState) => {
 }
 
 
+
 export const getTitle = (rootState) => {
     const state = getReducer(rootState)
     return state.title
@@ -126,6 +169,12 @@ export const getDescriptionHtml = (rootState) => {
     return state.descriptionHtml
 }
 
+export const getSelectedCount = (rootState) => {
+    const state = getReducer(rootState)
+    return state.selectedCount
+}
+
+getSelectedVariantTitle
 export const getImageById = (rootState, id) => {
     const state = getReducer(rootState)
     const image = state.images.byId[id]
@@ -147,15 +196,20 @@ export const getVariantById = (rootState, id) => {
     const variant = state.variants.byId[id]
     return variant
 }
-
-export const getVariants = (rootState) => {
+export const getIsSelected = (rootState, id) => {
     const state = getReducer(rootState)
-    const images = state.variants.allIds.map(variantId => {
-         const image = getImageById(rootState, variantId)
-         return image
-    })
+    if(state.selectedVariant === id){
+        return true
+    }else{
+        return false
+    }
+}
+
+
+export const getAllVariantsId = (rootState) => {
+    const state = getReducer(rootState)
     
-    return images
+    return state.variants.allIds
 }
 
 const normalizeProductDetail = (graphQLProduct) => {
