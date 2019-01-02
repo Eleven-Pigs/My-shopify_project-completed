@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { Text, Image, View } from 'react-native'
 
 export const Title = styled(Text)`
-    font-size: 20;
+    font-size: 30;
 
 `
 export const PriceText = styled(Text)`
@@ -15,7 +15,6 @@ export const VariantImage = styled(Image)`
     width: 200px;
 `
 export const MainView = styled(View)`
-    
 `
 
 export const VariantText = styled(Text)`
@@ -51,6 +50,3 @@ export const HeaderView = styled(View)`
     background-color: white;
     margin-top: 5px;
 `
-
-
-
