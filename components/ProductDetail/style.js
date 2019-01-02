@@ -15,6 +15,8 @@ export const VariantImage = styled(Image)`
     width: 200px;
 `
 export const MainView = styled(View)`
+    flex: 1;
+
 `
 
 export const VariantText = styled(Text)`

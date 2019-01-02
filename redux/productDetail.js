@@ -168,6 +168,10 @@ export const getDescriptionHtml = (rootState) => {
     const state = getReducer(rootState)
     return state.descriptionHtml
 }
+export const getDescription = (rootState) => {
+    const state = getReducer(rootState)
+    return state.description
+}
 
 export const getSelectedCount = (rootState) => {
     const state = getReducer(rootState)
@@ -264,6 +268,7 @@ const normalizeProductDetail = (graphQLProduct) => {
     const product = {
         availableForSale: node.availableForSale,
         descriptionHtml: node.descriptionHtml,
+        description: node.description,
         id: node.id,
         productType: node.productType,
         title: node.title,
