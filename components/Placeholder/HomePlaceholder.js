@@ -4,7 +4,7 @@ import { Main } from '../Styled'
 import Placeholder from "rn-placeholder";
 
 const Banner = props => {
-  const style = { backgroundColor: '#e3e3e3', width: "100%", height:400};
+  const style = { backgroundColor: '#e3e3e3', width: "100%", height:300};
   return (
       <View>
         <View style={style}>

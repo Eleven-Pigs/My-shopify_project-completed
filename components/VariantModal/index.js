@@ -25,7 +25,7 @@ export default class VariantModal extends React.Component {
             <StyledView>
                     <ModalContainer>
                         <ModalHeader>
-                            <StyledImage source = {{uri: this.props.selectedVariantImage}}/>
+                            <StyledImage resizeMode='contain' source = {{uri: this.props.selectedVariantImage}}/>
                             <HeaderView>
                                 <View style = {{ flexDirection: 'row', alignItems: 'center'}}>
                                     <StyledText>{this.props.title}</StyledText>

@@ -35,7 +35,7 @@ const INITIAL_STATE = Immutable({
     selectedCount: 1,
 })
 
-const requestProductDetail = (state, action) => {
+const requestProductDetail = (state) => {
     return state.merge({
         isFetching: true,
     })
@@ -96,6 +96,7 @@ const addCount = (state,) => {
 
 export const productDetail = createReducer(INITIAL_STATE, {
     [Types.REQUEST_PRODUCT_DETAIL]: requestProductDetail,
+    [Types.REQUEST_PRODUCT_DETAIL_BY_HANDLE]: requestProductDetail,
     [Types.REQUEST_PRODUCT_DETAIL_SUCCESS]: requestProductDetailSuccess,
     [Types.REQUEST_PRODUCT_DETAIL_FAILED]: requestProductDetailFailed,
     [Types.SET_TITLE]: setTitle,
@@ -209,6 +210,10 @@ export const getIsSelected = (rootState, id) => {
     }
 }
 
+export const getIsFetching = (rootState) => {
+    const state = getReducer(rootState)
+    return state.isFetching
+}
 
 export const getAllVariantsId = (rootState) => {
     const state = getReducer(rootState)

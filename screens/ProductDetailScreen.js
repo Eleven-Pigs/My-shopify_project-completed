@@ -3,9 +3,11 @@ import { SafeAreaView, View, Button, Text, TouchableOpacity } from 'react-native
 import ProductDetail from '../containers/ProductDetail'
 import ProductImage from '../containers/ProductImage'
 import AddToCart from '../containers/AddToCart'
-import ProductDetailAction, { getTitle } from '../redux/productDetail'
+import ProductDetailAction, { getTitle, getIsFetching } from '../redux/productDetail'
 import { connect } from 'react-redux'
 import { theme } from '../constants/Theme'
+import ProductDetailPlaceholder from '../components/Placeholder/ProductDetailPlaceholder';
+
 class ProductDetailScreen extends React.Component {
   constructor(props) {
     super(props)
@@ -29,20 +31,31 @@ class ProductDetailScreen extends React.Component {
     this.props.clearProductDetail()
   }
 
+  _renderProductDetail = (isFetching) => {
+    if (isFetching){
+      return(
+        <ProductDetailPlaceholder/>
+      )
+    }else{
+      return (
+          <View style = {{flex:1,backgroundColor: theme.listBackground}}>
+            <View style = {{flex:6}}>
+              <ProductImage/>
+            </View>
+            <View style = {{flex: 4}}>
+              <ProductDetail/>
+            </View>
+          </View>
+        
+      )
+    }
+  }
+
   render = () => {
     return (
       <SafeAreaView style = {{flex:1}}>
-        <View style = {{flex:1,backgroundColor: theme.listBackground}}>
-          <View style = {{flex:6}}>
-            <ProductImage/>
-          </View>
-          <View style = {{flex: 4}}>
-            <ProductDetail/>
-          </View>
-        </View>
-
-          <AddToCart/>
-
+        {this._renderProductDetail(this.props.isFetching)}
+        <AddToCart/>
       </SafeAreaView>
     )
   }
@@ -52,6 +65,7 @@ class ProductDetailScreen extends React.Component {
 const mapStateToProps = state => {
   return {
     title: getTitle(state),
+    isFetching: getIsFetching(state),
   }
 }
 
