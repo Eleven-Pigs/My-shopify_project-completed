@@ -71,4 +71,10 @@ export const getExpiryAt = (rootState) => {
 
     return state.expiresAt
 }
+export const getIsLogin = (rootState) => {
+    const state = getReducer(rootState)
+    const isLogin = state.accessToken ? true : false
+    return isLogin
+}
+
 
