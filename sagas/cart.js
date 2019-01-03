@@ -4,6 +4,7 @@ import { createCheckout, addProductToCheckout, getCheckout } from '../api'
 import { getId } from '../redux/cart'
 import CartActions from '../redux/cart'
 import { AsyncStorage } from "react-native"
+import { getSelectedVariant, getSelectedCount } from '../redux/productDetail';
 
 export function* fetchCartDetail() {
     const cartId = yield select(getId)
@@ -33,10 +34,11 @@ export function* requestCreateCheckout() {
     }
 }
 
-export function* requestAddProductToCheckout(action) {
-    const product = action.product
+export function* requestAddProductToCheckout() {
+    const variantId = yield select(getSelectedVariant)
+    const variantCount = yield select(getSelectedCount)
     const cartId = yield select(getId) 
-    const response = yield call(addProductToCheckout, product, cartId)
+    const response = yield call(addProductToCheckout, variantId, variantCount, cartId)
     const payload = yield response.json()
     if(response.ok){
         yield put(CartActions.requestAddProductToCheckoutSuccess(payload)) 

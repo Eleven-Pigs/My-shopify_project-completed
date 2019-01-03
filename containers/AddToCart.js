@@ -9,8 +9,8 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = dispatch => {
   return {
-    addToCart: (product) => {
-      dispatch(CartActions.requestAddProductToCheckout(product))
+    addToCart: () => {
+      dispatch(CartActions.requestAddProductToCheckout())
     }
   }
 }

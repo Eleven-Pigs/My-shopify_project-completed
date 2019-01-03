@@ -154,6 +154,12 @@ export const getSelectedVariantImage = (rootState) => {
     }
 }
 
+export const getSelectedVariant = (rootState) => {
+    const state = getReducer(rootState)
+    return state.selectedVariant
+}
+
+
 
 
 export const getTitle = (rootState) => {
@@ -179,7 +185,6 @@ export const getSelectedCount = (rootState) => {
     return state.selectedCount
 }
 
-getSelectedVariantTitle
 export const getImageById = (rootState, id) => {
     const state = getReducer(rootState)
     const image = state.images.byId[id]

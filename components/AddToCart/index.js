@@ -7,7 +7,7 @@ export const AddToCart = ({ addToCart, price }) => {
             <TextTotal >Total </TextTotal>
             <TextPrice>{price}</TextPrice>
             <ButtonView >
-              <AddToCartButton   onPress={() => addToCart({ variantId: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8xNzE2ODgzODk1MDk3Ng==', quantity: 1 })}>
+              <AddToCartButton onPress={() => addToCart()}>
                 <TextButton>Add to cart</TextButton>
               </AddToCartButton>
             </ButtonView>

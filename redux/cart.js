@@ -19,6 +19,7 @@ export const CartTypes = Types
 export default Creators
 
 const INITIAL_STATE = Immutable({
+    isAddingToCart: false,
     isFetching: false,
     numberOfItems: 0,
     id: '',
@@ -58,7 +59,7 @@ const setCartId = (state, action) => {
 
 const requestAddProductToCheckout = (state, action) => {
     return state.merge({
-        isFetching: true
+        isFetching: true,
     })  
 }
 const requestAddProductToCheckoutSuccess = (state, action) => {
