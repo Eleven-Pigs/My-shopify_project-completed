@@ -11,7 +11,8 @@ const { Types, Creators } = createActions({
     requestRenewAccessToken: ['accessToken'],
     requestRenewAccessSuccess: ['payload'],
     requestRenewAccessFail: null,
-    setAccessToken: ['accessToken', 'expiresAt']
+    setAccessToken: ['accessToken', 'expiresAt'],
+    logout: null,
   })
 
 export const UserProfileTypes = Types
@@ -44,11 +45,15 @@ const setAccessToken = (state, action) => {
     })
 }
 
+const logout = (state) => {
+    return INITIAL_STATE
+}
 
 export const user = createReducer(INITIAL_STATE, {
     [Types.REQUEST_LOGIN]: requestLogin,
     [Types.REQUEST_LOGIN_SUCCESS]: requestLoginSuccess,
     [Types.SET_ACCESS_TOKEN]: setAccessToken,
+    [Types.LOGOUT]: logout,
     
 })
 

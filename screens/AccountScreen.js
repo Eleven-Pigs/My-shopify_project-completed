@@ -1,7 +1,9 @@
 import React from 'react';
 import { Button } from 'react-native'
+import  UserActions  from '../redux/user'
+import { connect } from 'react-redux'
 
-export default class AccountScreen extends React.Component {
+class Account extends React.Component {
   static navigationOptions = {
     title: 'Account',
   };
@@ -9,11 +11,33 @@ export default class AccountScreen extends React.Component {
     
     
   }
-  
+
 
   render() {
     return (
-      <Button onPress={() => this.props.navigation.navigate('LoginScreen')} title="Login"/>
+      <Button onPress={this.props.logout} title="logout"/>
     );
   }
 }
+const mapStateToProps = state => {
+  return {
+    
+  }
+}
+
+
+const mapDispatchToProps = dispatch => {
+  return {
+    logout: () => {
+      dispatch(UserActions.logout())
+    },
+  }
+}
+
+const AccountScreen = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Account)
+
+
+export default AccountScreen

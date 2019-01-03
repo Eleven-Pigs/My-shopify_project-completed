@@ -61,8 +61,13 @@ export function* requestRenewAccessToken(action) {
     }
 }
 
+export function* logout(action) {
+    const keys = ['accessToken', 'expiryAt']
+    yield call([AsyncStorage, 'multiRemove'], keys)  
+}
 export const userSaga = [
     takeLatest(UserProfileTypes.REQUEST_LOGIN, requestLogin),
     takeLatest(UserProfileTypes.REQUEST_REGISTER, requestRegister),
-    takeLatest(UserProfileTypes.REQUEST_RENEW_ACCESS_TOKEN, requestRenewAccessToken)
+    takeLatest(UserProfileTypes.REQUEST_RENEW_ACCESS_TOKEN, requestRenewAccessToken),
+    takeLatest(UserProfileTypes.LOGOUT, logout)
 ]
