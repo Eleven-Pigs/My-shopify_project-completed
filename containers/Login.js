@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import  LoginComponent  from '../components/Login'
 import UserActions from '../redux/user'
-import { withNavigation } from 'react-navigation';
+import { withNavigation, StackActions, NavigationActions } from 'react-navigation';
 import { getIsLogin } from '../redux/user'
 
 class Login extends React.Component {
@@ -10,11 +10,20 @@ class Login extends React.Component {
     super(props)
   }
   navigateToRegister = () => {
-     this.props.navigation.navigate('RegisterScreen')
+      this.props.navigation.navigate("RegisterScreen")
+    
   }
   componentDidUpdate = (prevProps) => {
     if(this.props.isLogin === true && prevProps.isLogin === false){
-      this.props.navigation.goBack(null)
+      const resetAction = StackActions.reset({
+        index: 1,
+        actions: [
+          NavigationActions.navigate({ routeName: 'Main', action: NavigationActions.navigate({routeName: 'ShoppingCart'}) }),
+          NavigationActions.navigate({ routeName: 'Payment'})
+        ],
+        key: null 
+      })
+      this.props.navigation.dispatch(resetAction)
     }
   }
 
