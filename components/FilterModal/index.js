@@ -93,7 +93,7 @@ export default class FilterModal extends React.Component {
            
           }}>
             <StyledView>
-                    <ModalContainer>
+                    <ModalContainer  tint="light" intensity={95}>
                         <ModalHeader>
                             <StyledOpacity onPress= {this.props.cancelPressed}>
                                 <Icon.Entypo
