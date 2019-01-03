@@ -32,10 +32,10 @@ class ShoppingCart extends React.Component {
     }else{
       Alert.alert(
         'Checkout',
-        'Do you want to login?',
+        'Continue as guest?',
         [
-          {text: 'Yes', onPress: () => this.navigateToLogin(), style: 'cancel'},
-          {text: 'Continue as guest', onPress: () => this.continueAsGuest()},
+          {text: 'Login', onPress: () => this.navigateToLogin(), style: 'cancel'},
+          {text: 'Yes', onPress: () => this.continueAsGuest()},
         ],
         { cancelable: false }
       )

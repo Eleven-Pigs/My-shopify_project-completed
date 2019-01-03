@@ -57,9 +57,7 @@ const LoginStack = createStackNavigator({
 },{
   defaultNavigationOptions: ({navigation}) => ({
     headerLeft: <HeaderBackButton onPress={() => navigation.goBack(null)} tintColor={theme.background}/>,
-    headerTransparent: true,
     mode: 'modal',
-    headerMode: 'none',
     
   }),
 })

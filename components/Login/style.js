@@ -2,7 +2,8 @@ import styled from 'styled-components';
 import { Text, Image } from 'react-native'
 
 export const Title = styled(Text)`
-    margin-top: 20;
+    font-size: 30;
+    font-weight: bold;
 `
 export const StyledImage = styled(Image)`
     height: 100;

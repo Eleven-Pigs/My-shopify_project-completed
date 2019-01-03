@@ -2,6 +2,8 @@ import React from 'react';
 import {View, TextInput, Button} from 'react-native'
 import { connect } from 'react-redux'
 import CartActions from '../redux/cart'
+import { TextField } from 'react-native-material-textfield';
+
 class AddAddress extends React.Component {
 
   static navigationOptions = {
@@ -42,38 +44,38 @@ class AddAddress extends React.Component {
   render() {
     return (
       <View>
-        <TextInput
+        <TextField
                     style={{height: 40}}
                     placeholder="Email"
                     onChangeText={(text) => this.setState({email: text})}
                     keyboardType="email-address"
                     textContentType="emailAddress"
         />
-        <TextInput
+        <TextField
                     style={{height: 40}}
                     placeholder="Address 1"
                     onChangeText={(text) => this.setState({address1: text})}
                     textContentType="streetAddressLine1"
         />
-        <TextInput
+        <TextField
                     style={{height: 40}}
                     placeholder="Address 2"
                     onChangeText={(text) => this.setState({address2: text})}
                     textContentType="streetAddressLine2"
         />
-        <TextInput
+        <TextField
                     style={{height: 40}}
                     placeholder="Zip / Postal Code"
                     onChangeText={(text) => this.setState({zip: text})}
                     textContentType="postalCode"
         />
-        <TextInput
+        <TextField
                     style={{height: 40}}
                     placeholder="City"
                     onChangeText={(text) => this.setState({city: text})}
                     textContentType="addressCity"
         />
-        <TextInput
+        <TextField
                     style={{height: 40}}
                     placeholder="Province / State"
                     onChangeText={(text) => this.setState({province: text})}
@@ -81,19 +83,19 @@ class AddAddress extends React.Component {
         />
 
 
-                <TextInput
+        <TextField
                     style={{height: 40}}
                     placeholder="Country"
                     onChangeText={(text) => this.setState({country: text})}
                     textContentType="countryName"
         />
-        <TextInput
+        <TextField
                     style={{height: 40}}
                     placeholder="First Name"
                     onChangeText={(text) => this.setState({firstName: text})}
                     textContentType="name"
         />
-        <TextInput
+        <TextField
                     style={{height: 40}}
                     placeholder="Last Name"
                     onChangeText={(text) => this.setState({lastName: text})}
