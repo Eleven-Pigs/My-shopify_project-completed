@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import  LoginComponent  from '../components/Login'
 import UserActions from '../redux/user'
 import { withNavigation } from 'react-navigation';
+import { getIsLogin } from '../redux/user'
 
 class Login extends React.Component {
   constructor(props){
@@ -10,6 +11,11 @@ class Login extends React.Component {
   }
   navigateToRegister = () => {
      this.props.navigation.navigate('RegisterScreen')
+  }
+  componentDidUpdate = (prevProps) => {
+    if(this.props.isLogin === true && prevProps.isLogin === false){
+      this.props.navigation.goBack(null)
+    }
   }
 
   render() {
@@ -22,7 +28,9 @@ class Login extends React.Component {
 
 
 const mapStateToProps = state => {
-  return {}
+  return {
+    isLogin: getIsLogin(state), 
+  }
 }
 const mapDispatchToProps = dispatch => {
   return {

@@ -12,7 +12,7 @@ export default class LoginComponent extends React.Component {
     }
 
     loginPressed = () => {
-        if(this.state.email.length > 0 && this.state.password > 0){
+        if(this.state.email.length > 0 && this.state.password.length > 0){
             this.props.onPressed(this.state.email, this.state.password)
         }else{
             if(this.state.email.length <= 0){
