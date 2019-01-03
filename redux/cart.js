@@ -13,6 +13,7 @@ const { Types, Creators } = createActions({
     requestAddProductToCheckout: ['product'],
     requestAddProductToCheckoutSuccess: ['payload'],
     requestAddProductToCheckoutFail: null,
+    resetIsAddedToCart: null,
   })
 
 export const CartTypes = Types
@@ -22,6 +23,7 @@ const INITIAL_STATE = Immutable({
     isAddingToCart: false,
     isFetching: false,
     numberOfItems: 0,
+    isAdded: false,
     id: '',
     webUrl: '',
     products:{
@@ -64,7 +66,8 @@ const requestAddProductToCheckout = (state, action) => {
 }
 const requestAddProductToCheckoutSuccess = (state, action) => {
     return state.merge({
-        isFetching: false
+        isFetching: false,
+        isAdded: true,
     })  
 }
 
@@ -81,8 +84,14 @@ const requestCartDetailSuccess = (state, action) => {
         ...cart
     }) 
 }
+const resetIsAddedToCart = (state, action) => {
+    return state.merge({
+        isAdded: false,
+    }) 
+}
 
 export const cart = createReducer(INITIAL_STATE, {
+    [Types.RESET_IS_ADDED_TO_CART]: resetIsAddedToCart,
     [Types.ADD_NUMBER_OF_ITEMS]: addNumberOfItems,
     [Types.REQUEST_CREATE_CHECKOUT_SUCCESS]: requestCreateCheckoutSuccess,
     [Types.SET_CART_ID]: setCartId,
@@ -99,6 +108,10 @@ const getReducer = (rootState) => {
 export const getId = (rootState) => {
     const state = getReducer(rootState)
     return state.id
+}
+export const getIsProductAdded = (rootState) => {
+    const state = getReducer(rootState)
+    return state.isAdded
 }
 export const getAllProductIds = (rootState) => {
     const state = getReducer(rootState)

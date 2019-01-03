@@ -1,7 +1,40 @@
+import React from 'react';
 import { connect } from 'react-redux'
 import { getSelectedVariantImage, getSelectedVariantTitle, getTitle, getAvailableForSale,getDescriptionHtml, getTotalPrice, getDescription  } from '../redux/productDetail'
+import { getIsProductAdded } from '../redux/cart'
+import { withNavigation } from 'react-navigation';
 import  ProductDetailComponent  from '../components/ProductDetail'
 import CartActions from '../redux/cart'
+
+
+class ProductDetail extends React.Component {
+  constructor(props){
+    super(props)
+  }
+  navigateToCart = () => {
+     this.props.navigation.navigate('ShoppingCart')
+  }
+
+  render() {
+    return (
+        <ProductDetailComponent 
+          title={this.props.title}
+          availableForSale={this.props.availableForSale}
+          descriptionHtml={this.props.descriptionHtml}
+          description={this.props.description}
+          price={this.props.price}
+          variantTitle={this.props.variantTitle}
+          variantImage={this.props.variantImage}
+          isProductAdded={this.props.isProductAdded}
+          navigateToCart={this.navigateToCart}
+          resetIsAddedToCart={this.props.resetIsAddedToCart}
+          addToCart={this.addToCart}
+        />
+    );
+  }
+
+}
+
 const mapStateToProps = state => {
   return {
     title: getTitle(state),
@@ -10,13 +43,17 @@ const mapStateToProps = state => {
     description: getDescription(state),
     price: getTotalPrice(state),
     variantTitle: getSelectedVariantTitle(state),
-    variantImage: getSelectedVariantImage(state)
+    variantImage: getSelectedVariantImage(state),
+    isProductAdded: getIsProductAdded(state)
   }
 }
 const mapDispatchToProps = dispatch => {
   return {
     addToCart: (product) => {
       dispatch(CartActions.requestAddProductToCheckout(product))
+    },    
+    resetIsAddedToCart: () => {
+      dispatch(CartActions.resetIsAddedToCart())
     }
   }
 }
@@ -24,6 +61,6 @@ const mapDispatchToProps = dispatch => {
 const ProductDetailContainer = connect(
   mapStateToProps,
   mapDispatchToProps
-)(ProductDetailComponent)
+)(ProductDetail)
 
-export default ProductDetailContainer
+export default withNavigation(ProductDetailContainer)

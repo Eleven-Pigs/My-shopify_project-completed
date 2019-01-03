@@ -1,6 +1,6 @@
 import React from 'react';
 import {  MainView,  Title, VariantView, VariantText, VariantTitle, HeaderView, PriceText, ProductInfoText, ProductInfoView } from './style'
-import { TouchableOpacity } from 'react-native'
+import { TouchableOpacity, Alert } from 'react-native'
 import VariantModalContainer  from '../../containers/VariantModal'
 
 export default class ProductDetailComponent extends React.Component {
@@ -18,9 +18,25 @@ export default class ProductDetailComponent extends React.Component {
         this.setState({visible: false})
         
     }
-    itemSelected = (sort) => {
+    goToCheckout = () => {
 
     }
+    componentDidUpdate(prevProps) {
+        // Typical usage (don't forget to compare props):
+        if (this.props.isProductAdded === true && prevProps.isProductAdded === false) {
+            Alert.alert(
+                'Successfull',
+                'Product added to cart',
+                [
+                  {text: 'Checkout', onPress: () => this.props.navigateToCart(), style: 'cancel'},
+                  {text: 'Continue Shopping', onPress: () => console.log('OK Pressed')},
+                ],
+                { cancelable: false }
+              )
+            this.props.resetIsAddedToCart()
+        }
+      }
+
 
     render() {
         return (

@@ -24,7 +24,7 @@ export default class VariantModal extends React.Component {
           }}>
             <StyledView>
                     <ModalContainer>
-                        <ModalHeader >
+                        <ModalHeader>
                             <StyledImage resizeMode='contain' source = {{uri: this.props.selectedVariantImage}}/>
                             <HeaderView>
                                 <View style = {{ flexDirection: 'row', alignItems: 'center'}}>
@@ -60,7 +60,7 @@ export default class VariantModal extends React.Component {
                             </HeaderView>
                         </ModalHeader>
                         <View style = {{top: -20, height: 1, width: '100%', backgroundColor: 'grey'}}></View>
-                        <ModalContent tint="light" intensity={95}>
+                        <ModalContent>
                             <StyledFlatList 
                                 data={this.props.variants}
                                 keyExtractor={this._keyExtractor}

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { View, TouchableOpacity, Text, Modal, FlatList, Image} from 'react-native'
-import { BlurView } from 'expo'
+
 
 export const StyledImage = styled(Image)`
     height: 100px;
@@ -63,7 +63,7 @@ export const ModalHeader = styled(View)`
     padding: 5px;
     flex-direction: row;
 `
-export const ModalContent= styled(BlurView)`
+export const ModalContent= styled(View)`
     background-color: ${props => props.theme.listBackground};
     height: 100%;
     top: -20;
