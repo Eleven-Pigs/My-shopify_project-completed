@@ -6,6 +6,7 @@ import ProductListScreen from '../screens/ProductListScreen'
 import PaymentScreen from '../screens/PaymentScreen'
 import LoginScreen from '../screens/LoginScreen'
 import RegisterScreen from '../screens/RegisterScreen'
+import AddAddressScreen from '../screens/AddAddressScreen'
 import { theme } from '../constants/Theme'
 
 const ProductDetailStack = createStackNavigator({
@@ -42,6 +43,14 @@ const PaymentStack = createStackNavigator({
   })
 })
 
+const AddAdressScreenStack = createStackNavigator({
+  AddAddressScreen: AddAddressScreen,
+},{
+  defaultNavigationOptions: ({navigation}) => ({
+    headerLeft: <HeaderBackButton onPress={() => navigation.goBack(null)} tintColor={theme.background}/>,
+  })
+})
+
 const LoginStack = createStackNavigator({
   LoginScreen: LoginScreen,
   RegisterScreen: RegisterScreen
@@ -64,6 +73,7 @@ const MainStack = createStackNavigator({
   ProductList: ProductListStack,
   Payment: PaymentStack,
   Login: LoginStack,
+  AddressScreen: AddAdressScreenStack,
 },{
   headerMode: 'none',
 })

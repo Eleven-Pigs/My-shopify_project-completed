@@ -1,6 +1,6 @@
 import { CartTypes } from '../redux/cart'
 import { takeLatest, call, select, put } from 'redux-saga/effects';
-import { createCheckout, addProductToCheckout, getCheckout } from '../api'
+import { createCheckout, addProductToCheckout, getCheckout, addAddresstoCheckout, addEmailToCheckout } from '../api'
 import { getId } from '../redux/cart'
 import CartActions from '../redux/cart'
 import { AsyncStorage } from "react-native"
@@ -48,12 +48,30 @@ export function* requestAddProductToCheckout() {
         yield put(CartActions.requestCreateCheckoutFail())
     }
 }
-
+export function* requestAddEmailAddress(action) {
+    const {email, address} = action
+    const cartId = yield select(getId) 
+    try{
+        const addressResponse = yield call(addAddresstoCheckout, address, cartId)
+        const emailResponse = yield call(addEmailToCheckout, email, cartId)
+        const addressPayload = yield addressResponse.json()
+        const emailPayload = yield emailResponse.json()
+        if(addressResponse.ok && emailResponse.ok){
+            console.log('addresspayload', addressPayload)
+            console.log('emailpayload', emailPayload)
+            yield put(CartActions.requestAddEmailAddressSuccess()) 
+        }else{
+            yield put(CartActions.requestCreateCheckoutFail())
+        }
+    }catch(e){
+        console.log(e)
+    }
+}
 
 
 export const cartSaga = [
     takeLatest(CartTypes.REQUEST_CART_DETAIL, fetchCartDetail),
     takeLatest(CartTypes.REQUEST_CREATE_CHECKOUT, requestCreateCheckout),
     takeLatest(CartTypes.REQUEST_ADD_PRODUCT_TO_CHECKOUT, requestAddProductToCheckout),
-    
+    takeLatest(CartTypes.REQUEST_ADD_EMAIL_ADDRESS, requestAddEmailAddress),
 ]

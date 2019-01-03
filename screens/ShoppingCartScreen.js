@@ -3,7 +3,7 @@ import { SafeAreaView, Alert } from 'react-native'
 import { connect } from 'react-redux'
 import CartListContainer  from '../containers/CartList'
 import { Checkout }  from '../components/Checkout'
-import { getTotalPrice } from '../redux/cart'
+import { getTotalPrice, getShippingAddress } from '../redux/cart'
 import { getIsLogin } from '../redux/user'
 
 class ShoppingCart extends React.Component {
@@ -17,6 +17,15 @@ class ShoppingCart extends React.Component {
   navigateToLogin = () => {
     this.props.navigation.navigate('LoginScreen',{})
   }
+
+  continueAsGuest = () => {
+    if(this.props.shippingAddress){
+      this.props.navigation.navigate('PaymentScreen',{})
+    }else{
+      this.props.navigation.navigate('AddAddressScreen',{})
+    }
+  }
+
   onPress = () => {
     if(this.props.isLogin){
       this.props.navigation.navigate('PaymentScreen',{})
@@ -26,7 +35,7 @@ class ShoppingCart extends React.Component {
         'Do you want to login?',
         [
           {text: 'Yes', onPress: () => this.navigateToLogin(), style: 'cancel'},
-          {text: 'Continue as guest', onPress: () => console.log('OK Pressed')},
+          {text: 'Continue as guest', onPress: () => this.continueAsGuest()},
         ],
         { cancelable: false }
       )
@@ -48,7 +57,8 @@ class ShoppingCart extends React.Component {
 const mapStateToProps = state => {
   return {
     price: getTotalPrice(state),
-    isLogin: getIsLogin(state)
+    isLogin: getIsLogin(state),
+    shippingAddress: getShippingAddress(state),
   }
 }
 

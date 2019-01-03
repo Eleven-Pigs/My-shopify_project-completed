@@ -15,6 +15,9 @@ const { Types, Creators } = createActions({
     requestAddProductToCheckoutSuccess: ['payload'],
     requestAddProductToCheckoutFail: null,
     resetIsAddedToCart: null,
+    requestAddEmailAddress: ['email','address'],
+    requestAddEmailAddressSuccess: null,
+    requestAddEmailAddressFail: null,
   })
 
 export const CartTypes = Types
@@ -90,6 +93,18 @@ const resetIsAddedToCart = (state, action) => {
         isAdded: false,
     }) 
 }
+const requestAddEmailAddress = (state, action) => {
+    return state.merge({
+        isFetching: true,
+    })
+}
+const requestAddEmailAddressSuccess = (state, action) => {
+    return state.merge({
+        isFetching: false,
+    })
+}
+
+
 
 export const cart = createReducer(INITIAL_STATE, {
     [Types.RESET_IS_ADDED_TO_CART]: resetIsAddedToCart,
@@ -100,6 +115,8 @@ export const cart = createReducer(INITIAL_STATE, {
     [Types.REQUEST_ADD_PRODUCT_TO_CHECKOUT_SUCCESS]: requestAddProductToCheckoutSuccess,
     [Types.REQUEST_CART_DETAIL]: requestCartDetail,
     [Types.REQUEST_CART_DETAIL_SUCCESS]: requestCartDetailSuccess,
+    [Types.REQUEST_ADD_EMAIL_ADDRESS]: requestAddEmailAddress,
+    [Types.REQUEST_ADD_EMAIL_ADDRESS_SUCCESS]: requestAddEmailAddressSuccess,
 })
 
 const getReducer = (rootState) => {
@@ -162,7 +179,11 @@ export const getTotalPrice = (rootState, id) => {
     
     return price
 }
-
+export const getShippingAddress = (rootState, id) => {
+    const state = getReducer(rootState)
+    
+    return state.shippingAddress
+}
 
 
 
