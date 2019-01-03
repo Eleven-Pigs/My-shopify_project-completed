@@ -24,12 +24,12 @@ export default class SearchBox extends React.Component {
             <StyledView>
                 <Search
                     ref="search_box"
-                    backgroundColor= {theme.background}
+                    backgroundColor= "white"
                     afterSearch= {this.afterSearch}
                     returnKeyType= "search"
                     onChangeText= {(text) => this.changeTextInput(text)}
                     defaultValue={this.props.defaultValue}
-                    titleCancelColor= 'white'
+                    titleCancelColor= {theme.background}
                    
                     /**
                     * There many props that can customizable

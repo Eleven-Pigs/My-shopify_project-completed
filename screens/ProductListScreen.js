@@ -28,7 +28,6 @@ class ProductList extends React.Component {
     return ({
     headerTitle: <SearchContainer defaultValue={navigation.state.params.query} searchPressed={navigation.state.params.searchPressed}/>,
     headerStyle: {
-      backgroundColor: theme.background,
       width: '100%',
     },
   })};

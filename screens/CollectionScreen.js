@@ -21,7 +21,6 @@ class Collection extends React.Component {
   static navigationOptions =  ({navigation}) => ({
     headerTitle: <SearchContainer defaultValue="" searchPressed={(text) => {navigation.navigate("ProductListScreen",{query: text})}}/>,
     headerStyle: {
-      backgroundColor: theme.background,
       width: '100%',
     },
   });

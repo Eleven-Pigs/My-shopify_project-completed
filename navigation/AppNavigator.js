@@ -13,14 +13,14 @@ const ProductDetailStack = createStackNavigator({
 },{
   defaultNavigationOptions: ({navigation}) => ({
     headerTitle: 'Product Detail',
-    headerLeft: <HeaderBackButton onPress={() => navigation.goBack(null)} tintColor='white'/>,
+    headerLeft: <HeaderBackButton onPress={() => navigation.goBack(null)} tintColor= {theme.background}/>,
     headerTransparent: false,
     headerStyle: {
-      backgroundColor: theme.background,
+   
       
     },
     headerTitleStyle: {
-      color: 'white'
+  
     },
   })
 })
@@ -30,7 +30,7 @@ const ProductListStack = createStackNavigator({
   ProductListScreen: ProductListScreen,
 },{
   defaultNavigationOptions: ({navigation}) => ({
-    headerLeft: <HeaderBackButton onPress={() => navigation.goBack(null)} tintColor='white'/>,
+    headerLeft: <HeaderBackButton onPress={() => navigation.goBack(null)} tintColor={theme.background}/>,
   })
 })
 
