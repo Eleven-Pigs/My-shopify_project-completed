@@ -371,9 +371,9 @@ export const getCheckout = (id) => {
                             variant: {
                                 title: true,
                                 id: true,
-                                selectedOptions: {
-                                    name: true,
-                                    value: true,
+                                price: true,
+                                image: {
+                                    originalSrc: true,
                                 },
                                 product: {
                                     id: true,

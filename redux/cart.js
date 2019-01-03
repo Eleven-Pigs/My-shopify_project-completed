@@ -1,5 +1,6 @@
 import { createReducer, createActions } from 'reduxsauce'
 import Immutable from 'seamless-immutable'
+import { getMoneyFormat } from './shop'
 
 const { Types, Creators } = createActions({
     addNumberOfItems: null,
@@ -131,6 +132,39 @@ export const getWebUrl = (rootState) => {
     return state.webUrl
 }
 
+export const getProductTitle = (rootState, id) => {
+    const state = getReducer(rootState)
+    return state.products.byIds[id].title
+}
+export const getProductVariantTitle = (rootState, id) => {
+    const state = getReducer(rootState)
+    return state.products.byIds[id].variantTitle
+}
+export const getProductPrice = (rootState, id) => {
+    const state = getReducer(rootState)
+    const moneyFormat = getMoneyFormat(rootState)
+    const price = moneyFormat.replace(/{{amount}}/,state.products.byIds[id].price)
+    
+    return price
+}
+export const getProductImage = (rootState, id) => {
+    const state = getReducer(rootState)
+    return state.products.byIds[id].image
+}
+export const getProductQuantity = (rootState, id) => {
+    const state = getReducer(rootState)
+    return state.products.byIds[id].quantity
+}
+export const getTotalPrice = (rootState, id) => {
+    const state = getReducer(rootState)
+    const moneyFormat = getMoneyFormat(rootState)
+    const price = moneyFormat.replace(/{{amount}}/,state.totalPrice)
+    
+    return price
+}
+
+
+
 
 const normalizeCartDetail = (graphQLCart) => {
     const node = graphQLCart.data.node
@@ -156,14 +190,19 @@ const normalizeCartDetail = (graphQLCart) => {
         const title = node.title
         const quantity = node.quantity
         const variantTitle = node.variant.title
+        const image = node.variant.image.originalSrc
+        const price = node.variant.price
         return({
             [id]: {
                 id: id,
+                price: price,
                 variantId: variantId,
                 title: title,
                 quantity: quantity,
                 variantTitle: variantTitle,
-                productId: productId
+                productId: productId,
+                image: image,
+                price: price,
             }
         })
     }).reduce((acc,ele) => {

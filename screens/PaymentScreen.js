@@ -5,7 +5,7 @@ import { PaymentComponent } from '../components/Payment'
 import { getWebUrl } from '../redux/cart'
 class Payment extends React.Component {
   static navigationOptions = {
-
+    headerTitle: 'Checkout'
   };
 
   paymentCompleted = () => {

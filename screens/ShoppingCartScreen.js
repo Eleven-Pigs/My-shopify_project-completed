@@ -2,12 +2,15 @@ import React from 'react';
 import { SafeAreaView, Button } from 'react-native'
 import { connect } from 'react-redux'
 import CartListContainer  from '../containers/CartList'
+import { Checkout }  from '../components/Checkout'
+import { getTotalPrice } from '../redux/cart'
+
 class ShoppingCart extends React.Component {
   constructor(props){
     super(props)
   }
   static navigationOptions = {
-   header: null,
+   headerTitle: 'Shopping Cart',
   };
   onPress = () => {
     this.props.navigation.navigate('PaymentScreen',{})
@@ -17,7 +20,7 @@ class ShoppingCart extends React.Component {
     return (
         <SafeAreaView style = {{flex:1}}>
             <CartListContainer/>
-            <Button onPress={this.onPress} title="Make Payment"/>
+            <Checkout price={this.props.price} onPress={this.onPress}/>
         </SafeAreaView>
     )
   }
@@ -25,7 +28,9 @@ class ShoppingCart extends React.Component {
 }
 
 const mapStateToProps = state => {
-  return {}
+  return {
+    price: getTotalPrice(state)
+  }
 }
 
 
