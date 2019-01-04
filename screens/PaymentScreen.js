@@ -3,6 +3,8 @@ import { SafeAreaView } from 'react-native'
 import { connect } from 'react-redux'
 import { PaymentComponent } from '../components/Payment'
 import { getWebUrl } from '../redux/cart'
+import { getAccessToken } from '../redux/user'
+
 class Payment extends React.Component {
   static navigationOptions = {
     headerTitle: 'Checkout'
@@ -15,7 +17,7 @@ class Payment extends React.Component {
   render() {
     return (
         <SafeAreaView style = {{flex:1}}>
-            <PaymentComponent url={this.props.url} paymentCompleted={this.paymentCompleted}/>
+            <PaymentComponent userAccessToken={this.props.userAccessToken} url={this.props.url} paymentCompleted={this.paymentCompleted}/>
         </SafeAreaView>
     );
   }
@@ -24,7 +26,8 @@ class Payment extends React.Component {
 
 const mapStateToProps = state => {
   return {
-      url: getWebUrl(state)
+      url: getWebUrl(state),
+      userAccessToken: getAccessToken(state)
   }
 }
 const mapDispatchToProps = dispatch => {

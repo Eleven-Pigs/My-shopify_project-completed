@@ -24,6 +24,9 @@ export class PaymentComponent extends React.Component {
                 ref={c => {
                     this.WebView = c;
                   }}
+                headers={{
+                    'X-Shopifye-Customer-Access-Token': this.props.userAccessToken
+                }}
                 />
 
         )
