@@ -1,8 +1,8 @@
 import React from 'react';
 import { Title } from './style'
-import { Main, Center } from '../Styled'
-import { Button,TextInput } from 'react-native'
-
+import { Button, View, TouchableOpacity, Text } from 'react-native'
+import { TextField } from 'react-native-material-textfield';
+import { theme } from '../../constants/Theme'
 
 export default class RegisterComponent extends React.Component {
 
@@ -17,23 +17,27 @@ export default class RegisterComponent extends React.Component {
 
     render(){
     return(
-        <Main>
-            <Center>
-                <Title>Login</Title>
-                <TextInput
-                    style={{height: 40}}
-                    placeholder="Type here to translate!"
-                    onChangeText={(text) => this.setState({email: text})}
+
+        <View style = {{textAlign: 'center', justifyContent: 'center', padding: 30}}>
+                <TextField
+                    label="Email"
+                    value={this.state.email}
+                    onChangeText={(email) => this.setState({email})}
+                    error={this.state.emailError}
                 />
-                <TextInput
-                    style={{height: 40}}
-                    placeholder="Type here to translate!"
-                    onChangeText={(text) => this.setState({password: text})}
+                <TextField
+                    label="Password"
+                    value={this.state.password}
+                    onChangeText={(password) => this.setState({password})}
                     secureTextEntry={true}
+                    error={this.state.passwordError}
                 />
-                <Button onPress={ this.registerPressed } title="Register"/>
-            </Center>
-        </Main>
+                <TouchableOpacity style = {{marginTop: 20, width: '50%', alignSelf: 'center',padding: 10,backgroundColor: theme.background}} onPress={this.loginPressed}>
+                    <Text style = {{color:'white', textAlign: 'center', fontSize: 15, fontWeight: 'bold'}}>SIGN UP</Text>
+                </TouchableOpacity>
+
+        </View>
+
         )
     }
 }
