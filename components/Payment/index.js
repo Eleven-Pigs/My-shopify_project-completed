@@ -18,15 +18,17 @@ export class PaymentComponent extends React.Component {
     render() {
         return(
                 <WebView
-                source={{uri: this.props.url}}
+                source={{
+                    uri: this.props.url,
+                    headers:{
+                        'X-Shopify-Customer-Access-Token': this.props.userAccessToken
+                    }
+                }}
                 javaScriptEnabledAndroid={true}
                 onNavigationStateChange={this.navigationStateChangedHandler}
                 ref={c => {
                     this.WebView = c;
                   }}
-                headers={{
-                    'X-Shopifye-Customer-Access-Token': this.props.userAccessToken
-                }}
                 />
 
         )

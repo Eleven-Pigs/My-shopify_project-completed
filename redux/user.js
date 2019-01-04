@@ -13,6 +13,8 @@ const { Types, Creators } = createActions({
     requestRenewAccessFail: null,
     setAccessToken: ['accessToken', 'expiresAt'],
     logout: null,
+    requestAssociateUserToCheckoutSuccess: null,
+    requestAssociateUserToCheckoutFail: null,
   })
 
 export const UserProfileTypes = Types

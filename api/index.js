@@ -491,7 +491,7 @@ export const addEmailToCheckout = (email, checkoutId) => {
 
 export const associateUserToCheckout = (accessToken, checkoutId) => {
     const mutation = `mutation {
-        checkoutCustomerAssociateV2(checkoutId: ${checkoutId}, customerAccessToken: ${accessToken}) {
+        checkoutCustomerAssociateV2(checkoutId: "${checkoutId}", customerAccessToken: "${accessToken}") {
           userErrors {
             field
             message

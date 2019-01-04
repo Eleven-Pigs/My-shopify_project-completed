@@ -1,8 +1,9 @@
 import { UserProfileTypes } from '../redux/user'
 import { takeLatest, call, select, put } from 'redux-saga/effects';
-import { createAccessToken, renewAccessToken, registerUser } from '../api'
+import { associateUserToCheckout, createAccessToken, renewAccessToken, registerUser } from '../api'
 import userActions from '../redux/user'
 import { getAccessToken, getExpiryAt } from '../redux/user'
+import { getId } from '../redux/cart'
 import { AsyncStorage } from "react-native"
 
 
@@ -65,8 +66,28 @@ export function* logout(action) {
     const keys = ['accessToken', 'expiryAt']
     yield call([AsyncStorage, 'multiRemove'], keys)  
 }
+
+export function* requestAssociateUserToCheckout(action) {
+    const accessToken = yield select(getAccessToken)
+    const cartId = yield select(getId)
+    try{
+        const response =  yield call(associateUserToCheckout, accessToken, cartId)
+        const payload = yield response.json()
+        console.log('payload= ', payload)
+        if(response.ok){     
+            yield put(userActions.requestAssociateUserToCheckoutSuccess()) 
+        }else{
+            yield put(userActions.requestAssociateUserToCheckoutFail()) 
+        }
+    }catch(e){
+        console.log(e)
+    }
+}
+
+
 export const userSaga = [
     takeLatest(UserProfileTypes.REQUEST_LOGIN, requestLogin),
+    takeLatest(UserProfileTypes.REQUEST_LOGIN_SUCCESS, requestAssociateUserToCheckout),
     takeLatest(UserProfileTypes.REQUEST_REGISTER, requestRegister),
     takeLatest(UserProfileTypes.REQUEST_RENEW_ACCESS_TOKEN, requestRenewAccessToken),
     takeLatest(UserProfileTypes.LOGOUT, logout)
