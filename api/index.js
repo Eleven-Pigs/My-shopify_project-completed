@@ -394,6 +394,10 @@ export const getShopDetail = () => {
     const query = {
         shop: {
             moneyFormat: true,
+            name: true,
+            primaryDomain: {
+                url: true,
+            },
             privacyPolicy: {
                 title: true,
                 body: true

@@ -11,7 +11,7 @@ const { Types, Creators } = createActions({
 const INITIAL_STATE = Immutable({
     moneyFormat: '',
     name: '',
-    url: '',
+    domain: '',
     privacyPolicy: {
       body: '',
       title: '',
@@ -46,6 +46,8 @@ const requestMoneyFormatSuccess = (state, action) => {
       privacyPolicy: shop.privacyPolicy,
       termsOfService: shop.termsOfService,
       refundPolicy: shop.refundPolicy,
+      name: shop.name,
+      domain: shop.primaryDomain.url
   })
 }
 
