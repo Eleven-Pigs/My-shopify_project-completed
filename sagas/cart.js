@@ -66,7 +66,7 @@ export function* requestAddEmailAddress(action) {
         console.log(e)
     }
 }
-export function* setDefaultAddress(action) {
+export function* setAddressToCheckout(action) {
     const cartId = yield select(getId) 
     const defaultAddressId = yield select(getDefaultAddressId)
     const isLogin = yield select(getIsLogin)
@@ -90,14 +90,20 @@ export function* setDefaultAddress(action) {
 }
 
 
+export function* clearCart() {
+        yield put(CartActions.clearCart()) 
+        yield put(CartActions.requestCreateCheckout())
+}
+
 export const cartSaga = [
     takeLatest(CartTypes.REQUEST_CART_DETAIL, fetchCartDetail),
     takeLatest(CartTypes.REQUEST_CREATE_CHECKOUT, requestCreateCheckout),
     takeLatest(CartTypes.REQUEST_ADD_PRODUCT_TO_CHECKOUT, requestAddProductToCheckout),
     takeLatest(CartTypes.REQUEST_ADD_EMAIL_ADDRESS, requestAddEmailAddress),
     takeLatest(CartTypes.REQUEST_ADD_EMAIL_ADDRESS, requestAddEmailAddress),
-    takeLatest(UserProfileTypes.REQUEST_USER_ADDRESS_SUCCESS, setDefaultAddress),
-    takeLatest(CartTypes.REQUEST_CREATE_CHECKOUT_SUCCESS, setDefaultAddress),
-    takeLatest(UserProfileTypes.REQUEST_LOGIN_SUCCESS, setDefaultAddress),
-    takeLatest(CartTypes.REQUEST_CART_DETAIL, setDefaultAddress),
+    takeLatest(UserProfileTypes.REQUEST_USER_ADDRESS_SUCCESS, setAddressToCheckout),
+    takeLatest(CartTypes.REQUEST_CREATE_CHECKOUT_SUCCESS, setAddressToCheckout),
+    takeLatest(UserProfileTypes.REQUEST_LOGIN_SUCCESS, setAddressToCheckout),
+    takeLatest(CartTypes.REQUEST_CART_DETAIL, setAddressToCheckout),
+    takeLatest(UserProfileTypes.LOGOUT, clearCart),
 ]

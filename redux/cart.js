@@ -1,7 +1,7 @@
 import { createReducer, createActions } from 'reduxsauce'
 import Immutable from 'seamless-immutable'
 import { getMoneyFormat } from './shop'
-
+import { UserProfileTypes } from '../redux/user'
 const { Types, Creators } = createActions({
     addNumberOfItems: null,
     requestCartDetail: null,
@@ -18,8 +18,9 @@ const { Types, Creators } = createActions({
     requestAddEmailAddress: ['email','address'],
     requestAddEmailAddressSuccess: null,
     requestAddEmailAddressFail: null,
-    setDefaultAddressSuccess: null,
-    setDefaultAddressFail: null
+    setAddressToCheckoutSuccess: null,
+    setAddressToCheckoutFail: null,
+    clearCart: null,
   })
 
 export const CartTypes = Types
@@ -105,6 +106,9 @@ const requestAddEmailAddressSuccess = (state, action) => {
         isFetching: false,
     })
 }
+const clearCart = (state, action) => {
+    return INITIAL_STATE
+}
 
 
 
@@ -119,6 +123,8 @@ export const cart = createReducer(INITIAL_STATE, {
     [Types.REQUEST_CART_DETAIL_SUCCESS]: requestCartDetailSuccess,
     [Types.REQUEST_ADD_EMAIL_ADDRESS]: requestAddEmailAddress,
     [Types.REQUEST_ADD_EMAIL_ADDRESS_SUCCESS]: requestAddEmailAddressSuccess,
+    [Types.REQUEST_ADD_EMAIL_ADDRESS_SUCCESS]: requestAddEmailAddressSuccess,
+    [Types.CLEAR_CART]: clearCart,
 })
 
 const getReducer = (rootState) => {
