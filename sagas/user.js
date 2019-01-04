@@ -106,5 +106,6 @@ export const userSaga = [
     takeLatest(UserProfileTypes.REQUEST_RENEW_ACCESS_TOKEN, requestRenewAccessToken),
     takeLatest(UserProfileTypes.LOGOUT, logout),
     takeLatest(UserProfileTypes.REQUEST_USER_ADDRESS, requestUserAddress),
+    takeLatest(UserProfileTypes.REQUEST_LOGIN_SUCCESS, requestUserAddress),
     takeLatest(UserProfileTypes.SET_ACCESS_TOKEN, requestUserAddress),
 ]
