@@ -18,6 +18,8 @@ const { Types, Creators } = createActions({
     requestAddEmailAddress: ['email','address'],
     requestAddEmailAddressSuccess: null,
     requestAddEmailAddressFail: null,
+    setDefaultAddressSuccess: null,
+    setDefaultAddressFail: null
   })
 
 export const CartTypes = Types

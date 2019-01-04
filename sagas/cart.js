@@ -1,7 +1,8 @@
 import { CartTypes } from '../redux/cart'
+import { UserProfileTypes, getDefaultAddressId, getAddressById, getIsLogin } from '../redux/user'
 import { takeLatest, call, select, put } from 'redux-saga/effects';
 import { createCheckout, addProductToCheckout, getCheckout, addAddresstoCheckout, addEmailToCheckout } from '../api'
-import { getId } from '../redux/cart'
+import { getId, getShippingAddress } from '../redux/cart'
 import CartActions from '../redux/cart'
 import { AsyncStorage } from "react-native"
 import { getSelectedVariant, getSelectedCount } from '../redux/productDetail';
@@ -65,6 +66,28 @@ export function* requestAddEmailAddress(action) {
         console.log(e)
     }
 }
+export function* setDefaultAddress(action) {
+    const cartId = yield select(getId) 
+    const defaultAddressId = yield select(getDefaultAddressId)
+    const isLogin = yield select(getIsLogin)
+    const cartAddress = yield select(getShippingAddress)
+
+    if(isLogin && cartId && defaultAddressId && !cartAddress){
+        const address = yield select(getAddressById, defaultAddressId)
+        try{
+            const response = yield call(addAddresstoCheckout, address, cartId)
+            const payload = yield response.json()
+            if(response.ok){
+                yield put(CartActions.setDefaultAddressSuccess()) 
+            }else{
+                yield put(CartActions.setDefaultAddressFail())
+            }
+        }catch(e){
+            console.log(e)
+        }
+    }
+
+}
 
 
 export const cartSaga = [
@@ -72,4 +95,9 @@ export const cartSaga = [
     takeLatest(CartTypes.REQUEST_CREATE_CHECKOUT, requestCreateCheckout),
     takeLatest(CartTypes.REQUEST_ADD_PRODUCT_TO_CHECKOUT, requestAddProductToCheckout),
     takeLatest(CartTypes.REQUEST_ADD_EMAIL_ADDRESS, requestAddEmailAddress),
+    takeLatest(CartTypes.REQUEST_ADD_EMAIL_ADDRESS, requestAddEmailAddress),
+    takeLatest(UserProfileTypes.REQUEST_USER_ADDRESS_SUCCESS, setDefaultAddress),
+    takeLatest(CartTypes.REQUEST_CREATE_CHECKOUT_SUCCESS, setDefaultAddress),
+    takeLatest(UserProfileTypes.REQUEST_LOGIN_SUCCESS, setDefaultAddress),
+    takeLatest(CartTypes.REQUEST_CART_DETAIL, setDefaultAddress),
 ]

@@ -60,10 +60,10 @@ const logout = (state) => {
 }
 
 const requestUserAddressSuccess = (state, action) => {
-    const defaultAddessId = action.payload.data.customer.defaultAddress.id
+    const defaultAddress = action.payload.data.customer.defaultAddress.id
     const addresses = normalizeAddress(action.payload.data.customer)
     return state.merge({
-        defaultAddress: defaultAddessId,
+        defaultAddress: defaultAddress,
         addresses
     })
 }
@@ -96,6 +96,15 @@ export const getIsLogin = (rootState) => {
     const isLogin = state.accessToken ? true : false
     return isLogin
 }
+export const getDefaultAddressId = (rootState) => {
+    const state = getReducer(rootState)
+    return state.defaultAddress
+}
+export const getAddressById = (rootState, id) => {
+    const state = getReducer(rootState)
+    return state.addresses.byIds[id]
+}
+
 
 //Normalize
 const normalizeAddress = (customer) => {
@@ -119,7 +128,7 @@ const normalizeAddress = (customer) => {
     }, {});
 
     return {
-        byIds: allIds,
-        allIds: addressByIds,
+        byIds: addressByIds,
+        allIds: allIds,
     }
 }
