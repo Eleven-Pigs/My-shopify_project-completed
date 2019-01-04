@@ -57,8 +57,6 @@ export function* requestAddEmailAddress(action) {
         const addressPayload = yield addressResponse.json()
         const emailPayload = yield emailResponse.json()
         if(addressResponse.ok && emailResponse.ok){
-            console.log('addresspayload', addressPayload)
-            console.log('emailpayload', emailPayload)
             yield put(CartActions.requestAddEmailAddressSuccess()) 
         }else{
             yield put(CartActions.requestCreateCheckoutFail())

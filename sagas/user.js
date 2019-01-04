@@ -1,6 +1,7 @@
 import { UserProfileTypes } from '../redux/user'
+import { CartTypes } from '../redux/cart'
 import { takeLatest, call, select, put } from 'redux-saga/effects';
-import { associateUserToCheckout, createAccessToken, renewAccessToken, registerUser } from '../api'
+import { getCustomerAddress, associateUserToCheckout, createAccessToken, renewAccessToken, registerUser } from '../api'
 import userActions from '../redux/user'
 import { getAccessToken, getExpiryAt } from '../redux/user'
 import { getId } from '../redux/cart'
@@ -73,7 +74,6 @@ export function* requestAssociateUserToCheckout(action) {
     try{
         const response =  yield call(associateUserToCheckout, accessToken, cartId)
         const payload = yield response.json()
-        console.log('payload= ', payload)
         if(response.ok){     
             yield put(userActions.requestAssociateUserToCheckoutSuccess()) 
         }else{
@@ -83,12 +83,28 @@ export function* requestAssociateUserToCheckout(action) {
         console.log(e)
     }
 }
-
+export function* requestUserAddress(action) {
+    const accessToken = yield select(getAccessToken)
+    try{
+        const response =  yield call(getCustomerAddress, accessToken)
+        const payload = yield response.json()
+        if(response.ok){     
+            yield put(userActions.requestUserAddressSuccess(payload)) 
+        }else{
+            yield put(userActions.requestUserAddressFail()) 
+        }
+    }catch(e){
+        console.log(e)
+    }
+}
 
 export const userSaga = [
     takeLatest(UserProfileTypes.REQUEST_LOGIN, requestLogin),
     takeLatest(UserProfileTypes.REQUEST_LOGIN_SUCCESS, requestAssociateUserToCheckout),
+    takeLatest(CartTypes.REQUEST_CREATE_CHECKOUT_SUCCESS, requestAssociateUserToCheckout),
     takeLatest(UserProfileTypes.REQUEST_REGISTER, requestRegister),
     takeLatest(UserProfileTypes.REQUEST_RENEW_ACCESS_TOKEN, requestRenewAccessToken),
-    takeLatest(UserProfileTypes.LOGOUT, logout)
+    takeLatest(UserProfileTypes.LOGOUT, logout),
+    takeLatest(UserProfileTypes.REQUEST_USER_ADDRESS, requestUserAddress),
+    takeLatest(UserProfileTypes.SET_ACCESS_TOKEN, requestUserAddress),
 ]

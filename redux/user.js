@@ -15,6 +15,9 @@ const { Types, Creators } = createActions({
     logout: null,
     requestAssociateUserToCheckoutSuccess: null,
     requestAssociateUserToCheckoutFail: null,
+    requestUserAddress: null,
+    requestUserAddressSuccess: ['payload'],
+    requestUserAddressFail: null,
   })
 
 export const UserProfileTypes = Types
@@ -24,6 +27,11 @@ const INITIAL_STATE = Immutable({
     isFetching: false,
     accessToken: '',
     expiresAt: '',
+    defaultAddress:'',
+    addresses:{
+        byIds:{},
+        allIds:[]
+    }
 })
 
 const requestLogin = (state, action) => {
@@ -51,10 +59,20 @@ const logout = (state) => {
     return INITIAL_STATE
 }
 
+const requestUserAddressSuccess = (state, action) => {
+    const defaultAddessId = action.payload.data.customer.defaultAddress.id
+    const addresses = normalizeAddress(action.payload.data.customer)
+    return state.merge({
+        defaultAddress: defaultAddessId,
+        addresses
+    })
+}
+
 export const user = createReducer(INITIAL_STATE, {
     [Types.REQUEST_LOGIN]: requestLogin,
     [Types.REQUEST_LOGIN_SUCCESS]: requestLoginSuccess,
     [Types.SET_ACCESS_TOKEN]: setAccessToken,
+    [Types.REQUEST_USER_ADDRESS_SUCCESS]: requestUserAddressSuccess,
     [Types.LOGOUT]: logout,
     
 })
@@ -79,4 +97,29 @@ export const getIsLogin = (rootState) => {
     return isLogin
 }
 
+//Normalize
+const normalizeAddress = (customer) => {
+    const edges = customer.addresses.edges
+    const allIds = edges.map(edge => {
+        const node = edge.node
+        return node.id
+    })
+    const addressByIds = edges.map(edge => {
+        const node = edge.node 
+        const id = node.id
 
+        return({
+            [id]: node
+        })
+    }).reduce((acc,ele) => {
+        const keys = Object.keys(ele)
+        const key = keys[0]
+        acc[key] = ele[key]
+        return acc
+    }, {});
+
+    return {
+        byIds: allIds,
+        allIds: addressByIds,
+    }
+}

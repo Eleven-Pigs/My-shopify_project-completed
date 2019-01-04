@@ -400,6 +400,39 @@ export const getMoneyFormat = () => {
     return fetchShopifyGraphql(graphQLQuery)
 }
 
+export const getCustomerAddress = (customerAccessToken) => {
+    const query = {
+        customer: {
+            __args: {
+                customerAccessToken: customerAccessToken 
+            },
+            defaultAddress: {
+                id: true
+            },
+            addresses: {
+                __args: {
+                    first: 250 
+                }, 
+                edges: {
+                    node: {
+                        id: true,
+                        address1: true,
+                        address2: true,
+                        city: true,
+                        country: true,
+                        firstName: true,
+                        lastName: true,
+                        province: true,
+                        zip: true,
+                    }
+                }
+            }
+        }
+    } 
+    const graphQLQuery = '{' +  jsonToGraphQLQuery(query, {pretty: true}) + '}'
+    return fetchShopifyGraphql(graphQLQuery)
+}
+
 export const createCheckout = () => {
     const mutation = 'mutation {checkoutCreate(input: { lineItems: [] }) { checkout { id webUrl } } }'
     return fetchShopifyGraphql(mutation)
