@@ -47,10 +47,10 @@ export default class LoginComponent extends React.Component {
                 <TouchableOpacity style = {{marginTop: 20, width: '50%', alignSelf: 'center',padding: 10,backgroundColor: theme.background}} onPress={this.loginPressed}>
                     <Text style = {{color:'white', textAlign: 'center', fontSize: 15, fontWeight: 'bold'}}>SIGN IN</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style = {{width: '50%', alignSelf: 'center'}} onPress={this.loginPressed}>
-                    <Text style = {{color:'white', textAlign: 'center', fontSize: 12,}}>Register</Text>
+                <TouchableOpacity style = {{width: '50%', alignSelf: 'center', marginTop: 20}} onPress={this.registerPressed}>
+                    <Text style = {{color: theme.background, textAlign: 'center', fontSize: 15,}}>Register</Text>
                 </TouchableOpacity>
-                <Button onPress={ this.registerPressed } title="Register"/>
+
 
         </View>
         )

@@ -43,9 +43,6 @@ const requestMoneyFormatSuccess = (state, action) => {
   return state.merge({
       isFetching: false,
       moneyFormat: shop.moneyFormat,
-      privacyPolicy: shop.privacyPolicy,
-      termsOfService: shop.termsOfService,
-      refundPolicy: shop.refundPolicy,
       name: shop.name,
       domain: shop.primaryDomain.url
   })
@@ -63,4 +60,8 @@ const getReducer = (rootState) => {
 export const getMoneyFormat = (rootState) => {
   const state = getReducer(rootState)
   return state.moneyFormat
+}
+export const getPrivacyPolicy = (rootState) => {
+  const state = getReducer(rootState)
+  return state.privacyPolicy
 }

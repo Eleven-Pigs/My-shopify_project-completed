@@ -9,6 +9,8 @@ import AccountScreen from '../screens/AccountScreen';
 import CollectionScreen from '../screens/CollectionScreen';
 import ShoppingCartScreen from '../screens/ShoppingCartScreen';
 import CartCounterContainer  from '../containers/CartCounter'
+import PolicyScreen from '../screens/PolicyScreen';
+
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
 },);
@@ -60,6 +62,7 @@ ShoppingCartStack.navigationOptions = {
 
 const AccountStack = createStackNavigator({
   Account: AccountScreen,
+  Policy: PolicyScreen
 });
 
 AccountStack.navigationOptions = {
