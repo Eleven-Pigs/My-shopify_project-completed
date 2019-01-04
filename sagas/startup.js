@@ -19,7 +19,7 @@ function checkExpiry(expiryAt){
 export function* start() {
     try{
         yield put(CollectionActions.requestCollectionList())
-        yield put(ShopActions.requestMoneyFormat())
+        yield put(ShopActions.requestShopDetail())
         const id = yield call([AsyncStorage, 'getItem'], 'cartId')
         if (id){
             yield put(CartActions.setCartId(id))

@@ -390,10 +390,22 @@ export const getCheckout = (id) => {
     return fetchShopifyGraphql(graphQLQuery)
 }
 
-export const getMoneyFormat = () => {
+export const getShopDetail = () => {
     const query = {
         shop: {
-            moneyFormat: true
+            moneyFormat: true,
+            privacyPolicy: {
+                title: true,
+                body: true
+            },
+            refundPolicy: {
+                title: true,
+                body: true
+            },
+            termsOfService: {
+                title: true,
+                body: true
+            }
         }
     } 
     const graphQLQuery = '{' +  jsonToGraphQLQuery(query, {pretty: true}) + '}'

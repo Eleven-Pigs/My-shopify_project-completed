@@ -2,14 +2,29 @@ import { createActions, createReducer } from 'reduxsauce'
 import Immutable from 'seamless-immutable'
 
 const { Types, Creators } = createActions({
-    requestMoneyFormat: null,
-    requestMoneyFormatSuccess: ['payload'],
-    requestMoneyFormatFail: null,
+    requestShopDetail: null,
+    requestShopDetailSuccess: ['payload'],
+    requestShopDetailFail: null,
     start: null,
   })
 
 const INITIAL_STATE = Immutable({
-    moneyFormat: "",
+    moneyFormat: '',
+    name: '',
+    url: '',
+    privacyPolicy: {
+      body: '',
+      title: '',
+    },
+    refundPolicy: {
+      body: '',
+      title: '',
+    },
+    
+    termsOfService: {
+      body: '',
+      title: '',
+    },
     isFetching: false,
 })
 
@@ -24,15 +39,19 @@ const requestMoneyFormat = (state) => {
   })
 }
 const requestMoneyFormatSuccess = (state, action) => {
+  const shop = action.payload.shop
   return state.merge({
       isFetching: false,
-      moneyFormat: action.payload.shop.moneyFormat
+      moneyFormat: shop.moneyFormat,
+      privacyPolicy: shop.privacyPolicy,
+      termsOfService: shop.termsOfService,
+      refundPolicy: shop.refundPolicy,
   })
 }
 
 export const shop = createReducer(INITIAL_STATE, {
-  [Types.REQUEST_MONEY_FORMAT]: requestMoneyFormat,
-  [Types.REQUEST_MONEY_FORMAT_SUCCESS]: requestMoneyFormatSuccess,
+  [Types.REQUEST_SHOP_DETAIL]: requestMoneyFormat,
+  [Types.REQUEST_SHOP_DETAIL_SUCCESS]: requestMoneyFormatSuccess,
 })
 
 const getReducer = (rootState) => {

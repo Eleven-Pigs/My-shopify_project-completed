@@ -1,24 +1,24 @@
 import { ShopTypes } from '../redux/shop'
 import { takeLatest, call, select, put } from 'redux-saga/effects';
-import { getMoneyFormat } from '../api'
+import { getShopDetail } from '../api'
 import ShopActions from '../redux/shop'
 
-export function* fetchMoneyFormat() {
+export function* fetchShopDetail() {
     try{
-        const response =  yield call(getMoneyFormat)
+        const response =  yield call(getShopDetail)
         const payload = yield response.json()
         if(response.ok){ 
-            yield put(ShopActions.requestMoneyFormatSuccess(payload.data))  
+            yield put(ShopActions.requestShopDetailSuccess(payload.data))  
         }else{
-            yield put(ShopActions.requestMoneyFormatFail())
+            yield put(ShopActions.requestShopDetailFail())
         }
     }catch(e){
-        yield put(ShopActions.requestMoneyFormatFail())
+        yield put(ShopActions.requestShopDetailFail())
         console.log('error',e)
     }
 }
 
 
 export const shopSaga = [
-    takeLatest(ShopTypes.REQUEST_MONEY_FORMAT, fetchMoneyFormat),
+    takeLatest(ShopTypes.REQUEST_SHOP_DETAIL, fetchShopDetail),
 ]
