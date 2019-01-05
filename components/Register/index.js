@@ -1,6 +1,6 @@
 import React from 'react';
 import { Title } from './style'
-import { Button, View, TouchableOpacity, Text } from 'react-native'
+import { Button, View, TouchableOpacity, Text, Alert } from 'react-native'
 import { TextField } from 'react-native-material-textfield';
 import { theme } from '../../constants/Theme'
 
@@ -13,6 +13,20 @@ export default class RegisterComponent extends React.Component {
 
     registerPressed = () => {
         this.props.onPressed(this.state.email, this.state.password)
+    }
+    componentDidUpdate(prevProps){
+        if(this.props.isRegisterError === true && prevProps.isRegisterError === false){
+            Alert.alert(
+                'Sorry',
+                this.props.errorText,
+                { cancelable: false }
+              )
+            this.props.registerErrorShown()
+        }
+        
+    }
+    componentWillUnmount(){
+        this.props.resetRegister()
     }
 
     render(){
@@ -33,7 +47,7 @@ export default class RegisterComponent extends React.Component {
                     secureTextEntry={true}
                     error={this.state.passwordError}
                 />
-                <TouchableOpacity style = {{marginTop: 20, width: '50%', alignSelf: 'center',padding: 10,backgroundColor: theme.background}} onPress={this.registerPressed}>
+                <TouchableOpacity disabled={this.props.isRequestingRegister}  style = {{marginTop: 20, width: '50%', alignSelf: 'center',padding: 10,backgroundColor: this.props.isRequestingRegister ? 'grey' : theme.background}} onPress={this.registerPressed}>
                     <Text style = {{color:'white', textAlign: 'center', fontSize: 15, fontWeight: 'bold'}}>SIGN UP</Text>
                 </TouchableOpacity>
 

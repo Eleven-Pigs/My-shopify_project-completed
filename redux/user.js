@@ -3,8 +3,9 @@ import Immutable from 'seamless-immutable'
 
 const { Types, Creators } = createActions({
     requestRegister: ['email','password'],
-    requestRegisterSuccess: ['payload'],
-    requestRegisterFail: null,
+    requestRegisterSuccess: null,
+    requestRegisterFail: ['error'],
+    registerErrorShown: null,
     requestLogin: ['email','password'],
     requestLoginSuccess: ['payload'],
     requestLoginFail: null,
@@ -18,31 +19,36 @@ const { Types, Creators } = createActions({
     requestUserAddress: null,
     requestUserAddressSuccess: ['payload'],
     requestUserAddressFail: null,
+    resetRegister: null,
   })
 
 export const UserProfileTypes = Types
 export default Creators
 
 const INITIAL_STATE = Immutable({
-    isFetching: false,
+    isFetchingLogin: false,
+    isFetchingRegister: false,
     accessToken: '',
     expiresAt: '',
     defaultAddress:'',
     addresses:{
         byIds:{},
         allIds:[]
-    }
+    },
+    fetchingRegisterError: false,
+    fetchingRegisterSuccess: false,
+    errorText: 'Something went wrong, please try again.'
 })
 
 const requestLogin = (state, action) => {
     return state.merge({
-        isFetching: true,
+        isFetchingLogin: true,
     })
 }
 const requestLoginSuccess = (state, action) => {
     const {accessToken, expiresAt} = action.payload
     return state.merge({
-        isFetching: false,
+        isFetchingLogin: false,
         accessToken: accessToken,
         expiresAt: expiresAt
     })
@@ -67,13 +73,53 @@ const requestUserAddressSuccess = (state, action) => {
         addresses
     })
 }
+const requestRegister = (state, action) => {
+    console.log('sfsdfsdfsdf')
+    return state.merge({
+        isFetchingRegister: true
+    })
+}
+const requestRegisterSuccess = (state, action) => {
+    return state.merge({
+        isFetchingRegister: false,
+        fetchingRegisterSuccess: true,
+    })
+}
+const requestRegisterFail = (state, action) => {
+    return state.merge({
+        isFetchingRegister: false,
+        fetchingRegisterError: true,
+        errorText: action.error ? action.error : INITIAL_STATE.errorText,
+    })
+}
+const registerErrorShown = (state, action) => {
+    return state.merge({
+        isFetchingRegister: false,
+        fetchingRegisterError: false,
+        errorText: action.error ? action.error : INITIAL_STATE.errorText,
+    })
+}
+export const resetRegister = (state) => {
+    return state.merge({
+        isFetchingRegister: false,
+        fetchingRegisterError: false,
+        errorText: INITIAL_STATE.errorText,
+        fetchingRegisterSuccess: false,
+    })
+}
 
 export const user = createReducer(INITIAL_STATE, {
     [Types.REQUEST_LOGIN]: requestLogin,
+    [Types.REQUEST_REGISTER]: requestRegister,
+    [Types.REQUEST_REGISTER_SUCCESS]: requestRegisterSuccess,
+    [Types.RESET_REGISTER]: resetRegister,
+    [Types.REQUEST_REGISTER_FAIL]: requestRegisterFail,
+    [Types.REGISTER_ERROR_SHOWN]: registerErrorShown,
     [Types.REQUEST_LOGIN_SUCCESS]: requestLoginSuccess,
     [Types.SET_ACCESS_TOKEN]: setAccessToken,
     [Types.REQUEST_USER_ADDRESS_SUCCESS]: requestUserAddressSuccess,
     [Types.LOGOUT]: logout,
+
     
 })
 
@@ -104,6 +150,25 @@ export const getAddressById = (rootState, id) => {
     const state = getReducer(rootState)
     return state.addresses.byIds[id]
 }
+export const getFetchingRegister = (rootState, id) => {
+    const state = getReducer(rootState)
+    return state.isFetchingRegister
+}
+export const getErrorText = (rootState, id) => {
+    const state = getReducer(rootState)
+    return state.errorText
+}
+export const getRegisterSuccess = (rootState, id) => {
+    const state = getReducer(rootState)
+    return state.fetchingRegisterSuccess
+}
+
+export const getFetchingRegisterError = (rootState, id) => {
+    const state = getReducer(rootState)
+    return state.fetchingRegisterError
+}
+
+
 
 //Normalize
 const normalizeAddress = (customer) => {

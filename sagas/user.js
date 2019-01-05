@@ -16,13 +16,18 @@ export function* requestRegister(action) {
     }
     const response =  yield call(registerUser, user)
     const payload = yield response.json()
-    if(response.ok){     
-        if (payload.data.customerCreate.customer){
-            yield put(userActions.requestRegisterSuccess())
+    console.log('sffsadf', payload, response.ok)
+    try{
+        if(response.ok){     
+            if (payload.data.customerCreate.customer){
+                yield put(userActions.requestRegisterSuccess())
+            }else{
+                yield put(userActions.requestRegisterFail(payload.data.customerCreate.customerUserErrors[0].message)) 
+            }
         }else{
             yield put(userActions.requestRegisterFail()) 
         }
-    }else{
+    }catch(e){
         yield put(userActions.requestRegisterFail()) 
     }
 }
