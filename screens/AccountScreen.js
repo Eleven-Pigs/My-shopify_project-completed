@@ -4,7 +4,7 @@ import  UserActions  from '../redux/user'
 import { connect } from 'react-redux'
 import { theme } from '../constants/Theme'
 import { getIsLogin } from '../redux/user'
-import { getPrivacyPolicy } from '../redux/shop'
+
 
 class Account extends React.Component {
   static navigationOptions = {
@@ -65,7 +65,6 @@ class Account extends React.Component {
 const mapStateToProps = state => {
   return {
     isLogin: getIsLogin(state),
-    privacyPolicy: getPrivacyPolicy(state),
   }
 }
 

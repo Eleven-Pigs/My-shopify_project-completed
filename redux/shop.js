@@ -61,7 +61,8 @@ export const getMoneyFormat = (rootState) => {
   const state = getReducer(rootState)
   return state.moneyFormat
 }
-export const getPrivacyPolicy = (rootState) => {
+
+export const getName = (rootState, id) => {
   const state = getReducer(rootState)
-  return state.privacyPolicy
+  return state.name
 }

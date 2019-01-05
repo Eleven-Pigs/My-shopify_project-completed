@@ -4,6 +4,7 @@ import  LoginComponent  from '../components/Login'
 import UserActions from '../redux/user'
 import { withNavigation, StackActions, NavigationActions } from 'react-navigation';
 import { getIsLogin } from '../redux/user'
+import { getName } from '../redux/shop'
 
 class Login extends React.Component {
   constructor(props){
@@ -29,7 +30,7 @@ class Login extends React.Component {
 
   render() {
     return (
-        <LoginComponent onPressed={this.props.onPressed} registerPressed={this.navigateToRegister}/>
+        <LoginComponent shopName={this.props.shopName} onPressed={this.props.onPressed} registerPressed={this.navigateToRegister}/>
     );
   }
 
@@ -38,7 +39,8 @@ class Login extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    isLogin: getIsLogin(state), 
+    isLogin: getIsLogin(state),
+    shopName: getName(state) 
   }
 }
 const mapDispatchToProps = dispatch => {

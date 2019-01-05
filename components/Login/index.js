@@ -31,6 +31,7 @@ export default class LoginComponent extends React.Component {
     render(){
     return(
         <View style = {{textAlign: 'center', justifyContent: 'center', padding: 30}}>
+                <Text style = {{textAlign: 'center', fontSize: 18}}>{this.props.shopName}</Text>
                 <TextField
                     label="Email"
                     value={this.state.email}

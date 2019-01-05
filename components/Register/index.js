@@ -19,6 +19,7 @@ export default class RegisterComponent extends React.Component {
     return(
 
         <View style = {{textAlign: 'center', justifyContent: 'center', padding: 30}}>
+                <Text style = {{textAlign: 'center', fontSize: 18}}>{this.props.shopName}</Text>
                 <TextField
                     label="Email"
                     value={this.state.email}

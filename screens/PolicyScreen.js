@@ -2,13 +2,13 @@ import React from 'react';
 import { ScrollView, SafeAreaView, SectionList, Text, View, TouchableOpacity , Alert} from 'react-native'
 import { theme } from '../constants/Theme'
 import { connect } from 'react-redux'
-import { getPrivacyPolicy } from '../redux/shop'
+
 import { SHOPIFY_STOREFRONT_ACCESS_TOKEN } from '../config/application'
 
 
 class Policy extends React.Component {
   static navigationOptions = ({navigation}) =>  ({
-    title: 'd',
+    title: navigation.getParam('title'),
   });
   constructor(props){
     super(props)
@@ -17,6 +17,7 @@ class Policy extends React.Component {
     }
   }
   componentDidMount(){
+
     if(this.props.navigation.getParam('title') === 'Privacy Policy'){
       this.getPrivacyPolicy()
     }
@@ -110,7 +111,7 @@ class Policy extends React.Component {
    
     return (
       <SafeAreaView>
-            <ScrollView>
+            <ScrollView style={{padding: 10}}>
               <Text>{this.state.body}</Text>
             </ScrollView>
       </SafeAreaView>

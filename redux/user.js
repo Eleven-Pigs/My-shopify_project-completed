@@ -105,7 +105,6 @@ export const getAddressById = (rootState, id) => {
     return state.addresses.byIds[id]
 }
 
-
 //Normalize
 const normalizeAddress = (customer) => {
     const edges = customer.addresses.edges
