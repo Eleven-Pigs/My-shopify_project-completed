@@ -12,19 +12,28 @@ class Login extends React.Component {
   }
   navigateToRegister = () => {
       this.props.navigation.navigate("RegisterScreen")
-    
   }
+  navigateToPayment = () => {
+    const resetAction = StackActions.reset({
+      index: 1,
+      actions: [
+        NavigationActions.navigate({ routeName: 'Main', action: NavigationActions.navigate({routeName: 'ShoppingCart'}) }),
+        NavigationActions.navigate({ routeName: 'Payment'})
+      ],
+      key: null 
+    })
+    this.props.navigation.dispatch(resetAction)
+  }
+
   componentDidUpdate = (prevProps) => {
     if(this.props.isLogin === true && prevProps.isLogin === false){
-      const resetAction = StackActions.reset({
-        index: 1,
-        actions: [
-          NavigationActions.navigate({ routeName: 'Main', action: NavigationActions.navigate({routeName: 'ShoppingCart'}) }),
-          NavigationActions.navigate({ routeName: 'Payment'})
-        ],
-        key: null 
-      })
-      this.props.navigation.dispatch(resetAction)
+      const isFromShoppingCart = this.props.navigation.getParam('ShoppingCartScreen', false)
+      console.log('asfasfd', isFromShoppingCart)
+      if(isFromShoppingCart){
+        navigateToPayment()
+      }else{
+        this.props.navigation.goBack(null)
+      }
     }
   }
 

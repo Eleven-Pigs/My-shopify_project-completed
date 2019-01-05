@@ -78,9 +78,9 @@ export function* setAddressToCheckout(action) {
             const response = yield call(addAddresstoCheckout, address, cartId)
             const payload = yield response.json()
             if(response.ok){
-                yield put(CartActions.setDefaultAddressSuccess()) 
+                yield put(CartActions.setAddressToCheckoutSuccess()) 
             }else{
-                yield put(CartActions.setDefaultAddressFail())
+                yield put(CartActions.setAddressToCheckoutFail())
             }
         }catch(e){
             console.log(e)

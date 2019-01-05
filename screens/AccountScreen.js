@@ -45,7 +45,7 @@ class Account extends React.Component {
     return (
       <SafeAreaView>
         <SectionList
-          renderItem={({item, index, section}) => <TouchableOpacity  key={index} style = {{padding: 10, paddingLeft: 20,backgroundColor: 'white'}} onPress={() => this.onPress(item)}><Text style = {{fontSize: 18}}>{item.title}</Text></TouchableOpacity>}
+          renderItem={({item, index, section}) => <TouchableOpacity  key={index} style = {{padding: 10, paddingLeft: 20,backgroundColor: 'white'}} onPress={() => this.onPress(item)}><Text style = {{fontSize: 18,  color: item.title === 'Login' ? theme.background : 'black' }}>{item.title}</Text></TouchableOpacity>}
           renderSectionHeader={() => (
             <View style={{height: 50}}></View>
           )}
