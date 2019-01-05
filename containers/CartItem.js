@@ -1,12 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import { getProductById, getProductTitle, getProductPrice, getProductImage, getProductQuantity, getProductVariantTitle } from '../redux/cart'
+import { getProductId, getProductTitle, getProductPrice, getProductImage, getProductQuantity, getProductVariantTitle } from '../redux/cart'
 import { CartItem as Item}  from '../components/CartItem'
 import { withNavigation } from 'react-navigation';
 
 class CartItem extends React.Component {
   navigateToProductList = () => {
-    const id = this.props.product.productId
+    const id = this.props.productId
      this.props.navigation.navigate('ProductDetailScreen',{
        productId: id
      })
@@ -29,6 +29,7 @@ class CartItem extends React.Component {
 const mapStateToProps = (state, ownProps) => {
   return {
     title: getProductTitle(state, ownProps.id),
+    productId: getProductId(state, ownProps.id),
     variantTitle: getProductVariantTitle(state, ownProps.id),
     price: getProductPrice(state, ownProps.id),
     image: getProductImage(state, ownProps.id),

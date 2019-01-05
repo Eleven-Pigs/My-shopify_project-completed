@@ -148,10 +148,6 @@ export const getProductById = (rootState, id) => {
     const state = getReducer(rootState)
     return state.products.byIds[id]
 }
-export const getCartItemCount = (rootState) => {
-    const state = getReducer(rootState)
-    return state.numberOfItems
-}
 export const getWebUrl = (rootState) => {
     const state = getReducer(rootState)
     return state.webUrl
@@ -160,6 +156,10 @@ export const getWebUrl = (rootState) => {
 export const getProductTitle = (rootState, id) => {
     const state = getReducer(rootState)
     return state.products.byIds[id].title
+}
+export const getProductId = (rootState, id) => {
+    const state = getReducer(rootState)
+    return state.products.byIds[id].productId
 }
 export const getProductVariantTitle = (rootState, id) => {
     const state = getReducer(rootState)
@@ -192,7 +192,11 @@ export const getShippingAddress = (rootState, id) => {
     
     return state.shippingAddress
 }
-
+export const getCartItemCount = (rootState, id) => {
+    const state = getReducer(rootState)
+    
+    return state.products.allIds.length
+}
 
 
 const normalizeCartDetail = (graphQLCart) => {

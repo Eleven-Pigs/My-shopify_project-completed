@@ -3,7 +3,7 @@ import { SafeAreaView, Alert } from 'react-native'
 import { connect } from 'react-redux'
 import CartListContainer  from '../containers/CartList'
 import { Checkout }  from '../components/Checkout'
-import { getTotalPrice, getShippingAddress } from '../redux/cart'
+import { getTotalPrice, getShippingAddress, getCartItemCount } from '../redux/cart'
 import { getIsLogin } from '../redux/user'
 
 class ShoppingCart extends React.Component {
@@ -47,7 +47,7 @@ class ShoppingCart extends React.Component {
     return (
         <SafeAreaView style = {{flex:1}}>
             <CartListContainer/>
-            <Checkout price={this.props.price} onPress={this.onPress}/>
+            <Checkout price={this.props.price} onPress={this.onPress} cartItemCount = {this.props.cartItemCount}/>
         </SafeAreaView>
     )
   }
@@ -59,6 +59,7 @@ const mapStateToProps = state => {
     price: getTotalPrice(state),
     isLogin: getIsLogin(state),
     shippingAddress: getShippingAddress(state),
+    cartItemCount: getCartItemCount(state)
   }
 }
 
