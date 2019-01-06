@@ -108,8 +108,6 @@ export function* setAddressToCheckout(action) {
             }catch(e){
                 console.log(e)
             }
-        }else{
-            console.log('faillll')
         }
     }catch(e){
             yield put(CartActions.setAddressToCheckoutFail())
