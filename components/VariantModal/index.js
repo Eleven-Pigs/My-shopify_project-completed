@@ -5,7 +5,9 @@ import { theme } from '../../constants/Theme'
 import VariantModalItem  from '../../containers/VariantModalItem'
 import { View } from 'react-native'
 import AddToCart from '../../containers/AddToCart'
-import {TouchableOpacity}  from 'react-native'
+import {TouchableOpacity, TouchableWithoutFeedback}  from 'react-native'
+
+
 export default class VariantModal extends React.Component {
     constructor(props){
         super(props)
@@ -18,10 +20,7 @@ export default class VariantModal extends React.Component {
         <StyledModal
           animationType="slide"
           transparent={true}
-          visible={this.props.visible}
-          onRequestClose={() => {
-           
-          }}>
+          visible={this.props.visible}>
             <StyledView>
                     <ModalContainer>
                         <ModalHeader>
@@ -71,7 +70,7 @@ export default class VariantModal extends React.Component {
                                />
                         </ModalContent>
                         
-                    </ModalContainer>
+                </ModalContainer>
             <AddToCart/>
             </StyledView>
         </StyledModal>

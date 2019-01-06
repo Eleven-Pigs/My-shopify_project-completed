@@ -8,7 +8,7 @@ export const AddToCart = ({ addToCart, price, isAvailableForSale }) => {
             <TextTotal >Total </TextTotal>
             <TextPrice>{price}</TextPrice>
             <ButtonView >
-              <AddToCartButton style = {{backgroundColor: isAvailableForSale ? theme.background : 'lightgrey'}}onPress={() => addToCart()}>
+              <AddToCartButton disabled={!isAvailableForSale} style = {{backgroundColor: isAvailableForSale ? theme.background : 'lightgrey'}}onPress={() => addToCart()}>
                 <TextButton>{isAvailableForSale ? 'Add to cart' : 'Sold Out'}</TextButton>
               </AddToCartButton>
             </ButtonView>

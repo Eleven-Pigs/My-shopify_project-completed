@@ -102,6 +102,7 @@ export function* clearCart() {
 
 export const cartSaga = [
     takeLatest(CartTypes.REQUEST_CART_DETAIL, fetchCartDetail),
+    takeLatest(CartTypes.REQUEST_ADD_PRODUCT_TO_CHECKOUT_SUCCESS, fetchCartDetail),
     takeLatest(CartTypes.REQUEST_CREATE_CHECKOUT, requestCreateCheckout),
     takeLatest(CartTypes.REQUEST_ADD_PRODUCT_TO_CHECKOUT, requestAddProductToCheckout),
     takeLatest(CartTypes.REQUEST_ADD_EMAIL_ADDRESS, requestAddEmailAddress),
