@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import CartActions from '../redux/cart'
 import { TextField } from 'react-native-material-textfield';
 import { getPrimaryColor } from '../redux/config';
-
+import { getAddEmailAddressSuccess, getIsFetching } from '../redux/cart'
 class AddAddress extends React.Component {
 
   static navigationOptions = {
@@ -174,12 +174,20 @@ class AddAddress extends React.Component {
       </View>
     )
   }
+  componentDidUpdate(prevProps){
+    if(prevProps.addEmailAddressSuccess === false && this.props.addEmailAddressSuccess === true){
+      this.props.navigation.navigate('PaymentScreen')
+    }
+  }
+  componentWillUnmount(){
+
+  }
 
   render() {
     return (
       <ScrollView style = {{textAlign: 'center', paddingBottom: 80}}>
       {this._renderAddressInput()}
-      <TouchableOpacity style = {{marginBottom: 80, marginTop: 20, width: '50%', alignSelf: 'center',padding: 10,backgroundColor: this.props.primaryColor}} onPress={this.onPress}>
+      <TouchableOpacity disabled={this.props.isFetching} style = {{marginBottom: 80, marginTop: 20, width: '50%', alignSelf: 'center',padding: 10,backgroundColor: this.props.primaryColor}} onPress={this.onPress}>
           <Text style = {{color:'white', textAlign: 'center', fontSize: 15, fontWeight: 'bold'}}>CONTINUE</Text>
       </TouchableOpacity>
       </ScrollView>
@@ -188,7 +196,9 @@ class AddAddress extends React.Component {
 }
 const mapStateToProps = state => {
   return {
-    primaryColor: getPrimaryColor(state)
+    primaryColor: getPrimaryColor(state),
+    addEmailAddressSuccess: getAddEmailAddressSuccess(state),
+    isFetching: getIsFetching(state)
   }
 }
 
@@ -197,6 +207,9 @@ const mapDispatchToProps = dispatch => {
   return {
     addEmailAddress: (email,address) => {
       dispatch(CartActions.requestAddEmailAddress(email,address))
+    },
+    resetEmailAddress: () => {
+      dispatch(CartActions.resetEmailAddress())
     },
   }
 }

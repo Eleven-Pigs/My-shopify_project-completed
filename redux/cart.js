@@ -24,6 +24,7 @@ const { Types, Creators } = createActions({
     setAddressToCheckoutSuccess: null,
     setAddressToCheckoutFail: null,
     clearCart: null,
+    resetEmailAddress: null
   })
 
 export const CartTypes = Types
@@ -44,6 +45,8 @@ const INITIAL_STATE = Immutable({
     shippingAddress: {},
     subTotalPrice: '',
     totalPrice: '',
+    addEmailAddressSuccess: false,
+
 })
 
 const addNumberOfItems = (state) => {
@@ -107,10 +110,17 @@ const requestAddEmailAddress = (state, action) => {
 const requestAddEmailAddressSuccess = (state, action) => {
     return state.merge({
         isFetching: false,
+        addEmailAddressSuccess: true,
     })
 }
 const clearCart = (state, action) => {
     return INITIAL_STATE
+}
+const resetEmailAddress = (state) => {
+    return state.merge({
+        isFetching: false,
+        addEmailAddressSuccess: false,
+    })
 }
 
 
@@ -128,6 +138,7 @@ export const cart = createReducer(INITIAL_STATE, {
     [Types.REQUEST_ADD_EMAIL_ADDRESS_SUCCESS]: requestAddEmailAddressSuccess,
     [Types.REQUEST_ADD_EMAIL_ADDRESS_SUCCESS]: requestAddEmailAddressSuccess,
     [Types.CLEAR_CART]: clearCart,
+    [Types.RESET_EMAIL_ADDRESS]: resetEmailAddress,
 })
 
 const getReducer = (rootState) => {
@@ -210,6 +221,10 @@ export const getIsAddingProductToCart = (rootState) => {
 export const getIsFetching = (rootState) => {
     const state = getReducer(rootState)
     return state.isFetching
+}
+export const getAddEmailAddressSuccess = (rootState) => {
+    const state = getReducer(rootState)
+    return state.addEmailAddressSuccess
 }
 
 

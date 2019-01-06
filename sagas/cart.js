@@ -76,9 +76,14 @@ export function* requestAddEmailAddress(action) {
         const addressPayload = yield addressResponse.json()
         const emailPayload = yield emailResponse.json()
         if(addressResponse.ok && emailResponse.ok){
-            yield put(CartActions.requestAddEmailAddressSuccess()) 
+            if(addressPayload.data.checkoutShippingAddressUpdateV2.userErrors.length === 0 && emailPayload.data.checkoutEmailUpdateV2.userErrors.length === 0){
+                yield put(CartActions.requestAddEmailAddressSuccess()) 
+            }else{
+                yield put(CartActions.requestAddEmailAddressFail())
+            }
+            
         }else{
-            yield put(CartActions.requestCreateCheckoutFail())
+            yield put(CartActions.requestAddEmailAddressFail())
         }
     }catch(e){
         console.log(e)
@@ -120,7 +125,6 @@ export const cartSaga = [
     takeLatest(CartTypes.REQUEST_ADD_PRODUCT_TO_CHECKOUT, requestAddProductToCheckout),
     takeLatest(CartTypes.REQUEST_REMOVE_PRODUCT_FROM_CHECKOUT_SUCCESS, fetchCartDetail),
     takeLatest(CartTypes.REQUEST_REMOVE_PRODUCT_FROM_CHECKOUT, requestRemoveProductFromCheckout),
-    takeLatest(CartTypes.REQUEST_ADD_EMAIL_ADDRESS, requestAddEmailAddress),
     takeLatest(CartTypes.REQUEST_ADD_EMAIL_ADDRESS, requestAddEmailAddress),
     takeLatest(UserProfileTypes.REQUEST_USER_ADDRESS_SUCCESS, setAddressToCheckout),
     takeLatest(CartTypes.REQUEST_CREATE_CHECKOUT_SUCCESS, setAddressToCheckout),
