@@ -1,5 +1,6 @@
 import { createActions, createReducer } from 'reduxsauce'
 import Immutable from 'seamless-immutable'
+import { SHOPIFY_NAME, SHOPIFY_URL } from '../config/application'
 
 const { Types, Creators } = createActions({
     requestShopDetail: null,
@@ -10,21 +11,8 @@ const { Types, Creators } = createActions({
 
 const INITIAL_STATE = Immutable({
     moneyFormat: '',
-    name: '',
-    domain: '',
-    privacyPolicy: {
-      body: '',
-      title: '',
-    },
-    refundPolicy: {
-      body: '',
-      title: '',
-    },
-    
-    termsOfService: {
-      body: '',
-      title: '',
-    },
+    name: SHOPIFY_NAME,
+    domain: SHOPIFY_URL,
     isFetching: false,
 })
 

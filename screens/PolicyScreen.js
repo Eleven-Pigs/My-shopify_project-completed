@@ -3,7 +3,7 @@ import { ScrollView, SafeAreaView, SectionList, Text, View, TouchableOpacity , A
 import { theme } from '../constants/Theme'
 import { connect } from 'react-redux'
 
-import { SHOPIFY_STOREFRONT_ACCESS_TOKEN } from '../config/application'
+import { SHOPIFY_STOREFRONT_ACCESS_TOKEN, SHOPIFY_URL } from '../config/application'
 
 
 class Policy extends React.Component {
@@ -37,7 +37,7 @@ class Policy extends React.Component {
   }
 
   getPrivacyPolicy = () => {
-    fetch('https://aslkdfjlasdfj.myshopify.com/api/graphql', {
+    fetch(SHOPIFY_URL + '/api/graphql', {
       method: 'POST',
       headers: {
       'Content-Type': 'application/graphql',
@@ -61,7 +61,7 @@ class Policy extends React.Component {
 
 
   getRefundPolicy = () => {
-    fetch('https://aslkdfjlasdfj.myshopify.com/api/graphql', {
+    fetch(SHOPIFY_URL + '/api/graphql', {
       method: 'POST',
       headers: {
       'Content-Type': 'application/graphql',
@@ -84,7 +84,7 @@ class Policy extends React.Component {
   }
 
   getTermsOfService = () => {
-    fetch('https://aslkdfjlasdfj.myshopify.com/api/graphql', {
+    fetch(SHOPIFY_URL + '/api/graphql', {
       method: 'POST',
       headers: {
       'Content-Type': 'application/graphql',

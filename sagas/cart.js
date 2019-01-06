@@ -10,16 +10,21 @@ import { getSelectedVariant, getSelectedCount } from '../redux/productDetail';
 
 export function* fetchCartDetail() {
     const cartId = yield select(getId)
-    const response =  yield call(getCheckout, cartId)
-    const payload = yield response.json()
-    if(response.ok){     
-        if(payload.data.node.order === null ){
-            yield put(CartActions.requestCartDetailSuccess(payload)) 
+    try{
+        const response =  yield call(getCheckout, cartId)
+        const payload = yield response.json()
+        if(response.ok){     
+            if(payload.data.node.order === null ){
+                yield put(CartActions.requestCartDetailSuccess(payload)) 
+            }else{
+                yield put(CartActions.requestCreateCheckout()) 
+            }
         }else{
-            yield put(CartActions.requestCreateCheckout()) 
+            yield put(CartActions.requestCartDetailFail())
         }
-    }else{
+    }catch(e){
         yield put(CartActions.requestCartDetailFail())
+        console.log(e)
     }
 }
 
@@ -104,6 +109,6 @@ export const cartSaga = [
     takeLatest(UserProfileTypes.REQUEST_USER_ADDRESS_SUCCESS, setAddressToCheckout),
     takeLatest(CartTypes.REQUEST_CREATE_CHECKOUT_SUCCESS, setAddressToCheckout),
     takeLatest(UserProfileTypes.REQUEST_LOGIN_SUCCESS, setAddressToCheckout),
-    takeLatest(CartTypes.REQUEST_CART_DETAIL, setAddressToCheckout),
+    takeLatest(CartTypes.REQUEST_CART_DETAIL_SUCCESS, setAddressToCheckout),
     takeLatest(UserProfileTypes.LOGOUT, clearCart),
 ]

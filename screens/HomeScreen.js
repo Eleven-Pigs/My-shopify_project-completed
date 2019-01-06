@@ -3,11 +3,15 @@ import React from 'react';
 import { connect } from 'react-redux'
 import { HomeComponent } from '../components/Home'
 import { SafeAreaView } from 'react-native';
-
+import { getName } from '../redux/shop'
 class Home extends React.Component {
-  static navigationOptions = {
-    header: null,
-  };
+  static navigationOptions =( { navigation } ) => {
+    return(
+      {
+        headerTitle: navigation.state.params ? navigation.state.params.title : '',
+      }
+    )
+  }
 
   handleProductClick = (handle) => {
     this.props.navigation.navigate('ProductDetailScreen', {
@@ -18,6 +22,9 @@ class Home extends React.Component {
     this.props.navigation.navigate('ProductListScreen', {
       handle: handle
     })
+  }
+  componentDidMount(){
+    this.props.navigation.setParams({ title: this.props.shopName })
   }
 
   render() {
@@ -31,7 +38,9 @@ class Home extends React.Component {
 }
 
 const mapStateToProps = state => {
-  return {}
+  return {
+    shopName: getName(state)
+  }
 }
 const mapDispatchToProps = dispatch => {
   return {}

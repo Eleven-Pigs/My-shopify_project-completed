@@ -1,9 +1,8 @@
 import { jsonToGraphQLQuery, EnumType } from 'json-to-graphql-query';
-import { SHOPIFY_STOREFRONT_ACCESS_TOKEN } from '../config/application'
+import { SHOPIFY_URL, SHOPIFY_STOREFRONT_ACCESS_TOKEN } from '../config/application'
 
 const fetchShopifyGraphql = (body) => {
-    
-    return fetch('https://aslkdfjlasdfj.myshopify.com/api/graphql', {
+    return fetch(SHOPIFY_URL + '/api/graphql', {
         method: 'POST',
         headers: {
             Accept: 'application/json',
@@ -15,7 +14,7 @@ const fetchShopifyGraphql = (body) => {
 }
 
 const fetchShopify = (path) => {
-    return fetch(`https://aslkdfjlasdfj.myshopify.com/admin/${path}`, {
+    return fetch(SHOPIFY_URL + `/admin/${path}`, {
         method: 'GET',
         headers: {
             Accept: 'application/json',
