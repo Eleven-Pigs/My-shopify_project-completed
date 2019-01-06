@@ -36,17 +36,7 @@ export class HomeComponent extends React.Component {
             
         `;
         return(
-                <WebView
-                source={{uri: this.props.shopUrl}}
-                injectedJavaScript={jsCode}
-                javaScriptEnabledAndroid={true}
-                onNavigationStateChange={this.navigationStateChangedHandler}
-                ref={c => {
-                    this.WebView = c;
-                  }}
-                startInLoadingState= {true}
-                renderLoading={this.loadingIndicator}
-                />
+<HomePlaceholder/>
 
         )
     }

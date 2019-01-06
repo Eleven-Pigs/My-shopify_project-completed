@@ -46,13 +46,13 @@ export const StyledModal = styled(Modal)`
 `
 export const ModalContainer = styled(View)`
     width: 100%;
-    height: 80%;
+    height: 60%;
     border-radius: 5px;
 `
 
 export const ModalHeader = styled(View)`
-    background-color: ${props => props.theme.background};
-    border-color: ${props => props.theme.listBackground};
+    background-color: red;
+    border-color: lightgrey;
     border-top-width: 1px;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
