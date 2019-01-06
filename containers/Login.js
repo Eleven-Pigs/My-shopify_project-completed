@@ -3,9 +3,12 @@ import { connect } from 'react-redux'
 import  LoginComponent  from '../components/Login'
 import UserActions from '../redux/user'
 import { withNavigation, StackActions, NavigationActions } from 'react-navigation';
-import { getIsLogin } from '../redux/user'
+import { getIsLogin, getIsFetching, getLoginError } from '../redux/user'
 import { getName } from '../redux/shop'
 import { getPrimaryColor } from '../redux/config';
+import { Alert } from 'react-native'
+
+
 
 class Login extends React.Component {
   constructor(props){
@@ -29,18 +32,28 @@ class Login extends React.Component {
   componentDidUpdate = (prevProps) => {
     if(this.props.isLogin === true && prevProps.isLogin === false){
       const isFromShoppingCart = this.props.navigation.getParam('ShoppingCartScreen', false)
-      console.log('asfasfd', isFromShoppingCart)
       if(isFromShoppingCart){
-        navigateToPayment()
+        this.navigateToPayment()
       }else{
         this.props.navigation.goBack(null)
       }
+    }
+    if(this.props.loginError === true && prevProps.loginError === false){
+      Alert.alert(
+        'Sorry',
+        'You have submit and incorrect password or email',
+        [
+          {text: 'OK', onPress: () => console.log('OK Pressed')},
+        ],
+        { cancelable: false }
+      )
+      this.props.resetLoginError()
     }
   }
 
   render() {
     return (
-        <LoginComponent primaryColor={this.props.primaryColor} shopName={this.props.shopName} onPressed={this.props.onPressed} registerPressed={this.navigateToRegister}/>
+        <LoginComponent isFetching={this.props.isFetching} primaryColor={this.props.primaryColor} shopName={this.props.shopName} onPressed={this.props.onPressed} registerPressed={this.navigateToRegister}/>
     );
   }
 
@@ -52,12 +65,17 @@ const mapStateToProps = state => {
     isLogin: getIsLogin(state),
     shopName: getName(state),
     primaryColor: getPrimaryColor(state),
+    isFetching: getIsFetching(state),
+    loginError: getLoginError(state)
   }
 }
 const mapDispatchToProps = dispatch => {
   return {
     onPressed: (email, password) => {
       dispatch(UserActions.requestLogin(email, password))
+    },
+    resetLoginError: () => {
+      dispatch(UserActions.resetLoginError())
     }
   }
 }

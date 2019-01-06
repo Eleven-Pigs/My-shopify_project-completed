@@ -16,7 +16,7 @@ class ShoppingCart extends React.Component {
   };
 
   navigateToLogin = () => {
-    this.props.navigation.navigate('LoginScreen',{})
+    this.props.navigation.navigate('LoginScreen',{'ShoppingCartScreen': true})
   }
 
   continueAsGuest = () => {

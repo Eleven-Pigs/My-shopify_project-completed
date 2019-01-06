@@ -11,7 +11,7 @@ export default class VariantModalItem extends React.Component {
         return(
             <StyledView>
                 <StyledTouchableOpacity disabled = {!this.props.variant.availableForSale} onPress = {this.props.onItemPress} style = {{borderColor: this.props.isSelected ? this.props.primaryColor : 'grey'}}>
-                    <StyledText style = {{ textDecorationLine: this.props.variant.availableForSale ? "" : "line-through", color: this.props.variant.availableForSale ? 'black' : 'grey'}}>{this.props.variant.title}</StyledText>
+                    <StyledText style = {{ textDecorationLine: this.props.variant.availableForSale ? "none" : "line-through", color: this.props.variant.availableForSale ? 'black' : 'grey'}}>{this.props.variant.title}</StyledText>
                 </StyledTouchableOpacity>
             </StyledView>
         )

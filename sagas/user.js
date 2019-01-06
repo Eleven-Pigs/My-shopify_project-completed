@@ -40,14 +40,19 @@ export function* requestLogin(action) {
     }
     const response =  yield call(createAccessToken, user)
     const payload = yield response.json()
-    if(response.ok){     
-        yield put(userActions.requestLoginSuccess(payload.data.customerAccessTokenCreate.customerAccessToken)) 
-        const accessToken = yield select(getAccessToken)
-        const expiryAt = yield select(getExpiryAt)
-        yield call([AsyncStorage, 'setItem'], 'accessToken', accessToken)   
-        yield call([AsyncStorage, 'setItem'], 'expiryAt', expiryAt) 
+    if(response.ok){
+        if(payload.data.customerAccessTokenCreate.customerAccessToken){
+            yield put(userActions.requestLoginSuccess(payload.data.customerAccessTokenCreate.customerAccessToken)) 
+            const accessToken = yield select(getAccessToken)
+            const expiryAt = yield select(getExpiryAt)
+            yield call([AsyncStorage, 'setItem'], 'accessToken', accessToken)   
+            yield call([AsyncStorage, 'setItem'], 'expiryAt', expiryAt) 
+        }else{
+            yield put(userActions.requestLoginFail(null)) 
+        }
+
     }else{
-        yield put(userActions.requestLoginFail(payload)) 
+        yield put(userActions.requestLoginFail()) 
     }
 }
 
@@ -93,8 +98,13 @@ export function* requestUserAddress(action) {
     try{
         const response =  yield call(getCustomerAddress, accessToken)
         const payload = yield response.json()
-        if(response.ok){     
-            yield put(userActions.requestUserAddressSuccess(payload)) 
+        if(response.ok){  
+            if(payload.data.customer.addresses.edges.length > 0){
+                yield put(userActions.requestUserAddressSuccess(payload)) 
+            }else{
+                yield put(userActions.requestUserAddressSuccessEmpty(payload)) 
+            }
+            
         }else{
             yield put(userActions.requestUserAddressFail()) 
         }

@@ -20,6 +20,8 @@ const { Types, Creators } = createActions({
     requestUserAddressSuccess: ['payload'],
     requestUserAddressFail: null,
     resetRegister: null,
+    requestUserAddressSuccessEmpty: null,
+    resetLoginError: null,
   })
 
 export const UserProfileTypes = Types
@@ -28,6 +30,7 @@ export default Creators
 const INITIAL_STATE = Immutable({
     isFetchingLogin: false,
     isFetchingRegister: false,
+    loginError: false,
     accessToken: '',
     expiresAt: '',
     defaultAddress:'',
@@ -74,7 +77,6 @@ const requestUserAddressSuccess = (state, action) => {
     })
 }
 const requestRegister = (state, action) => {
-    console.log('sfsdfsdfsdf')
     return state.merge({
         isFetchingRegister: true
     })
@@ -108,6 +110,17 @@ export const resetRegister = (state) => {
     })
 }
 
+export const requestLoginFail = (state) => {
+    return state.merge({
+        loginError: true,
+        isFetchingLogin: false,
+    })
+}
+export const resetLoginError = (state) => {
+    return state.merge({
+        loginError: false,
+    })
+}
 export const user = createReducer(INITIAL_STATE, {
     [Types.REQUEST_LOGIN]: requestLogin,
     [Types.REQUEST_REGISTER]: requestRegister,
@@ -119,8 +132,8 @@ export const user = createReducer(INITIAL_STATE, {
     [Types.SET_ACCESS_TOKEN]: setAccessToken,
     [Types.REQUEST_USER_ADDRESS_SUCCESS]: requestUserAddressSuccess,
     [Types.LOGOUT]: logout,
-
-    
+    [Types.REQUEST_LOGIN_FAIL]: requestLoginFail,
+    [Types.RESET_LOGIN_ERROR]: resetLoginError,
 })
 
 const getReducer = (rootState) => {
@@ -167,8 +180,14 @@ export const getFetchingRegisterError = (rootState, id) => {
     const state = getReducer(rootState)
     return state.fetchingRegisterError
 }
-
-
+export const getIsFetching = (rootState) => {
+    const state = getReducer(rootState)
+    return state.isFetchingLogin
+}
+export const getLoginError = (rootState) => {
+    const state = getReducer(rootState)
+    return state.loginError
+}
 
 //Normalize
 const normalizeAddress = (customer) => {

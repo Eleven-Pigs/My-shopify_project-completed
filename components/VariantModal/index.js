@@ -26,9 +26,9 @@ export default class VariantModal extends React.Component {
                         <ModalHeader>
                             <StyledImage resizeMode='contain' source = {{uri: this.props.selectedVariantImage}}/>
                             <HeaderView>
-                                <View style = {{ flexDirection: 'row', alignItems: 'center'}}>
-                                    <StyledText>{this.props.title}</StyledText>
-                                    <TouchableOpacity onPress={this.props.cancelPressed} style = {{flex:1, flexDirection: 'row',  justifyContent: 'flex-end' }} >
+                                <View style = {{ flexDirection: 'row'}}>
+                                    <StyledText style ={{flex:8}}>{this.props.title}</StyledText>
+                                    <TouchableOpacity onPress={this.props.cancelPressed} style = {{flex:2, flexDirection: 'row',  justifyContent: 'flex-end' }} >
                                         <Icon.Entypo
                                             name='cross'
                                             size={26}

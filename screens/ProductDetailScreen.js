@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView, View, Button, Text, TouchableOpacity } from 'react-native'
+import { SafeAreaView, View, ScrollView } from 'react-native'
 import ProductDetail from '../containers/ProductDetail'
 import ProductImage from '../containers/ProductImage'
 import AddToCart from '../containers/AddToCart'
@@ -38,13 +38,13 @@ class ProductDetailScreen extends React.Component {
       )
     }else{
       return (
-          <View style = {{flex:1,backgroundColor: theme.listBackground}}>
-            <View style = {{flex:6}}>
+          <View style = {{backgroundColor: theme.listBackground}}>
+            <View style = {{height: 400}}>
               <ProductImage/>
             </View>
-            <View style = {{flex: 4}}>
+
               <ProductDetail/>
-            </View>
+
           </View>
         
       )
@@ -54,7 +54,11 @@ class ProductDetailScreen extends React.Component {
   render = () => {
     return (
       <SafeAreaView style = {{flex:1}}>
-        {this._renderProductDetail(this.props.isFetching)}
+        <ScrollView style = {{ backgroundColor: theme.listBackground}}>
+          <View style = {{paddingBottom:  90,}}>
+          {this._renderProductDetail(this.props.isFetching)}
+          </View>
+        </ScrollView>
         <AddToCart  />
       </SafeAreaView>
     )

@@ -94,20 +94,26 @@ export function* setAddressToCheckout(action) {
     const defaultAddressId = yield select(getDefaultAddressId)
     const isLogin = yield select(getIsLogin)
     const cartAddress = yield select(getShippingAddress)
-
-    if(isLogin && cartId && defaultAddressId && !cartAddress){
-        const address = yield select(getAddressById, defaultAddressId)
-        try{
-            const response = yield call(addAddresstoCheckout, address, cartId)
-            const payload = yield response.json()
-            if(response.ok){
-                yield put(CartActions.setAddressToCheckoutSuccess()) 
-            }else{
-                yield put(CartActions.setAddressToCheckoutFail())
+    try{
+        if(isLogin && cartId && defaultAddressId && !cartAddress){
+            const address = yield select(getAddressById, defaultAddressId)
+            try{
+                const response = yield call(addAddresstoCheckout, address, cartId)
+                const payload = yield response.json()
+                if(response.ok){
+                    yield put(CartActions.setAddressToCheckoutSuccess()) 
+                }else{
+                    yield put(CartActions.setAddressToCheckoutFail())
+                }
+            }catch(e){
+                console.log(e)
             }
-        }catch(e){
-            console.log(e)
+        }else{
+            console.log('faillll')
         }
+    }catch(e){
+            yield put(CartActions.setAddressToCheckoutFail())
+            console.log(e)
     }
 
 }

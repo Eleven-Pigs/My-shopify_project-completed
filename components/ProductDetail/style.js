@@ -16,7 +16,7 @@ export const VariantImage = styled(Image)`
 `
 export const MainView = styled(View)`
     flex: 1;
-
+    padding-bottom: 10px;
 `
 
 export const VariantText = styled(Text)`
@@ -41,6 +41,7 @@ export const VariantView = styled(View)`
     padding-left: 20px;
     background-color: white;
     margin-top: 5px;
+
 `
 
 export const StyledImage = styled(Image)`
