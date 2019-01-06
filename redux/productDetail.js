@@ -42,8 +42,7 @@ const requestProductDetail = (state) => {
 }
 const requestProductDetailSuccess = (state, action) => {
     const product = normalizeProductDetail(action.payload)
-    const index = product.variants.allIds.length - 1
-    const defaultVariantId = product.variants.allIds[index]
+    const defaultVariantId = product.variants.allIds[0]
     
     return state.merge({
         isFetching: false,
@@ -158,9 +157,10 @@ export const getSelectedVariant = (rootState) => {
     const state = getReducer(rootState)
     return state.selectedVariant
 }
-
-
-
+export const getVariantCount = (rootState) => {
+    const state = getReducer(rootState)
+    return state.variants.allIds.length
+}
 
 export const getTitle = (rootState) => {
     const state = getReducer(rootState)

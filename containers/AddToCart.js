@@ -1,10 +1,11 @@
 import { connect } from 'react-redux'
-import { getSelectedVariantImage, getSelectedVariantTitle, getTitle, getAvailableForSale,getDescriptionHtml, getTotalPrice } from '../redux/productDetail'
+import {  getAvailableForSale, getTotalPrice } from '../redux/productDetail'
 import { AddToCart } from '../components/AddToCart'
 import CartActions from '../redux/cart'
 const mapStateToProps = state => {
   return {
     price: getTotalPrice(state),
+    isAvailableForSale: getAvailableForSale(state)
   }
 }
 const mapDispatchToProps = dispatch => {

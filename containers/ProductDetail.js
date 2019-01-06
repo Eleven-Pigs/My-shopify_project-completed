@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import { getSelectedVariantImage, getSelectedVariantTitle, getTitle, getAvailableForSale,getDescriptionHtml, getTotalPrice, getDescription  } from '../redux/productDetail'
+import { getVariantCount, getSelectedVariantImage, getSelectedVariantTitle, getTitle, getAvailableForSale,getDescriptionHtml, getTotalPrice, getDescription  } from '../redux/productDetail'
 import { getIsProductAdded } from '../redux/cart'
 import { withNavigation } from 'react-navigation';
 import  ProductDetailComponent  from '../components/ProductDetail'
@@ -29,6 +29,7 @@ class ProductDetail extends React.Component {
           navigateToCart={this.navigateToCart}
           resetIsAddedToCart={this.props.resetIsAddedToCart}
           addToCart={this.addToCart}
+          variantCount={this.props.variantCount}
         />
     );
   }
@@ -44,7 +45,8 @@ const mapStateToProps = state => {
     price: getTotalPrice(state),
     variantTitle: getSelectedVariantTitle(state),
     variantImage: getSelectedVariantImage(state),
-    isProductAdded: getIsProductAdded(state)
+    isProductAdded: getIsProductAdded(state),
+    variantCount: getVariantCount(state)
   }
 }
 const mapDispatchToProps = dispatch => {

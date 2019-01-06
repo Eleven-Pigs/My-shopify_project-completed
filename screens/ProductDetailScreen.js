@@ -55,7 +55,7 @@ class ProductDetailScreen extends React.Component {
     return (
       <SafeAreaView style = {{flex:1}}>
         {this._renderProductDetail(this.props.isFetching)}
-        <AddToCart/>
+        <AddToCart  />
       </SafeAreaView>
     )
   }

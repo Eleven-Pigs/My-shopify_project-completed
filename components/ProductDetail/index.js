@@ -41,6 +41,21 @@ export default class ProductDetailComponent extends React.Component {
         }
       }
 
+    _renderSelectedVariant = (availableForSale, variantCount) => {
+        if(availableForSale && variantCount > 1){
+            return (
+                <VariantView>
+                    <TouchableOpacity onPress = {this.openModal}>
+                        <VariantText>Selected Variant</VariantText>
+                        <VariantTitle>{this.props.variantTitle}</VariantTitle>
+                    </TouchableOpacity>
+                </VariantView>
+            )
+        }else{
+            return null
+        }
+
+    }
 
     render() {
         return (
@@ -59,12 +74,7 @@ export default class ProductDetailComponent extends React.Component {
                 <HeaderView>
                     <Title>{this.props.title}</Title>
                 </HeaderView>
-                <VariantView>
-                    <TouchableOpacity onPress = {this.openModal}>
-                        <VariantText>Selected Variant</VariantText>
-                        <VariantTitle>{this.props.variantTitle}</VariantTitle>
-                    </TouchableOpacity>
-                </VariantView>
+                {this._renderSelectedVariant(this.props.availableForSale, this.props.variantCount)}
                 <VariantView>
                     <TouchableOpacity onPress = {this.openDescriptionModal}>
                         <VariantText>Description</VariantText>
