@@ -49,7 +49,7 @@ export function* requestAddProductToCheckout() {
     const payload = yield response.json()
     if(response.ok){
         yield put(CartActions.requestAddProductToCheckoutSuccess(payload)) 
-        yield put(CartActions.requestCartDetail())
+
     }else{
         yield put(CartActions.requestAddProductToCheckoutFail())
     }
@@ -60,10 +60,8 @@ export function* requestRemoveProductFromCheckout(action) {
     const cartId = yield select(getId) 
     const response = yield call(removeProductFromCheckout, lineItemId, cartId)
     const payload = yield response.json()
-    console.log('safasdfsad', payload)
     if(response.ok){
-        yield put(CartActions.requestRemoveProductFromCheckoutSuccess(payload)) 
-        yield put(CartActions.requestCartDetail())
+        yield put(CartActions.requestRemoveProductFromCheckoutSuccess(payload))
     }else{
         yield put(CartActions.requestRemoveProductFromCheckoutFail())
     }
@@ -120,6 +118,7 @@ export const cartSaga = [
     takeLatest(CartTypes.REQUEST_ADD_PRODUCT_TO_CHECKOUT_SUCCESS, fetchCartDetail),
     takeLatest(CartTypes.REQUEST_CREATE_CHECKOUT, requestCreateCheckout),
     takeLatest(CartTypes.REQUEST_ADD_PRODUCT_TO_CHECKOUT, requestAddProductToCheckout),
+    takeLatest(CartTypes.REQUEST_REMOVE_PRODUCT_FROM_CHECKOUT_SUCCESS, fetchCartDetail),
     takeLatest(CartTypes.REQUEST_REMOVE_PRODUCT_FROM_CHECKOUT, requestRemoveProductFromCheckout),
     takeLatest(CartTypes.REQUEST_ADD_EMAIL_ADDRESS, requestAddEmailAddress),
     takeLatest(CartTypes.REQUEST_ADD_EMAIL_ADDRESS, requestAddEmailAddress),

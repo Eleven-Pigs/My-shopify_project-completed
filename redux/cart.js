@@ -186,19 +186,26 @@ export const getProductQuantity = (rootState, id) => {
 export const getTotalPrice = (rootState, id) => {
     const state = getReducer(rootState)
     const moneyFormat = getMoneyFormat(rootState)
-    const price = moneyFormat.replace(/{{amount}}/,state.totalPrice)
+    const itemCount = getCartItemCount(rootState)
+    const price = itemCount > 0 ? state.totalPrice : '0.00'
+    const priceFormatted = moneyFormat.replace(/{{amount}}/, price)
     
-    return price
+    return priceFormatted
 }
 export const getShippingAddress = (rootState, id) => {
     const state = getReducer(rootState)
     
     return state.shippingAddress
 }
-export const getCartItemCount = (rootState, id) => {
+export const getCartItemCount = (rootState) => {
     const state = getReducer(rootState)
     
     return state.products.allIds.length
+}
+
+export const getIsAddingProductToCart = (rootState) => {
+    const state = getReducer(rootState)
+    return state.isFetching
 }
 
 
