@@ -5,7 +5,7 @@ import  CollectionListContainer  from '../containers/CollectionList'
 import SearchContainer from '../containers/Search'
 import CollectionPlaceholder from '../components/Placeholder/CollectionPlaceholder'
 import { getIsLoading } from '../redux/collection'
-import { theme } from '../constants/Theme'
+
 class Collection extends React.Component {
   constructor(props){
     super(props)

@@ -24,7 +24,7 @@ export const  TextTotal= styled(Text)`
 `
 export const MainView = styled(View)`
     height: 80px;
-    border-color: grey;
+    border-color: lightgrey;
     border-top-width: 1;
     background-color: white;
     width: 100%;

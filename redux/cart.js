@@ -207,6 +207,10 @@ export const getIsAddingProductToCart = (rootState) => {
     const state = getReducer(rootState)
     return state.isFetching
 }
+export const getIsFetching = (rootState) => {
+    const state = getReducer(rootState)
+    return state.isFetching
+}
 
 
 const normalizeCartDetail = (graphQLCart) => {

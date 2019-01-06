@@ -1,15 +1,21 @@
 import { connect } from 'react-redux'
 import { CartList } from '../components/CartList'
-import { getAllProductIds } from '../redux/cart'
-
+import { getAllProductIds, getIsFetching } from '../redux/cart'
+import CartActions from '../redux/cart'
 const mapStateToProps = (state) => {
   return {
-    productIds: getAllProductIds(state)
+    productIds: getAllProductIds(state),
+    isFetching: getIsFetching(state)
   }
 }
-
+const mapDispatchToProps = dispatch => {
+  return {
+    onRefresh:() => { dispatch(CartActions.requestCartDetail())}
+  }
+}
 const CartListContainer = connect(
-  mapStateToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(CartList)
 
 export default CartListContainer
