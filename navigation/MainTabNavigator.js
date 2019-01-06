@@ -1,16 +1,13 @@
 import React from 'react';
-import { Platform, View, Text } from 'react-native';
+import { View } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
-import { theme } from '../constants/Theme'
-import Ionicons from '../components/Reusable/TabBarIcon/Ionicons';
-import Materialicons from '../components/Reusable/TabBarIcon/Materialicons';
 import HomeScreen from '../screens/HomeScreen';
 import AccountScreen from '../screens/AccountScreen';
 import CollectionScreen from '../screens/CollectionScreen';
 import ShoppingCartScreen from '../screens/ShoppingCartScreen';
 import CartCounterContainer  from '../containers/CartCounter'
 import PolicyScreen from '../screens/PolicyScreen';
-
+import Icon  from '../containers/Icon'
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
 },);
@@ -19,9 +16,10 @@ const HomeStack = createStackNavigator({
 HomeStack.navigationOptions = {
   tabBarLabel: 'Home',
   tabBarIcon: ({ focused }) => (
-    <Ionicons
+    <Icon
       focused={focused}
       name='md-home'
+      icon='Ionicon'
     />
   ),
 };
@@ -33,10 +31,11 @@ const CollectionStack = createStackNavigator({
 CollectionStack.navigationOptions = {
   tabBarLabel: 'Search',
   tabBarIcon: ({ focused }) => (
-    <Materialicons
+    <Icon
       focused={focused}
       name='search'
-    />
+      icon='Materialicon'
+    />    
   ),
 };
 
@@ -49,11 +48,12 @@ ShoppingCartStack.navigationOptions = {
   tabBarLabel: 'Shopping Cart',
   tabBarIcon: ({ focused }) => (
     <View>
-    <Materialicons
-      focused={focused}
-      name='shopping-cart'
-    />
-    <CartCounterContainer/>
+      <Icon
+        focused={focused}
+        name='shopping-cart'
+        icon='Materialicon'
+      />  
+      <CartCounterContainer/>
     </View>
 
   ),
@@ -68,10 +68,11 @@ const AccountStack = createStackNavigator({
 AccountStack.navigationOptions = {
   tabBarLabel: 'Account',
   tabBarIcon: ({ focused }) => (
-    <Materialicons
-      focused={focused}
-      name='account-box'
-    />
+    <Icon
+    focused={focused}
+    name='account-box'
+    icon='Materialicon'
+    /> 
   ),
 };
 
@@ -84,8 +85,6 @@ export default createBottomTabNavigator({
   lazy: false,
   tabBarOptions: {
     showLabel: false,
-    activeTintColor: theme.background,
-    inactiveTintColor: theme.iconLight,
     labelStyle: {
       fontSize: 12,
     },
