@@ -13,7 +13,7 @@ export default Creators
 const INITIAL_STATE = Immutable({
     baseURL: SHOPIFY_URL,
     shopifyStoreAccessToken: SHOPIFY_STOREFRONT_ACCESS_TOKEN,
-    primaryColor: theme.background,
+    primaryColor: 'red',
     backgroundColor: theme.listBackground
 })
 

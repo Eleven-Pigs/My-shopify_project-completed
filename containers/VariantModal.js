@@ -2,6 +2,7 @@ import { connect } from 'react-redux'
 import { getAllVariantsId, getSelectedVariantImage, getVariantPrice, getSelectedCount, getTitle  } from '../redux/productDetail'
 import  VariantModal from '../components/VariantModal'
 import ProductDetailActions from '../redux/productDetail'
+import { getPrimaryColor } from '../redux/config'
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -9,7 +10,8 @@ const mapStateToProps = (state, ownProps) => {
     selectedVariantImage: getSelectedVariantImage(state),
     title: getTitle(state),
     selectedVariantPrice: getVariantPrice(state),
-    selectedCount: getSelectedCount(state)
+    selectedCount: getSelectedCount(state),
+    primaryColor: getPrimaryColor(state),
   }
 }
 const mapDispatchToProps = dispatch => {

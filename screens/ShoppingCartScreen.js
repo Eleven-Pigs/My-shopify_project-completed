@@ -5,6 +5,7 @@ import CartListContainer  from '../containers/CartList'
 import { Checkout }  from '../components/Checkout'
 import { getTotalPrice, getShippingAddress, getCartItemCount } from '../redux/cart'
 import { getIsLogin } from '../redux/user'
+import { getPrimaryColor } from '../redux/config'
 
 class ShoppingCart extends React.Component {
   constructor(props){
@@ -47,7 +48,7 @@ class ShoppingCart extends React.Component {
     return (
         <SafeAreaView style = {{flex:1}}>
             <CartListContainer/>
-            <Checkout price={this.props.price} onPress={this.onPress} cartItemCount = {this.props.cartItemCount}/>
+            <Checkout primaryColor={this.props.primaryColor} price={this.props.price} onPress={this.onPress} cartItemCount = {this.props.cartItemCount}/>
         </SafeAreaView>
     )
   }
@@ -59,7 +60,8 @@ const mapStateToProps = state => {
     price: getTotalPrice(state),
     isLogin: getIsLogin(state),
     shippingAddress: getShippingAddress(state),
-    cartItemCount: getCartItemCount(state)
+    cartItemCount: getCartItemCount(state),
+    primaryColor: getPrimaryColor(state)
   }
 }
 

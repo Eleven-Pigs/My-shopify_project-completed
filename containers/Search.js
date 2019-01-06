@@ -1,12 +1,14 @@
 
 import { connect } from 'react-redux'
 import  SearchBox  from '../components/Search'
+import { getPrimaryColor } from '../redux/config';
 
 
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    defaultValue: ownProps.defaultValue
+    defaultValue: ownProps.defaultValue,
+    primaryColor: getPrimaryColor(state)
   }
 }
 const mapDispatchToProps = (dispatch, ownProps) => {

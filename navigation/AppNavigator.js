@@ -1,4 +1,4 @@
-import { createSwitchNavigator, createAppContainer, createStackNavigator, HeaderBackButton } from 'react-navigation';
+import { createSwitchNavigator, createAppContainer, createStackNavigator } from 'react-navigation';
 import MainTabNavigator from './MainTabNavigator';
 import React from 'react';
 import ProductDetailScreen from '../screens/ProductDetailScreen'
@@ -8,17 +8,17 @@ import LoginScreen from '../screens/LoginScreen'
 import RegisterScreen from '../screens/RegisterScreen'
 import AddAddressScreen from '../screens/AddAddressScreen'
 import { theme } from '../constants/Theme'
+import HeaderBackButton  from '../containers/HeaderBackButton'
 
 const ProductDetailStack = createStackNavigator({
   ProductDetailScreen: ProductDetailScreen,
 },{
   defaultNavigationOptions: ({navigation}) => ({
     headerTitle: 'Product Detail',
-    headerLeft: <HeaderBackButton onPress={() => navigation.goBack(null)} tintColor= {theme.background}/>,
+    headerLeft: <HeaderBackButton/>,
     headerTransparent: false,
     headerStyle: {
    
-      
     },
     headerTitleStyle: {
   
@@ -31,7 +31,7 @@ const ProductListStack = createStackNavigator({
   ProductListScreen: ProductListScreen,
 },{
   defaultNavigationOptions: ({navigation}) => ({
-    headerLeft: <HeaderBackButton onPress={() => navigation.goBack(null)} tintColor={theme.background}/>,
+    headerLeft: <HeaderBackButton />,
   })
 })
 
@@ -39,7 +39,7 @@ const PaymentStack = createStackNavigator({
   PaymentScreen: PaymentScreen,
 },{
   defaultNavigationOptions: ({navigation}) => ({
-    headerLeft: <HeaderBackButton onPress={() => navigation.goBack(null)} tintColor={theme.background}/>,
+    headerLeft: <HeaderBackButton/>,
   })
 })
 
@@ -47,7 +47,7 @@ const AddAdressScreenStack = createStackNavigator({
   AddAddressScreen: AddAddressScreen,
 },{
   defaultNavigationOptions: ({navigation}) => ({
-    headerLeft: <HeaderBackButton onPress={() => navigation.goBack(null)} tintColor={theme.background}/>,
+    headerLeft: <HeaderBackButton/>,
   })
 })
 
@@ -56,7 +56,7 @@ const LoginStack = createStackNavigator({
   RegisterScreen: RegisterScreen
 },{
   defaultNavigationOptions: ({navigation}) => ({
-    headerLeft: <HeaderBackButton onPress={() => navigation.goBack(null)} tintColor={theme.background}/>,
+    headerLeft: <HeaderBackButton/>,
     mode: 'modal',
     
   }),

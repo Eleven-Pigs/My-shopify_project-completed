@@ -5,6 +5,7 @@ import UserActions from '../redux/user'
 import { withNavigation, StackActions, NavigationActions } from 'react-navigation';
 import { getIsLogin } from '../redux/user'
 import { getName } from '../redux/shop'
+import { getPrimaryColor } from '../redux/config';
 
 class Login extends React.Component {
   constructor(props){
@@ -39,7 +40,7 @@ class Login extends React.Component {
 
   render() {
     return (
-        <LoginComponent shopName={this.props.shopName} onPressed={this.props.onPressed} registerPressed={this.navigateToRegister}/>
+        <LoginComponent primaryColor={this.props.primaryColor} shopName={this.props.shopName} onPressed={this.props.onPressed} registerPressed={this.navigateToRegister}/>
     );
   }
 
@@ -49,7 +50,8 @@ class Login extends React.Component {
 const mapStateToProps = state => {
   return {
     isLogin: getIsLogin(state),
-    shopName: getName(state) 
+    shopName: getName(state),
+    primaryColor: getPrimaryColor(state),
   }
 }
 const mapDispatchToProps = dispatch => {

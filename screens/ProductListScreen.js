@@ -9,7 +9,7 @@ import { getEndOfProduct, getIsLoading, getProductCount } from '../redux/product
 import { theme } from '../constants/Theme'
 import ProductListPlaceholder from '../components/Placeholder/ProductListPlaceholder'
 import  FilterTab  from '../components/FilterTab';
-
+import { getPrimaryColor } from '../redux/config'
 class ProductList extends React.Component {
   constructor(props){
     super(props)
@@ -137,7 +137,7 @@ class ProductList extends React.Component {
         <StyledSafeAreaView>
           <View>
             {this._renderContent(this.props.isLoading, this.props.productCount)}
-            <FilterTab sortPressed={this.sortPressed}/>
+            <FilterTab sortPressed={this.sortPressed} primaryColor= {this.props.primaryColor}/>
           </View>
         </StyledSafeAreaView>
     )
@@ -149,7 +149,8 @@ const mapStateToProps = state => {
   return {
     endOfProduct: getEndOfProduct(state),
     isLoading: getIsLoading(state),
-    productCount: getProductCount(state)
+    productCount: getProductCount(state),
+    primaryColor: getPrimaryColor(state)
   }
 }
 

@@ -4,6 +4,7 @@ import  UserActions  from '../redux/user'
 import { connect } from 'react-redux'
 import { theme } from '../constants/Theme'
 import { getIsLogin } from '../redux/user'
+import { getPrimaryColor } from '../redux/config';
 
 
 class Account extends React.Component {
@@ -45,7 +46,7 @@ class Account extends React.Component {
     return (
       <SafeAreaView>
         <SectionList
-          renderItem={({item, index, section}) => <TouchableOpacity  key={index} style = {{padding: 10, paddingLeft: 20,backgroundColor: 'white'}} onPress={() => this.onPress(item)}><Text style = {{fontSize: 18,  color: item.title === 'Login' ? theme.background : 'black' }}>{item.title}</Text></TouchableOpacity>}
+          renderItem={({item, index, section}) => <TouchableOpacity  key={index} style = {{padding: 10, paddingLeft: 20,backgroundColor: 'white'}} onPress={() => this.onPress(item)}><Text style = {{fontSize: 18,  color: item.title === 'Login' ? this.props.primaryColor : 'black' }}>{item.title}</Text></TouchableOpacity>}
           renderSectionHeader={() => (
             <View style={{height: 50}}></View>
           )}
@@ -65,6 +66,7 @@ class Account extends React.Component {
 const mapStateToProps = state => {
   return {
     isLogin: getIsLogin(state),
+    primaryColor: getPrimaryColor(state)
   }
 }
 

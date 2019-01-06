@@ -31,6 +31,7 @@ export default class FilterTab extends React.Component {
                 visible={this.state.visible}
                 cancelPressed={this.cancelPressed}
                 itemSelected={this.itemSelected}
+                primaryColor = {this.props.primaryColor}
             />
             <StyledOpacity onPress={this.openModal}>  
                 <SortContainer>

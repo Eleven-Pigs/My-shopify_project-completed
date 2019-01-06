@@ -51,7 +51,7 @@ export default class FilterModal extends React.Component {
             <Icon.Feather
                 name='check'
                 size={26}
-                color={theme.background}
+                color={this.props.primaryColor}
                 style = {{flex: 1, textAlign: 'right', paddingRight: 10,}}
             />
         )
@@ -94,7 +94,7 @@ export default class FilterModal extends React.Component {
           }}>
             <StyledView>
                     <ModalContainer>
-                        <ModalHeader>
+                        <ModalHeader style = {{backgroundColor: this.props.primaryColor}}>
                             <StyledOpacity onPress= {this.props.cancelPressed}>
                                 <Icon.Entypo
                                     name='cross'

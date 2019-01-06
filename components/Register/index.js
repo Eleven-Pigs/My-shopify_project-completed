@@ -47,7 +47,7 @@ export default class RegisterComponent extends React.Component {
                     secureTextEntry={true}
                     error={this.state.passwordError}
                 />
-                <TouchableOpacity disabled={this.props.isRequestingRegister}  style = {{marginTop: 20, width: '50%', alignSelf: 'center',padding: 10,backgroundColor: this.props.isRequestingRegister ? 'grey' : theme.background}} onPress={this.registerPressed}>
+                <TouchableOpacity disabled={this.props.isRequestingRegister}  style = {{marginTop: 20, width: '50%', alignSelf: 'center',padding: 10,backgroundColor: this.props.isRequestingRegister ? 'grey' : this.props.primaryColor}} onPress={this.registerPressed}>
                     <Text style = {{color:'white', textAlign: 'center', fontSize: 15, fontWeight: 'bold'}}>SIGN UP</Text>
                 </TouchableOpacity>
 
