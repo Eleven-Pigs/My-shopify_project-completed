@@ -462,6 +462,19 @@ export const addProductToCheckout = (variantId, quantity, checkoutId) => {
     return fetchShopifyGraphql(mutation)
 }
 
+export const removeProductFromCheckout = (lineItemId, checkoutId) => {
+    const mutation = `mutation {
+        checkoutLineItemsRemove(lineItemIds: "${lineItemId}", checkoutId: "${checkoutId}",
+        ) {
+          checkout {
+             id
+          }
+        }
+      }
+      `
+    return fetchShopifyGraphql(mutation)
+}
+
 export const addAddresstoCheckout = (address, checkoutId) => {
     const {
         address1,

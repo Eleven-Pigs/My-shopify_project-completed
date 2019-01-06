@@ -1,7 +1,7 @@
 import { CartTypes } from '../redux/cart'
 import { UserProfileTypes, getDefaultAddressId, getAddressById, getIsLogin } from '../redux/user'
 import { takeLatest, call, select, put } from 'redux-saga/effects';
-import { createCheckout, addProductToCheckout, getCheckout, addAddresstoCheckout, addEmailToCheckout } from '../api'
+import { createCheckout, addProductToCheckout, getCheckout, addAddresstoCheckout, addEmailToCheckout, removeProductFromCheckout } from '../api'
 import { getId, getShippingAddress } from '../redux/cart'
 import CartActions from '../redux/cart'
 import { AsyncStorage } from "react-native"
@@ -51,9 +51,24 @@ export function* requestAddProductToCheckout() {
         yield put(CartActions.requestAddProductToCheckoutSuccess(payload)) 
         yield put(CartActions.requestCartDetail())
     }else{
-        yield put(CartActions.requestCreateCheckoutFail())
+        yield put(CartActions.requestAddProductToCheckoutFail())
     }
 }
+
+export function* requestRemoveProductFromCheckout(action) {
+    const lineItemId = action.id
+    const cartId = yield select(getId) 
+    const response = yield call(removeProductFromCheckout, lineItemId, cartId)
+    const payload = yield response.json()
+    console.log('safasdfsad', payload)
+    if(response.ok){
+        yield put(CartActions.requestRemoveProductFromCheckoutSuccess(payload)) 
+        yield put(CartActions.requestCartDetail())
+    }else{
+        yield put(CartActions.requestRemoveProductFromCheckoutFail())
+    }
+}
+
 export function* requestAddEmailAddress(action) {
     const {email, address} = action
     const cartId = yield select(getId) 
@@ -105,6 +120,7 @@ export const cartSaga = [
     takeLatest(CartTypes.REQUEST_ADD_PRODUCT_TO_CHECKOUT_SUCCESS, fetchCartDetail),
     takeLatest(CartTypes.REQUEST_CREATE_CHECKOUT, requestCreateCheckout),
     takeLatest(CartTypes.REQUEST_ADD_PRODUCT_TO_CHECKOUT, requestAddProductToCheckout),
+    takeLatest(CartTypes.REQUEST_REMOVE_PRODUCT_FROM_CHECKOUT, requestRemoveProductFromCheckout),
     takeLatest(CartTypes.REQUEST_ADD_EMAIL_ADDRESS, requestAddEmailAddress),
     takeLatest(CartTypes.REQUEST_ADD_EMAIL_ADDRESS, requestAddEmailAddress),
     takeLatest(UserProfileTypes.REQUEST_USER_ADDRESS_SUCCESS, setAddressToCheckout),
