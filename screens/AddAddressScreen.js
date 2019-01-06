@@ -93,7 +93,6 @@ class AddAddress extends React.Component {
         this.setState({provinceError: 'Please fill in the province / state correctly'})
       }
       if(country.length === 0){
-        console.log('sdfsdfsdf errrr')
         this.setState({countryError: 'Please fill in the country correctly'})
       }
       if(lastName.length === 0){
