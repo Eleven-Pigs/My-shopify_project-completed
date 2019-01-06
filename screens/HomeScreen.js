@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { HomeComponent } from '../components/Home'
 import { SafeAreaView } from 'react-native';
 import { getName } from '../redux/shop'
+import {getShopUrl} from '../redux/shop'
 class Home extends React.Component {
   static navigationOptions =( { navigation } ) => {
     return(
@@ -30,7 +31,7 @@ class Home extends React.Component {
   render() {
     return (
       <SafeAreaView style = {{flex:1}}>
-        <HomeComponent handleProductClick={this.handleProductClick} handleCollectionClick={this.handleCollectionClick} />
+        <HomeComponent shopUrl={this.props.shopUrl} handleProductClick={this.handleProductClick} handleCollectionClick={this.handleCollectionClick} />
       </SafeAreaView>
     );
   }
@@ -39,7 +40,8 @@ class Home extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    shopName: getName(state)
+    shopName: getName(state),
+    shopUrl: getShopUrl(state)
   }
 }
 const mapDispatchToProps = dispatch => {

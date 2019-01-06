@@ -50,6 +50,11 @@ export const getMoneyFormat = (rootState) => {
   return state.moneyFormat
 }
 
+export const getShopUrl = (rootState) => {
+  const state = getReducer(rootState)
+  return state.domain
+}
+
 export const getName = (rootState, id) => {
   const state = getReducer(rootState)
   return state.name

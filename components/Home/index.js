@@ -37,8 +37,7 @@ export class HomeComponent extends React.Component {
         `;
         return(
                 <WebView
-                source={{uri: 'https://aslkdfjlasdfj.myshopify.com/'}}
-                
+                source={{uri: this.props.shopUrl}}
                 injectedJavaScript={jsCode}
                 javaScriptEnabledAndroid={true}
                 onNavigationStateChange={this.navigationStateChangedHandler}
