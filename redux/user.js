@@ -160,9 +160,16 @@ export const getDefaultAddressId = (rootState) => {
     return state.defaultAddress
 }
 export const getAddressById = (rootState, id) => {
+   
     const state = getReducer(rootState)
     return state.addresses.byIds[id]
 }
+export const getAllAddressIds = (rootState) => {
+   
+    const state = getReducer(rootState)
+    return state.addresses.allIds
+}
+
 export const getFetchingRegister = (rootState, id) => {
     const state = getReducer(rootState)
     return state.isFetchingRegister
@@ -187,6 +194,15 @@ export const getIsFetching = (rootState) => {
 export const getLoginError = (rootState) => {
     const state = getReducer(rootState)
     return state.loginError
+}
+export const getIsAddressDefault = (rootState, id) => {
+    const state = getReducer(rootState)
+
+    if(state.defaultAddress === id){
+        return true
+    }else{
+        return false
+    }
 }
 
 //Normalize

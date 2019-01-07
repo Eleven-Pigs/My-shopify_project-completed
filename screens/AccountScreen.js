@@ -40,7 +40,7 @@ class Account extends React.Component {
         break;
       case 'Address':
         if(this.props.isLogin){
-
+          this.props.navigation.navigate('AddressScreen')
         }else{
           this.props.navigation.navigate('LoginScreen')
         }
