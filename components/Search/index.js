@@ -15,6 +15,19 @@ export default class SearchBox extends React.Component {
         resolve();
     });
   }
+      // Important: You must return a Promise
+  beforeFocus = () => {
+        return new Promise((resolve, reject) => {
+          this.props.beforeFocusSearch()            
+          resolve()
+        });
+  }
+  afterCancel = () => {
+      return new Promise((resolve, reject) => {
+        this.props.afterCancel() 
+          resolve();
+      });
+  }
   changeTextInput = (text) => {
     this.setState({searchInput: text})
   }
@@ -26,6 +39,8 @@ export default class SearchBox extends React.Component {
                     ref="search_box"
                     backgroundColor= "white"
                     afterSearch= {this.afterSearch}
+                    afterCancel= {this.afterCancel}
+                    beforeFocus={this.beforeFocus}
                     returnKeyType= "search"
                     onChangeText= {(text) => this.changeTextInput(text)}
                     defaultValue={this.props.defaultValue}

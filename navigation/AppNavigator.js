@@ -31,9 +31,6 @@ const ProductDetailStack = createStackNavigator({
 const ProductListStack = createStackNavigator({
   ProductListScreen: ProductListScreen,
 },{
-  defaultNavigationOptions: ({navigation}) => ({
-    headerLeft: <HeaderBackButton />,
-  })
 })
 
 const PaymentStack = createStackNavigator({

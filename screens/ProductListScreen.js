@@ -10,6 +10,8 @@ import { theme } from '../constants/Theme'
 import ProductListPlaceholder from '../components/Placeholder/ProductListPlaceholder'
 import  FilterTab  from '../components/FilterTab';
 import { getPrimaryColor } from '../redux/config'
+import HeaderBackButton  from '../containers/HeaderBackButton'
+
 class ProductList extends React.Component {
   constructor(props){
     super(props)
@@ -26,14 +28,12 @@ class ProductList extends React.Component {
 
   static navigationOptions =  ({navigation}) => { 
     return ({
-    headerTitle: <SearchContainer defaultValue={navigation.state.params.query} searchPressed={navigation.state.params.searchPressed}/>,
-    headerStyle: {
-      width: '100%',
-    },
+    headerTitle: <SearchContainer afterCancel={navigation.state.params.afterCancel} beforeFocusSearch={navigation.state.params.beforeFocus} defaultValue={navigation.state.params.query} searchPressed={navigation.state.params.searchPressed}/>,
+    headerLeft: navigation.state.params.hideBackButton ? null  : <HeaderBackButton /> ,
   })};
 
   componentDidMount(){
-    this.props.navigation.setParams({ searchPressed: this.searchPressed });
+    this.props.navigation.setParams({ searchPressed: this.searchPressed, beforeFocus: this.beforeFocus, hideBackButton: false, afterCancel: this.afterCancel });
     const id = this.props.navigation.getParam('id'); 
     if (id){
       this.setState({id: id, mode: 'ID'})
@@ -58,9 +58,16 @@ class ProductList extends React.Component {
     this.props.clearProductList()
   }
 
+  beforeFocus = () => {
+    this.props.navigation.setParams({ hideBackButton: true });
+  }
+  afterCancel = () => {
+    this.props.navigation.setParams({ hideBackButton: false });
+  }
+
   searchPressed = (text) => {
-    
-    if(text.length > 0){
+    this.props.navigation.setParams({ hideBackButton: true });
+    if(text != ''){
       this.setState({search: text, mode: 'SEARCH'})
       this.props.clearProductList()
       this.props.requestProductListBySearch(text, this.state.sortKey, this.state.reverse)
