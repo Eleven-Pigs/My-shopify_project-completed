@@ -19,19 +19,6 @@ class Home extends React.Component {
     )
   }
 
-  handleProductClick = (handle) => {
-    this.props.navigation.navigate('ProductDetailScreen', {
-      handle: handle
-    })
-  }
-  handleCollectionClick = (handle) => {
-    this.props.navigation.navigate('ProductListScreen', {
-      handle: handle
-    })
-  }
-  componentDidMount(){
-    this.props.navigation.setParams({ title: this.props.shopName })
-  }
 
   render() {
     return (
