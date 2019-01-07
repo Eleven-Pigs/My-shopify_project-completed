@@ -34,7 +34,6 @@ class ProductList extends React.Component {
 
   componentDidMount(){
     this.props.navigation.setParams({ searchPressed: this.searchPressed });
-
     const id = this.props.navigation.getParam('id'); 
     if (id){
       this.setState({id: id, mode: 'ID'})
@@ -48,7 +47,9 @@ class ProductList extends React.Component {
         const query = this.props.navigation.getParam('query');
         this.setState({search: query, mode: 'SEARCH'})
         this.props.navigation.setParams({ defaultValue: query });
-        this.props.requestProductListBySearch(query, this.state.sortKey, this.state.reverse)
+        if(query.length > 0){
+          this.props.requestProductListBySearch(query, this.state.sortKey, this.state.reverse)
+        }
       }
     }
   }
@@ -58,9 +59,13 @@ class ProductList extends React.Component {
   }
 
   searchPressed = (text) => {
-    this.setState({search: text, mode: 'SEARCH'})
-    this.props.clearProductList()
-    this.props.requestProductListBySearch(text, this.state.sortKey, this.state.reverse)
+    
+    if(text.length > 0){
+      this.setState({search: text, mode: 'SEARCH'})
+      this.props.clearProductList()
+      this.props.requestProductListBySearch(text, this.state.sortKey, this.state.reverse)
+    }
+
   }
 
   loadMore = () => {

@@ -19,7 +19,7 @@ export function* fetchProductListBySearch(action) {
             yield put(CartActions.requestProductListFromCollectionFail())
         }
     }catch(e){
-        console.log('error',e)
+        console.log('error',e,response)
     }
 }
 
