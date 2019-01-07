@@ -2,10 +2,13 @@ import React from 'react';
 
 import { connect } from 'react-redux'
 import { HomeComponent } from '../components/Home'
-import { SafeAreaView } from 'react-native';
+import { SafeAreaView, View, Text, ScrollView } from 'react-native';
 import { getName } from '../redux/shop'
 import {getShopUrl} from '../redux/shop'
-
+import HomeCategoriesContainer from '../containers/HomeCategories'
+import BestSellingProductsContainer from '../containers/BestSellingProducts'
+import LatestProductsContainer from '../containers/LatestProducts'
+import { theme } from '../constants/Theme';
 
 class Home extends React.Component {
   static navigationOptions =( { navigation } ) => {
@@ -32,8 +35,12 @@ class Home extends React.Component {
 
   render() {
     return (
-      <SafeAreaView style = {{flex:1}}>
-        <HomeComponent shopUrl={this.props.shopUrl} handleProductClick={this.handleProductClick} handleCollectionClick={this.handleCollectionClick} />
+      <SafeAreaView >
+        <ScrollView style = {{backgroundColor: theme.listBackground}}>
+          <HomeCategoriesContainer/>
+          <BestSellingProductsContainer/>
+          <LatestProductsContainer/>
+        </ScrollView>
       </SafeAreaView>
     );
   }

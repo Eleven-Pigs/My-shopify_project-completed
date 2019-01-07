@@ -39,14 +39,13 @@ const requestShopDetailSuccess = (state, action) => {
   const shop = action.payload.data.shop
   const bestSellingProduct = normalizeProducts(shop)
   const latestProduct = normalizeProducts(action.payload.data)
-  console.log('latest', latestProduct)
   return state.merge({
       isFetching: false,
       moneyFormat: shop.moneyFormat,
       name: shop.name,
       domain: shop.primaryDomain.url,
       latest: latestProduct.products,
-      bestSelling: bestSellingProduct
+      bestSelling: bestSellingProduct.products
   })
 }
 
@@ -73,6 +72,22 @@ export const getShopUrl = (rootState) => {
 export const getName = (rootState, id) => {
   const state = getReducer(rootState)
   return state.name
+}
+export const getBestSellingProductIds = (rootState, id) => {
+  const state = getReducer(rootState)
+  return state.bestSelling.allIds
+}
+export const getBestSellingProductById = (rootState, id) => {
+  const state = getReducer(rootState)
+  return state.bestSelling.byIds[id]
+}
+export const getLatestProductIds = (rootState, id) => {
+  const state = getReducer(rootState)
+  return state.latest.allIds
+}
+export const getLatestProductById = (rootState, id) => {
+  const state = getReducer(rootState)
+  return state.latest.byIds[id]
 }
 
 
