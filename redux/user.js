@@ -2,11 +2,11 @@ import { createReducer, createActions } from 'reduxsauce'
 import Immutable from 'seamless-immutable'
 
 const { Types, Creators } = createActions({
-    requestRegister: ['email','password'],
+    requestRegister: ['email', 'password'],
     requestRegisterSuccess: null,
     requestRegisterFail: ['error'],
     registerErrorShown: null,
-    requestLogin: ['email','password'],
+    requestLogin: ['email', 'password'],
     requestLoginSuccess: ['payload'],
     requestLoginFail: null,
     requestRenewAccessToken: ['accessToken'],
@@ -19,10 +19,14 @@ const { Types, Creators } = createActions({
     requestUserAddress: null,
     requestUserAddressSuccess: ['payload'],
     requestUserAddressFail: null,
+    requestCreateUserAddress: ['address'],
+    requestCreateUserAddressSuccess: null,
+    requestCreateUserAddressFail: ['error'],
     resetRegister: null,
     requestUserAddressSuccessEmpty: null,
     resetLoginError: null,
-  })
+    resetRequestCreateUserAddress: null
+})
 
 export const UserProfileTypes = Types
 export default Creators
@@ -30,13 +34,16 @@ export default Creators
 const INITIAL_STATE = Immutable({
     isFetchingLogin: false,
     isFetchingRegister: false,
+    isCreatingAddress: false,
+    isCreatingAddressSuccess: false,
+    creatingAddressError: false,
     loginError: false,
     accessToken: '',
     expiresAt: '',
-    defaultAddress:'',
-    addresses:{
-        byIds:{},
-        allIds:[]
+    defaultAddress: '',
+    addresses: {
+        byIds: {},
+        allIds: []
     },
     fetchingRegisterError: false,
     fetchingRegisterSuccess: false,
@@ -49,7 +56,7 @@ const requestLogin = (state, action) => {
     })
 }
 const requestLoginSuccess = (state, action) => {
-    const {accessToken, expiresAt} = action.payload
+    const { accessToken, expiresAt } = action.payload
     return state.merge({
         isFetchingLogin: false,
         accessToken: accessToken,
@@ -57,7 +64,7 @@ const requestLoginSuccess = (state, action) => {
     })
 }
 const setAccessToken = (state, action) => {
-    const { accessToken, expiresAt} = action
+    const { accessToken, expiresAt } = action
     return state.merge({
         accessToken: accessToken,
         expiresAt: expiresAt
@@ -121,6 +128,38 @@ export const resetLoginError = (state) => {
         loginError: false,
     })
 }
+
+export const requestCreateUserAddress = (state) => {
+    return state.merge({
+        isCreatingAddress: true,
+    })
+}
+export const requestCreateUserAddressSuccess = (state) => {
+    return state.merge({
+        isCreatingAddressSuccess: true,
+        isCreatingAddress: false,
+    })
+}
+
+export const requestCreateUserAddressFail = (state, action) => {
+    return state.merge({
+        isCreatingAddress: false,
+        creatingAddressError: true,
+        errorText: action.error ? action.error : INITIAL_STATE.errorText,
+    })
+}
+export const resetRequestCreateUserAddress = (state, action) => {
+    return state.merge({
+        isCreatingAddress: false,
+        creatingAddressError: false,
+        isCreatingAddressSuccess: false,
+        errorText: INITIAL_STATE.errorText,
+    })
+}
+
+
+
+
 export const user = createReducer(INITIAL_STATE, {
     [Types.REQUEST_LOGIN]: requestLogin,
     [Types.REQUEST_REGISTER]: requestRegister,
@@ -131,6 +170,10 @@ export const user = createReducer(INITIAL_STATE, {
     [Types.REQUEST_LOGIN_SUCCESS]: requestLoginSuccess,
     [Types.SET_ACCESS_TOKEN]: setAccessToken,
     [Types.REQUEST_USER_ADDRESS_SUCCESS]: requestUserAddressSuccess,
+    [Types.REQUEST_CREATE_USER_ADDRESS]: requestCreateUserAddress,
+    [Types.REQUEST_CREATE_USER_ADDRESS_SUCCESS]: requestCreateUserAddressSuccess,
+    [Types.REQUEST_CREATE_USER_ADDRESS_FAIL]: requestCreateUserAddressFail,
+    [Types.RESET_REQUEST_CREATE_USER_ADDRESS]: resetRequestCreateUserAddress,
     [Types.LOGOUT]: logout,
     [Types.REQUEST_LOGIN_FAIL]: requestLoginFail,
     [Types.RESET_LOGIN_ERROR]: resetLoginError,
@@ -160,12 +203,12 @@ export const getDefaultAddressId = (rootState) => {
     return state.defaultAddress
 }
 export const getAddressById = (rootState, id) => {
-   
+
     const state = getReducer(rootState)
     return state.addresses.byIds[id]
 }
 export const getAllAddressIds = (rootState) => {
-   
+
     const state = getReducer(rootState)
     return state.addresses.allIds
 }
@@ -198,11 +241,24 @@ export const getLoginError = (rootState) => {
 export const getIsAddressDefault = (rootState, id) => {
     const state = getReducer(rootState)
 
-    if(state.defaultAddress === id){
+    if (state.defaultAddress === id) {
         return true
-    }else{
+    } else {
         return false
     }
+}
+export const getIsCreatingAddress = (rootState) => {
+    const state = getReducer(rootState)
+    return state.isCreatingAddress
+}
+export const getCreatingAddressError = (rootState) => {
+    const state = getReducer(rootState)
+    return state.creatingAddressError
+}
+export const getIsCreatingAddressSuccess = (rootState) => {
+    const state = getReducer(rootState)
+    console.log('safdsdaf', state.isCreatingAddressSuccess)
+    return state.isCreatingAddressSuccess
 }
 
 //Normalize
@@ -213,13 +269,13 @@ const normalizeAddress = (customer) => {
         return node.id
     })
     const addressByIds = edges.map(edge => {
-        const node = edge.node 
+        const node = edge.node
         const id = node.id
 
-        return({
+        return ({
             [id]: node
         })
-    }).reduce((acc,ele) => {
+    }).reduce((acc, ele) => {
         const keys = Object.keys(ele)
         const key = keys[0]
         acc[key] = ele[key]

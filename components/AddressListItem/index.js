@@ -25,7 +25,6 @@ export const AddressListItem = ({ address, onPressItem, onDeletePress, isDefault
                 <Title style = {{fontSize: 15}}>{address.province}</Title>
                 <View style ={{flexDirection: 'row'}}>
                     <Title style = {{fontSize: 15}}>{address.country}</Title>
-                    {renderDefault(isDefault, onDeletePress)}
                 </View>
 
             </View>

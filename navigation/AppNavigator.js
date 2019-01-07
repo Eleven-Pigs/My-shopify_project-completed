@@ -8,6 +8,7 @@ import LoginScreen from '../screens/LoginScreen'
 import RegisterScreen from '../screens/RegisterScreen'
 import AddAddressScreen from '../screens/AddAddressScreen'
 import AddressScreen from '../screens/AddressScreen'
+import AddNewAddressScreen from '../screens/AddNewAddressScreen'
 import { theme } from '../constants/Theme'
 import HeaderBackButton  from '../containers/HeaderBackButton'
 import {Platform} from 'react-native';
@@ -62,6 +63,7 @@ const LoginStack = createStackNavigator({
 })
 const AddressScreenStack = createStackNavigator({
   AddressScreen: AddressScreen,
+  AddNewAddressScreen: AddNewAddressScreen,
 },{
   defaultNavigationOptions: ({navigation}) => ({
     headerLeft: <HeaderBackButton/>,
