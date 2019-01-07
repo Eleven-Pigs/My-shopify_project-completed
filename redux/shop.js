@@ -22,7 +22,8 @@ const INITIAL_STATE = Immutable({
     latest:{
       allIds:[],
       byId: {},
-    }
+    },
+    finishLoad: false,
 })
 
 export const ShopTypes = Types
@@ -45,7 +46,8 @@ const requestShopDetailSuccess = (state, action) => {
       name: shop.name,
       domain: shop.primaryDomain.url,
       latest: latestProduct.products,
-      bestSelling: bestSellingProduct.products
+      bestSelling: bestSellingProduct.products,
+      finishLoad: true,
   })
 }
 
@@ -88,6 +90,10 @@ export const getLatestProductIds = (rootState, id) => {
 export const getLatestProductById = (rootState, id) => {
   const state = getReducer(rootState)
   return state.latest.byIds[id]
+}
+export const getFinishLoad = (rootState, id) => {
+  const state = getReducer(rootState)
+  return state.finishLoad
 }
 
 

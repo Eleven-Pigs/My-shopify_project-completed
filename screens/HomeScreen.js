@@ -3,12 +3,12 @@ import React from 'react';
 import { connect } from 'react-redux'
 import { HomeComponent } from '../components/Home'
 import { SafeAreaView, View, Text, ScrollView } from 'react-native';
-import { getName } from '../redux/shop'
-import {getShopUrl} from '../redux/shop'
+import { getName, getShopUrl, getFinishLoad} from '../redux/shop'
 import HomeCategoriesContainer from '../containers/HomeCategories'
 import BestSellingProductsContainer from '../containers/BestSellingProducts'
 import LatestProductsContainer from '../containers/LatestProducts'
 import { theme } from '../constants/Theme';
+import HomePlaceholder from '../components/Placeholder/HomePlaceholder';
 
 class Home extends React.Component {
   static navigationOptions =( { navigation } ) => {
@@ -19,15 +19,28 @@ class Home extends React.Component {
     )
   }
 
+  componentDidMount(){
+    this.props.navigation.setParams({ title: this.props.shopName });
+  }
 
-  render() {
-    return (
-      <SafeAreaView >
+  renderHomePage = (finishLoad) => {
+    if(finishLoad){
+      return (
         <ScrollView style = {{backgroundColor: theme.listBackground}}>
           <HomeCategoriesContainer/>
           <BestSellingProductsContainer/>
           <LatestProductsContainer/>
-        </ScrollView>
+      </ScrollView>
+      )
+    }else{
+      return (<HomePlaceholder/>)
+    }
+
+  }
+  render() {
+    return (
+      <SafeAreaView>
+        {this.renderHomePage(this.props.finishLoad)}
       </SafeAreaView>
     );
   }
@@ -37,7 +50,8 @@ class Home extends React.Component {
 const mapStateToProps = state => {
   return {
     shopName: getName(state),
-    shopUrl: getShopUrl(state)
+    shopUrl: getShopUrl(state),
+    finishLoad: getFinishLoad(state)
   }
 }
 const mapDispatchToProps = dispatch => {
