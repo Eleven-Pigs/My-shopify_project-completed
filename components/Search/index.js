@@ -18,13 +18,18 @@ export default class SearchBox extends React.Component {
       // Important: You must return a Promise
   beforeFocus = () => {
         return new Promise((resolve, reject) => {
-          this.props.beforeFocusSearch()            
+          if(this.props.beforeFocusSearch){
+            this.props.beforeFocusSearch() 
+          }        
           resolve()
         });
   }
   afterCancel = () => {
       return new Promise((resolve, reject) => {
-        this.props.afterCancel() 
+        if(this.props.afterCancel){
+          this.props.afterCancel() 
+        }
+        
           resolve();
       });
   }

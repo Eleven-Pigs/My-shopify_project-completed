@@ -31,6 +31,20 @@ class Account extends React.Component {
           { cancelable: false }
         )
         break;
+      case 'Orders':
+          if(this.props.isLogin){
+
+          }else{
+            this.props.navigation.navigate('LoginScreen')
+          }
+        break;
+      case 'Address':
+        if(this.props.isLogin){
+
+        }else{
+          this.props.navigation.navigate('LoginScreen')
+        }
+        break;
       case 'Privacy Policy':
       case 'Refund Policy':
       case 'Terms of Service':
