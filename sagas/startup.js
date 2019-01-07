@@ -4,7 +4,7 @@ import CartActions from '../redux/cart'
 import { AsyncStorage } from "react-native"
 import CollectionActions from '../redux/collection'
 import UserActions from '../redux/user'
-import ShopActions from '../redux/shop'
+
 
 function checkExpiry(expiryAt){
     const tokenDate = new Date(expiryAt)
@@ -19,7 +19,6 @@ function checkExpiry(expiryAt){
 export function* start() {
     try{
         yield put(CollectionActions.requestCollectionList())
-        yield put(ShopActions.requestShopDetail())
         const id = yield call([AsyncStorage, 'getItem'], 'cartId')
         if (id){
             yield put(CartActions.setCartId(id))

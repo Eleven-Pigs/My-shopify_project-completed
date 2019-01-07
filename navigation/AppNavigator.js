@@ -9,6 +9,7 @@ import RegisterScreen from '../screens/RegisterScreen'
 import AddAddressScreen from '../screens/AddAddressScreen'
 import { theme } from '../constants/Theme'
 import HeaderBackButton  from '../containers/HeaderBackButton'
+import {Platform} from 'react-native';
 
 const ProductDetailStack = createStackNavigator({
   ProductDetailScreen: ProductDetailScreen,
@@ -74,6 +75,17 @@ const MainStack = createStackNavigator({
   AddressScreen: AddAdressScreenStack,
 },{
   headerMode: 'none',
+  transitionConfig: () => ({
+    transitionSpec: {
+      ...Platform.select({
+        android: {
+          duration: 0,
+        },
+        
+      }),
+        // Set the animation duration time as 0 !!
+    },
+  }),
 })
 
 

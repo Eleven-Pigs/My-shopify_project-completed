@@ -296,6 +296,11 @@ export const getProductListBySearch = (search, cursor, sortKey, reverse) => {
 export const getCollections = () => {
     const query = {
         shop: {
+            moneyFormat: true,
+            name: true,
+            primaryDomain: {
+                url: true,
+            },
             collections:{
                 __args: {
                     first: 250
@@ -330,6 +335,72 @@ export const getCollections = () => {
                             }
                         }
                     }
+                }
+            },
+            products: {
+                __args: {
+                    first: 10,
+                    sortKey: new EnumType('BEST_SELLING')
+                },
+                edges: {
+                    cursor: true,
+                    node: {
+                        id: true,
+                        title: true,
+                        priceRange: {
+                            maxVariantPrice: {
+                                amount: true,
+                                currencyCode: true,
+                            },
+                            minVariantPrice: {
+                                amount: true,
+                                currencyCode: true,
+                            },
+                        },
+                        images: {
+                            __args: {
+                                first: 1 
+                            },
+                            edges: {
+                                node: {
+                                    originalSrc: true
+                                }
+                            }
+                        },
+                    }
+                }
+            }
+        },
+        products: {
+            __args: {
+                first: 10,
+                sortKey: new EnumType('CREATED_AT')
+            },
+            edges: {
+                cursor: true,
+                node: {
+                    id: true,
+                    title: true,
+                    priceRange: {
+                        maxVariantPrice: {
+                            amount: true,
+                            currencyCode: true,
+                        },
+                        minVariantPrice: {
+                            amount: true,
+                            currencyCode: true,
+                        },
+                    },
+                    images: {
+                        __args: {
+                            first: 1 
+                        },
+                        edges: {
+                            node: {
+                                originalSrc: true
+                            }
+                        }
+                    },
                 }
             }
         }
