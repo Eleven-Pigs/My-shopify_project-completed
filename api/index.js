@@ -486,7 +486,7 @@ export const getCustomerAddress = (customerAccessToken) => {
             },
             addresses: {
                 __args: {
-                    first: 250 
+                    first: 10 
                 }, 
                 edges: {
                     node: {
@@ -501,7 +501,29 @@ export const getCustomerAddress = (customerAccessToken) => {
                         zip: true,
                     }
                 }
+            },
+            orders:{
+                __args: {
+                    first: 20 
+                }, 
+                edges:{
+                    node:{
+                        id: true,
+                        orderNumber: true,
+                        lineItems:{
+                            __args: {
+                                first: 1 
+                            },     
+                            edges:{
+                                node:{
+                                    title: true
+                                }
+                            }
+                        }
+                    }
+                }
             }
+            
         }
     } 
     const graphQLQuery = '{' +  jsonToGraphQLQuery(query, {pretty: true}) + '}'
