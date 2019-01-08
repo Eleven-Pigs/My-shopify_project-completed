@@ -10,7 +10,8 @@ import {getConfig} from '../redux/config'
 
 export function* fetchCartDetail() {
     const cartId = yield select(getId)
-    const config = select(getConfig)
+    const config = yield select(getConfig)
+
     try{
         const response =  yield call(getCheckout, config, cartId)
         const payload = yield response.json()
@@ -30,7 +31,7 @@ export function* fetchCartDetail() {
 }
 
 export function* requestCreateCheckout() {
-    const config = select(getConfig)
+    const config =  yield select(getConfig)
     const response =  yield call(createCheckout, config)
     const payload = yield response.json()
     if(response.ok){     
@@ -46,7 +47,7 @@ export function* requestAddProductToCheckout() {
     const variantId = yield select(getSelectedVariant)
     const variantCount = yield select(getSelectedCount)
     const cartId = yield select(getId) 
-    const config = select(getConfig)
+    const config =  yield select(getConfig)
     const response = yield call(addProductToCheckout, config, variantId, variantCount, cartId)
     const payload = yield response.json()
     if(response.ok){
@@ -60,7 +61,7 @@ export function* requestAddProductToCheckout() {
 export function* requestRemoveProductFromCheckout(action) {
     const lineItemId = action.id
     const cartId = yield select(getId) 
-    const config = select(getConfig)
+    const config =  yield select(getConfig)
     const response = yield call(removeProductFromCheckout, config, lineItemId, cartId)
     const payload = yield response.json()
     if(response.ok){
@@ -73,7 +74,7 @@ export function* requestRemoveProductFromCheckout(action) {
 export function* requestAddEmailAddress(action) {
     const {email, address} = action
     const cartId = yield select(getId) 
-    const config = select(getConfig)
+    const config =  yield select(getConfig)
     try{
         const addressResponse = yield call(addAddresstoCheckout, config, address, cartId)
         const emailResponse = yield call(addEmailToCheckout, config, email, cartId)
@@ -98,7 +99,7 @@ export function* setAddressToCheckout(action) {
     const defaultAddressId = yield select(getDefaultAddressId)
     const isLogin = yield select(getIsLogin)
     const cartAddress = yield select(getShippingAddress)
-    const config = select(getConfig)
+    const config =  yield select(getConfig)
     try{
         if(isLogin && cartId && defaultAddressId && !cartAddress){
             const address = yield select(getAddressById, defaultAddressId)

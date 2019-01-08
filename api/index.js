@@ -2,7 +2,7 @@ import { jsonToGraphQLQuery, EnumType } from 'json-to-graphql-query';
 import { SHOPIFY_URL, SHOPIFY_STOREFRONT_ACCESS_TOKEN } from '../config/application'
 
 const fetchShopifyGraphql = (config, body) => {
-    return fetch(config.baseURL + '/api/graphql', {
+    return fetch(config.baseUrl + '/api/graphql', {
         method: 'POST',
         headers: {
             Accept: 'application/json',

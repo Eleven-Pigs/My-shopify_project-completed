@@ -1,13 +1,16 @@
 import React from 'react';
 import { View } from 'react-native';
-import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation';
+import { createBottomTabNavigator } from 'react-navigation-tabs';
+import TabBarBottomContainer from '../containers/TabBarBottom'
 import HomeScreen from '../screens/HomeScreen';
 import AccountScreen from '../screens/AccountScreen';
 import CollectionScreen from '../screens/CollectionScreen';
 import ShoppingCartScreen from '../screens/ShoppingCartScreen';
 import CartCounterContainer  from '../containers/CartCounter'
 import PolicyScreen from '../screens/PolicyScreen';
-import Icon  from '../containers/Icon'
+import Icon from '../containers/Icon'
+
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
 },);
@@ -83,12 +86,16 @@ export default createBottomTabNavigator({
   AccountStack,
 },{
   lazy: false,
+  tabBarComponent: props =>
+  <TabBarBottomContainer
+    {...props}
+    style={{ borderTopColor: '#605F60' }}
+  />,
   tabBarOptions: {
     showLabel: false,
     labelStyle: {
       fontSize: 12,
     },
-    
   }
   
 });

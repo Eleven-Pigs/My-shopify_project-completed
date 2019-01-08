@@ -5,25 +5,25 @@ import OrderActions from '../redux/order'
 import { getOrderList } from '../api'
 import { getConfig } from '../redux/config'
 
-    
+
 
 
 export function* fetchOrderList() {
     const accessToken = yield select(getAccessToken)
-    const config = select(getConfig)
-    try{
-        const response =  yield call(getOrderList, config, accessToken)
+    const config = yield select(getConfig)
+    try {
+        const response = yield call(getOrderList, config, accessToken)
         const payload = yield response.json()
-        if(response.ok){ 
-            if(payload.data.customer.orders.edges.length > 0){
-                yield put(OrderActions.requestUserOrdersSuccess(payload.data))  
-            }else{
+        if (response.ok) {
+            if (payload.data.customer.orders.edges.length > 0) {
+                yield put(OrderActions.requestUserOrdersSuccess(payload.data))
+            } else {
                 yield put(OrderActions.requestUserOrdersFail())
             }
-        }else{
+        } else {
             yield put(OrderActions.requestUserOrdersFail())
         }
-    }catch(e){
+    } catch (e) {
         yield put(OrderActions.requestUserOrdersFail())
     }
 }

@@ -17,7 +17,7 @@ export function* requestRegister(action) {
         email,
         password
     }
-    const config = select(getConfig)
+    const config = yield select(getConfig)
     const response = yield call(registerUser, config, user)
     const payload = yield response.json()
     try {
@@ -41,7 +41,7 @@ export function* requestLogin(action) {
         email,
         password
     }
-    const config = select(getConfig)
+    const config = yield select(getConfig)
     const response = yield call(createAccessToken, config, user)
     const payload = yield response.json()
     if (response.ok) {
@@ -64,7 +64,7 @@ export function* requestRenewAccessToken(action) {
 
 
     const accessToken = action.accessToken
-    const config = select(getConfig)
+    const config = yield select(getConfig)
     const response = yield call(renewAccessToken, config, accessToken)
     const payload = yield response.json()
     if (response.ok) {
@@ -86,7 +86,7 @@ export function* logout(action) {
 export function* requestAssociateUserToCheckout(action) {
     const accessToken = yield select(getAccessToken)
     const cartId = yield select(getId)
-    const config = select(getConfig)
+    const config = yield select(getConfig)
     try {
         const response = yield call(associateUserToCheckout, config, accessToken, cartId)
         const payload = yield response.json()
@@ -101,7 +101,7 @@ export function* requestAssociateUserToCheckout(action) {
 }
 export function* requestUserAddress(action) {
     const accessToken = yield select(getAccessToken)
-    const config = select(getConfig)
+    const config = yield select(getConfig)
     try {
         const response = yield call(getCustomerAddress, config, accessToken)
         const payload = yield response.json()
@@ -122,7 +122,7 @@ export function* requestUserAddress(action) {
 export function* requestCreateUserAddress(action) {
     const address = action.address
     const accessToken = yield select(getAccessToken)
-    const config = select(getConfig)
+    const config = yield select(getConfig)
     try {
         const response = yield call(createAddress, config, accessToken, address)
         const payload = yield response.json()
