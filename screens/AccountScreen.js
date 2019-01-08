@@ -33,7 +33,7 @@ class Account extends React.Component {
         break;
       case 'Orders':
           if(this.props.isLogin){
-
+            this.props.navigation.navigate('OrderScreen')
           }else{
             this.props.navigation.navigate('LoginScreen')
           }

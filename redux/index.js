@@ -7,6 +7,7 @@ import { cart } from './cart'
 import { collection } from './collection'
 import { productList } from './productList'
 import { shop } from './shop'
+import { order } from './order'
 export default combineReducers({
   user,
   config,
@@ -14,6 +15,7 @@ export default combineReducers({
   cart,
   collection,
   productList,
-  shop
+  shop,
+  order
 })
 

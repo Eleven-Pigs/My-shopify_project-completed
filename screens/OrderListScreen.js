@@ -6,14 +6,20 @@ import { Checkout }  from '../components/Checkout'
 import { getTotalPrice, getShippingAddress, getCartItemCount } from '../redux/cart'
 import { getIsLogin } from '../redux/user'
 import { getPrimaryColor } from '../redux/config'
+import OrderActions from '../redux/order'
 
-class Address extends React.Component {
+class OrderList extends React.Component {
   constructor(props){
     super(props)
   }
   static navigationOptions = {
-   headerTitle: 'Address',
+   headerTitle: 'Orders',
   };
+  
+  componentDidMount() {
+    this.props.requestUserOrders()
+
+  }
 
   render = () => {
     return (
@@ -37,13 +43,18 @@ const mapStateToProps = state => {
 
 
 const mapDispatchToProps = dispatch => {
-  return {}
+  return {
+    requestUserOrders: () => {
+      dispatch(OrderActions.requestUserOrders() )
+    }
+  }
 }
 
-const AddressScreen = connect(
+
+const OrderListScreen = connect(
   mapStateToProps,
   mapDispatchToProps
-)(Address)
+)(OrderList)
 
 
-export default AddressScreen
+export default OrderListScreen

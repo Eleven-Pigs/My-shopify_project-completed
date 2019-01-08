@@ -16,7 +16,6 @@ export function* requestRegister(action) {
     }
     const response = yield call(registerUser, user)
     const payload = yield response.json()
-    console.log('sffsadf', payload, response.ok)
     try {
         if (response.ok) {
             if (payload.data.customerCreate.customer) {

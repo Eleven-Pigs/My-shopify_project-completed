@@ -12,6 +12,7 @@ import AddNewAddressScreen from '../screens/AddNewAddressScreen'
 import { theme } from '../constants/Theme'
 import HeaderBackButton  from '../containers/HeaderBackButton'
 import {Platform} from 'react-native';
+import OrderListScreen from '../screens/OrderListScreen'
 
 const ProductDetailStack = createStackNavigator({
   ProductDetailScreen: ProductDetailScreen,
@@ -71,6 +72,15 @@ const AddressScreenStack = createStackNavigator({
     
   }),
 })
+const OrderScreenStack = createStackNavigator({
+  OrderListScreen: OrderListScreen,
+},{
+  defaultNavigationOptions: ({navigation}) => ({
+    headerLeft: <HeaderBackButton/>,
+    mode: 'modal',
+    
+  }),
+})
 
 const MainStack = createStackNavigator({
   Main: MainTabNavigator,
@@ -79,7 +89,8 @@ const MainStack = createStackNavigator({
   Payment: PaymentStack,
   Login: LoginStack,
   AddAddressScreen: AddAdressScreenStack,
-  AddressScreen: AddressScreenStack
+  AddressScreen: AddressScreenStack,
+  OrderScreen: OrderScreenStack
 },{
   headerMode: 'none',
   transitionConfig: () => ({

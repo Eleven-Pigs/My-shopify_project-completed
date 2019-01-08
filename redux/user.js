@@ -257,8 +257,7 @@ export const getCreatingAddressError = (rootState) => {
 }
 export const getIsCreatingAddressSuccess = (rootState) => {
     const state = getReducer(rootState)
-    console.log('safdsdaf', state.isCreatingAddressSuccess)
-    return state.isCreatingAddressSuccess
+        return state.isCreatingAddressSuccess
 }
 
 //Normalize

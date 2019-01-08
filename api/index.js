@@ -502,33 +502,61 @@ export const getCustomerAddress = (customerAccessToken) => {
                     }
                 }
             },
-            orders:{
-                __args: {
-                    first: 20 
-                }, 
-                edges:{
-                    node:{
-                        id: true,
-                        orderNumber: true,
-                        lineItems:{
-                            __args: {
-                                first: 1 
-                            },     
-                            edges:{
-                                node:{
-                                    title: true
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            
         }
     } 
     const graphQLQuery = '{' +  jsonToGraphQLQuery(query, {pretty: true}) + '}'
     return fetchShopifyGraphql(graphQLQuery)
 }
+export const getOrderList = (customerAccessToken) => {
+    const query = {
+        customer: {
+            __args: {
+                customerAccessToken: customerAccessToken 
+            },
+            orders:{
+                __args: {
+                    first: 10 
+                },   
+                edges:{
+                    node:{
+                        totalPrice: true,
+                        orderNumber: true,
+                        id: true,
+                        lineItems:{
+                            __args: {
+                                first: 10 
+                            }, 
+                            edges:{
+                                node:{
+                                    title: true,
+                                    quantity: true,
+                                    variant: {
+                                        title: true
+                                    }
+                                }
+                            }
+                        },
+                        shippingAddress:{
+                            id: true,
+                            address1: true,
+                            address2: true,
+                            city: true,
+                            country: true,
+                            firstName: true,
+                            lastName: true,
+                            province: true,
+                            zip: true,
+                        }
+                    }
+                }             
+            },
+
+        }
+    } 
+    const graphQLQuery = '{' +  jsonToGraphQLQuery(query, {pretty: true}) + '}'
+    return fetchShopifyGraphql(graphQLQuery)
+}
+
 
 export const createCheckout = () => {
     const mutation = 'mutation {checkoutCreate(input: { lineItems: [] }) { checkout { id webUrl } } }'
