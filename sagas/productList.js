@@ -2,12 +2,14 @@ import { ProductListTypes, getCursor } from '../redux/productList'
 import { takeLatest, call, select, put } from 'redux-saga/effects';
 import { getProductFromCollection, getProductFromCollectionByHandle, getProductListBySearch } from '../api'
 import ProductListActions from '../redux/productList'
+import { getConfig } from '../redux/config'
 
 export function* fetchProductListBySearch(action) {
     const { search, sortKey, reverse } = action 
     const cursor = yield select(getCursor)
+    const config = select(getConfig)
     try{
-        const response =  yield call(getProductListBySearch, search, cursor, sortKey, reverse)
+        const response =  yield call(getProductListBySearch, config, search, cursor, sortKey, reverse)
         const payload = yield response.json()
         if(response.ok){ 
             if(payload.data.products.edges.length > 0){
@@ -26,8 +28,9 @@ export function* fetchProductListBySearch(action) {
 export function* fetchProductListFromCollection(action) {
     const { id, sortKey, reverse } = action 
     const cursor = yield select(getCursor)
+    const config = select(getConfig)
     try{
-        const response =  yield call(getProductFromCollection, id, cursor, sortKey, reverse)
+        const response =  yield call(getProductFromCollection, config, id, cursor, sortKey, reverse)
         const payload = yield response.json()
         if(response.ok){ 
             if(payload.data.node.products.edges.length > 0){
@@ -45,8 +48,9 @@ export function* fetchProductListFromCollection(action) {
 export function* fetchProductListFromCollectionByHandle(action) {
     const { handle, sortKey, reverse } = action 
     const cursor = yield select(getCursor) 
+    const config = select(getConfig)
     try{
-        const response =  yield call(getProductFromCollectionByHandle, handle, cursor, sortKey, reverse)
+        const response =  yield call(getProductFromCollectionByHandle, config, handle, cursor, sortKey, reverse)
         const payload = yield response.json()
         if(response.ok){ 
             if(payload.data.collectionByHandle.products.edges.length > 0)  {

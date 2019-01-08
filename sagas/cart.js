@@ -6,12 +6,13 @@ import { getId, getShippingAddress } from '../redux/cart'
 import CartActions from '../redux/cart'
 import { AsyncStorage } from "react-native"
 import { getSelectedVariant, getSelectedCount } from '../redux/productDetail';
-
+import {getConfig} from '../redux/config'
 
 export function* fetchCartDetail() {
     const cartId = yield select(getId)
+    const config = select(getConfig)
     try{
-        const response =  yield call(getCheckout, cartId)
+        const response =  yield call(getCheckout, config, cartId)
         const payload = yield response.json()
         if(response.ok){     
             if(payload.data.node.order === null ){
@@ -29,8 +30,8 @@ export function* fetchCartDetail() {
 }
 
 export function* requestCreateCheckout() {
-    
-    const response =  yield call(createCheckout)
+    const config = select(getConfig)
+    const response =  yield call(createCheckout, config)
     const payload = yield response.json()
     if(response.ok){     
         yield put.resolve(CartActions.requestCreateCheckoutSuccess(payload))
@@ -45,7 +46,8 @@ export function* requestAddProductToCheckout() {
     const variantId = yield select(getSelectedVariant)
     const variantCount = yield select(getSelectedCount)
     const cartId = yield select(getId) 
-    const response = yield call(addProductToCheckout, variantId, variantCount, cartId)
+    const config = select(getConfig)
+    const response = yield call(addProductToCheckout, config, variantId, variantCount, cartId)
     const payload = yield response.json()
     if(response.ok){
         yield put(CartActions.requestAddProductToCheckoutSuccess(payload)) 
@@ -58,7 +60,8 @@ export function* requestAddProductToCheckout() {
 export function* requestRemoveProductFromCheckout(action) {
     const lineItemId = action.id
     const cartId = yield select(getId) 
-    const response = yield call(removeProductFromCheckout, lineItemId, cartId)
+    const config = select(getConfig)
+    const response = yield call(removeProductFromCheckout, config, lineItemId, cartId)
     const payload = yield response.json()
     if(response.ok){
         yield put(CartActions.requestRemoveProductFromCheckoutSuccess(payload))
@@ -70,9 +73,10 @@ export function* requestRemoveProductFromCheckout(action) {
 export function* requestAddEmailAddress(action) {
     const {email, address} = action
     const cartId = yield select(getId) 
+    const config = select(getConfig)
     try{
-        const addressResponse = yield call(addAddresstoCheckout, address, cartId)
-        const emailResponse = yield call(addEmailToCheckout, email, cartId)
+        const addressResponse = yield call(addAddresstoCheckout, config, address, cartId)
+        const emailResponse = yield call(addEmailToCheckout, config, email, cartId)
         const addressPayload = yield addressResponse.json()
         const emailPayload = yield emailResponse.json()
         if(addressResponse.ok && emailResponse.ok){
@@ -94,11 +98,12 @@ export function* setAddressToCheckout(action) {
     const defaultAddressId = yield select(getDefaultAddressId)
     const isLogin = yield select(getIsLogin)
     const cartAddress = yield select(getShippingAddress)
+    const config = select(getConfig)
     try{
         if(isLogin && cartId && defaultAddressId && !cartAddress){
             const address = yield select(getAddressById, defaultAddressId)
             try{
-                const response = yield call(addAddresstoCheckout, address, cartId)
+                const response = yield call(addAddresstoCheckout, config, address, cartId)
                 const payload = yield response.json()
                 if(response.ok){
                     yield put(CartActions.setAddressToCheckoutSuccess()) 

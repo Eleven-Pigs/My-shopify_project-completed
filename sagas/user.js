@@ -6,6 +6,9 @@ import userActions from '../redux/user'
 import { getAccessToken, getExpiryAt } from '../redux/user'
 import { getId } from '../redux/cart'
 import { AsyncStorage } from "react-native"
+import { getConfig } from '../redux/config'
+
+
 
 
 export function* requestRegister(action) {
@@ -14,7 +17,8 @@ export function* requestRegister(action) {
         email,
         password
     }
-    const response = yield call(registerUser, user)
+    const config = select(getConfig)
+    const response = yield call(registerUser, config, user)
     const payload = yield response.json()
     try {
         if (response.ok) {
@@ -37,7 +41,8 @@ export function* requestLogin(action) {
         email,
         password
     }
-    const response = yield call(createAccessToken, user)
+    const config = select(getConfig)
+    const response = yield call(createAccessToken, config, user)
     const payload = yield response.json()
     if (response.ok) {
         if (payload.data.customerAccessTokenCreate.customerAccessToken) {
@@ -59,7 +64,8 @@ export function* requestRenewAccessToken(action) {
 
 
     const accessToken = action.accessToken
-    const response = yield call(renewAccessToken, accessToken)
+    const config = select(getConfig)
+    const response = yield call(renewAccessToken, config, accessToken)
     const payload = yield response.json()
     if (response.ok) {
         yield put(userActions.requestLoginSuccess(payload.data.customerAccessTokenRenew.customerAccessToken))
@@ -80,8 +86,9 @@ export function* logout(action) {
 export function* requestAssociateUserToCheckout(action) {
     const accessToken = yield select(getAccessToken)
     const cartId = yield select(getId)
+    const config = select(getConfig)
     try {
-        const response = yield call(associateUserToCheckout, accessToken, cartId)
+        const response = yield call(associateUserToCheckout, config, accessToken, cartId)
         const payload = yield response.json()
         if (response.ok) {
             yield put(userActions.requestAssociateUserToCheckoutSuccess())
@@ -94,8 +101,9 @@ export function* requestAssociateUserToCheckout(action) {
 }
 export function* requestUserAddress(action) {
     const accessToken = yield select(getAccessToken)
+    const config = select(getConfig)
     try {
-        const response = yield call(getCustomerAddress, accessToken)
+        const response = yield call(getCustomerAddress, config, accessToken)
         const payload = yield response.json()
         if (response.ok) {
             if (payload.data.customer.addresses.edges.length > 0) {
@@ -114,8 +122,9 @@ export function* requestUserAddress(action) {
 export function* requestCreateUserAddress(action) {
     const address = action.address
     const accessToken = yield select(getAccessToken)
+    const config = select(getConfig)
     try {
-        const response = yield call(createAddress, accessToken, address)
+        const response = yield call(createAddress, config, accessToken, address)
         const payload = yield response.json()
 
         if (response.ok) {

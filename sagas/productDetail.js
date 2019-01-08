@@ -2,11 +2,12 @@ import { ProductDetailTypes } from '../redux/productDetail'
 import { takeLatest, call, select, put } from 'redux-saga/effects';
 import { getProduct, getProductByHandle } from '../api'
 import ProductDetailAction from '../redux/productDetail'
-
+import {getConfig} from '../redux/config'
 
 export function* fetchProductDetail(action) {
     const { id } = action 
-    const response =  yield call(getProduct, id)
+    const config = select(getConfig)
+    const response =  yield call(getProduct, config, id)
     const payload = yield response.json()
     if(response.ok){      
         yield put(ProductDetailAction.requestProductDetailSuccess(payload.data.node))
@@ -18,7 +19,8 @@ export function* fetchProductDetail(action) {
 
 export function* fetchProductDetailByHandle(action) {
     const { handle } = action 
-    const response =  yield call(getProductByHandle, handle)
+    const config = select(getConfig)
+    const response =  yield call(getProductByHandle, config, handle)
     const payload = yield response.json()
     if(response.ok){      
         yield put(ProductDetailAction.requestProductDetailSuccess(payload.data.productByHandle))

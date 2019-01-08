@@ -33,3 +33,11 @@ const getBackgroundColor = (rootState) => {
     state = getReducer(rootState)
     return state.backgroundColor
 }
+export const getConfig = (rootState) => {
+    state = getReducer(rootState)
+    return {
+        shopifyStoreAccessToken: state.shopifyStoreAccessToken,
+        baseUrl: state.baseURL
+    }
+}
+

@@ -1,13 +1,13 @@
 import { jsonToGraphQLQuery, EnumType } from 'json-to-graphql-query';
 import { SHOPIFY_URL, SHOPIFY_STOREFRONT_ACCESS_TOKEN } from '../config/application'
 
-const fetchShopifyGraphql = (body) => {
-    return fetch(SHOPIFY_URL + '/api/graphql', {
+const fetchShopifyGraphql = (config, body) => {
+    return fetch(config.baseURL + '/api/graphql', {
         method: 'POST',
         headers: {
             Accept: 'application/json',
             'Content-Type': 'application/graphql',
-            'X-Shopify-Storefront-Access-Token': SHOPIFY_STOREFRONT_ACCESS_TOKEN
+            'X-Shopify-Storefront-Access-Token': config.shopifyStoreAccessToken
         },
         body: body,
     })
@@ -24,21 +24,8 @@ const fetchShopify = (path) => {
     })
 }
 
-export const testRequest = () => {
-    const query = {
-        shop: {
-            name: true,
-            primaryDomain: {
-                url : true,
-                host: true
-            }
-        }
-    } 
 
-    return fetchShopifyGraphql(query)
-}
-
-export const getProduct = (id) => {
+export const getProduct = (config, id) => {
     const query = {
         node: {
             __args: {
@@ -87,12 +74,12 @@ export const getProduct = (id) => {
         }
     } 
     const graphQLQuery = '{' +  jsonToGraphQLQuery(query, {pretty: true}) + '}'
-    return fetchShopifyGraphql(graphQLQuery)
+    return fetchShopifyGraphql(config, graphQLQuery)
 }
 
 
 
-export const getProductByHandle = (handle) => {
+export const getProductByHandle = (config, handle) => {
     const query = {
         productByHandle: {
             __args: {
@@ -139,10 +126,10 @@ export const getProductByHandle = (handle) => {
         }
     } 
     const graphQLQuery = '{' +  jsonToGraphQLQuery(query, {pretty: true}) + '}'
-    return fetchShopifyGraphql(graphQLQuery)
+    return fetchShopifyGraphql(config, graphQLQuery)
 }
 
-export const getProductFromCollection = (id, cursor, sortKey, reverse) => {
+export const getProductFromCollection = (config, id, cursor, sortKey, reverse) => {
     
     const query = {
         node: {
@@ -192,11 +179,11 @@ export const getProductFromCollection = (id, cursor, sortKey, reverse) => {
         }
     }
     const graphQLQuery = '{' +  jsonToGraphQLQuery(query, {pretty: true}) + '}'
-    return fetchShopifyGraphql(graphQLQuery)
+    return fetchShopifyGraphql(config, graphQLQuery)
 }
 
 
-export const getProductFromCollectionByHandle = (handle, cursor, sortKey, reverse) => {
+export const getProductFromCollectionByHandle = (config, handle, cursor, sortKey, reverse) => {
     
     const query = {
         collectionByHandle: {
@@ -244,10 +231,10 @@ export const getProductFromCollectionByHandle = (handle, cursor, sortKey, revers
         }
     }
     const graphQLQuery = '{' +  jsonToGraphQLQuery(query, {pretty: true}) + '}'
-    return fetchShopifyGraphql(graphQLQuery)
+    return fetchShopifyGraphql(config, graphQLQuery)
 }
 
-export const getProductListBySearch = (search, cursor, sortKey, reverse) => {
+export const getProductListBySearch = (config, search, cursor, sortKey, reverse) => {
     
     const query = {
                 products: {
@@ -290,10 +277,10 @@ export const getProductListBySearch = (search, cursor, sortKey, reverse) => {
         
     }
     const graphQLQuery = '{' +  jsonToGraphQLQuery(query, {pretty: true}) + '}'
-    return fetchShopifyGraphql(graphQLQuery)
+    return fetchShopifyGraphql(config, graphQLQuery)
 }
 
-export const getCollections = () => {
+export const getCollections = (config) => {
     const query = {
         shop: {
             moneyFormat: true,
@@ -406,10 +393,10 @@ export const getCollections = () => {
         }
     }
     const graphQLQuery = '{' +  jsonToGraphQLQuery(query, {pretty: true}) + '}'
-    return fetchShopifyGraphql(graphQLQuery)
+    return fetchShopifyGraphql(config, graphQLQuery)
 }
 
-export const getCheckout = (id) => {
+export const getCheckout = (config, id) => {
     const query = {
         node: {
             __args: {
@@ -457,10 +444,10 @@ export const getCheckout = (id) => {
         }
     } 
     const graphQLQuery = '{' +  jsonToGraphQLQuery(query, {pretty: true}) + '}'
-    return fetchShopifyGraphql(graphQLQuery)
+    return fetchShopifyGraphql(config, graphQLQuery)
 }
 
-export const getShopDetail = () => {
+export const getShopDetail = (config) => {
     const query = {
         shop: {
             moneyFormat: true,
@@ -472,10 +459,10 @@ export const getShopDetail = () => {
         }
     } 
     const graphQLQuery = '{' +  jsonToGraphQLQuery(query, {pretty: true}) + '}'
-    return fetchShopifyGraphql(graphQLQuery)
+    return fetchShopifyGraphql(config, graphQLQuery)
 }
 
-export const getCustomerAddress = (customerAccessToken) => {
+export const getCustomerAddress = (config, customerAccessToken) => {
     const query = {
         customer: {
             __args: {
@@ -505,9 +492,9 @@ export const getCustomerAddress = (customerAccessToken) => {
         }
     } 
     const graphQLQuery = '{' +  jsonToGraphQLQuery(query, {pretty: true}) + '}'
-    return fetchShopifyGraphql(graphQLQuery)
+    return fetchShopifyGraphql(config, graphQLQuery)
 }
-export const getOrderList = (customerAccessToken) => {
+export const getOrderList = (config, customerAccessToken) => {
     const query = {
         customer: {
             __args: {
@@ -554,13 +541,13 @@ export const getOrderList = (customerAccessToken) => {
         }
     } 
     const graphQLQuery = '{' +  jsonToGraphQLQuery(query, {pretty: true}) + '}'
-    return fetchShopifyGraphql(graphQLQuery)
+    return fetchShopifyGraphql(config, graphQLQuery)
 }
 
 
-export const createCheckout = () => {
+export const createCheckout = (config) => {
     const mutation = 'mutation {checkoutCreate(input: { lineItems: [] }) { checkout { id webUrl } } }'
-    return fetchShopifyGraphql(mutation)
+    return fetchShopifyGraphql(config, mutation)
 }
 export const addProductToCheckout = (variantId, quantity, checkoutId) => {
     const mutation = `mutation {
@@ -580,10 +567,10 @@ export const addProductToCheckout = (variantId, quantity, checkoutId) => {
           }
         }
       }`
-    return fetchShopifyGraphql(mutation)
+    return fetchShopifyGraphql(config, mutation)
 }
 
-export const removeProductFromCheckout = (lineItemId, checkoutId) => {
+export const removeProductFromCheckout = (config, lineItemId, checkoutId) => {
     const mutation = `mutation {
         checkoutLineItemsRemove(lineItemIds: "${lineItemId}", checkoutId: "${checkoutId}",
         ) {
@@ -593,10 +580,10 @@ export const removeProductFromCheckout = (lineItemId, checkoutId) => {
         }
       }
       `
-    return fetchShopifyGraphql(mutation)
+    return fetchShopifyGraphql(config, mutation)
 }
 
-export const addAddresstoCheckout = (address, checkoutId) => {
+export const addAddresstoCheckout = (config, address, checkoutId) => {
     const {
         address1,
         address2,
@@ -637,9 +624,9 @@ export const addAddresstoCheckout = (address, checkoutId) => {
           }
         }
       }`
-    return fetchShopifyGraphql(mutation)
+    return fetchShopifyGraphql(config, mutation)
 }
-export const addEmailToCheckout = (email, checkoutId) => {
+export const addEmailToCheckout = (config, email, checkoutId) => {
 
     const mutation = `mutation{
         checkoutEmailUpdateV2(checkoutId: "${checkoutId}", email: "${email}") {
@@ -657,10 +644,10 @@ export const addEmailToCheckout = (email, checkoutId) => {
         }
       }
       `
-    return fetchShopifyGraphql(mutation)
+    return fetchShopifyGraphql(config, mutation)
 }
 
-export const associateUserToCheckout = (accessToken, checkoutId) => {
+export const associateUserToCheckout = (config, accessToken, checkoutId) => {
     const mutation = `mutation {
         checkoutCustomerAssociateV2(checkoutId: "${checkoutId}", customerAccessToken: "${accessToken}") {
           userErrors {
@@ -675,10 +662,10 @@ export const associateUserToCheckout = (accessToken, checkoutId) => {
           }
         }
       }`
-    return fetchShopifyGraphql(mutation)
+    return fetchShopifyGraphql(config, mutation)
 }
 
-export const registerUser = (user) => {
+export const registerUser = (config, user) => {
  const  {
             email,
             password
@@ -702,10 +689,10 @@ export const registerUser = (user) => {
           }
         }
       }`
-    return fetchShopifyGraphql(mutation)
+    return fetchShopifyGraphql(config, mutation)
 }
 
-export const createAccessToken = (user) => {
+export const createAccessToken = (config, user) => {
  const  {
             email,
             password
@@ -729,10 +716,10 @@ export const createAccessToken = (user) => {
           }
         }
       }`
-    return fetchShopifyGraphql(mutation)
+    return fetchShopifyGraphql(config, mutation)
 }
 
-export const renewAccessToken = (accessToken) => {
+export const renewAccessToken = (config, accessToken) => {
 
     const mutation = `mutation {
         customerAccessTokenRenew(customerAccessToken: "${accessToken}") {
@@ -746,10 +733,10 @@ export const renewAccessToken = (accessToken) => {
           }
         }
       }`
-    return fetchShopifyGraphql(mutation)
+    return fetchShopifyGraphql(config,mutation)
 }
 
-export const createAddress = (accessToken, address) => {
+export const createAddress = (config, accessToken, address) => {
     const {
         address1,
         address2,
@@ -784,10 +771,10 @@ export const createAddress = (accessToken, address) => {
           }
         }
       }`
-    return fetchShopifyGraphql(mutation)
+    return fetchShopifyGraphql(config, mutation)
 }
 
-export const updateAddress = (accessToken, address) => {
+export const updateAddress = (config, accessToken, address) => {
     const {
         address1,
         address2,
@@ -823,10 +810,10 @@ export const updateAddress = (accessToken, address) => {
           }
         }
       }`
-    return fetchShopifyGraphql(mutation)
+    return fetchShopifyGraphql(config, mutation)
 }
 
-export const setDefaultAddress = (accessToken, addressId) => {
+export const setDefaultAddress = (config, accessToken, addressId) => {
 
     const mutation = `mutation {
         customerDefaultAddressUpdate(customerAccessToken: ${accessToken}, addressId: ${addressId}) {
@@ -843,7 +830,7 @@ export const setDefaultAddress = (accessToken, addressId) => {
           }
         }
       }`
-    return fetchShopifyGraphql(mutation)
+    return fetchShopifyGraphql(config, mutation)
 }
 
 
