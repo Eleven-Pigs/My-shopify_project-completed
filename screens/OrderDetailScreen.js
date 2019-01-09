@@ -1,9 +1,7 @@
 import React from 'react';
-import { SafeAreaView, Alert } from 'react-native'
+import { SafeAreaView, Text } from 'react-native'
 import { connect } from 'react-redux'
-import OrderListContainer  from '../containers/OrderList'
-import OrderDetailActions from '../redux/orderDetail'
-
+import OrderDetailActions,  { getTotalPrice, getCustomerUrl, getName, getOrderNumber, getProcessedAt, getShippingAddress, getSubtotalPrice, getTotalShippingPrice, getTotalTax} from '../redux/orderDetail'
 class OrderList extends React.Component {
   constructor(props){
     super(props)
@@ -22,7 +20,13 @@ class OrderList extends React.Component {
   render = () => {
     return (
         <SafeAreaView style = {{flex:1}}>
-            <OrderListContainer/>
+            <Text>{this.props.name}</Text>
+            <Text>{this.props.processedAt}</Text>
+            <Text>{this.props.subtotalPrice}</Text>
+            <Text>{this.props.totalPrice}</Text>
+            <Text>{this.props.totalShippingPrice}</Text>
+            <Text>{this.props.totalTax}</Text>
+            <Text>{this.props.customerUrl}</Text>
         </SafeAreaView>
     )
   }
@@ -31,6 +35,15 @@ class OrderList extends React.Component {
 
 const mapStateToProps = state => {
   return {
+    customerUrl: getCustomerUrl(state),
+    name: getName(state),
+    orderNumber: getOrderNumber(state),
+    processedAt: getProcessedAt(state),
+    shippingAddress: getShippingAddress(state),
+    subtotalPrice: getSubtotalPrice(state),
+    totalPrice: getTotalPrice(state),
+    totalShippingPrice: getTotalShippingPrice(state),
+    totalTax: getTotalTax(state),
   }
 }
   

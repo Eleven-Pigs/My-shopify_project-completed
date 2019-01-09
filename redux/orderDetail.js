@@ -72,17 +72,55 @@ export const orderDetail = createReducer(INITIAL_STATE, {
 })
 
 const getReducer = (rootState) => {
-  return rootState.order
+  return rootState.orderDetail
 }
-export const getAllOrderIds = (rootState) => {
+export const getProductsIds = (rootState) => {
+  const state = getReducer(rootState)
+  return state.products.allIds
+}
+export const getProductById = (rootState) => {
   const state = getReducer(rootState)
   return state.orders.allIds
 }
 
-export const getOrderById = (rootState, id) => {
+export const getCustomerUrl = (rootState) => {
   const state = getReducer(rootState)
-  return state.orders.byId[id]
+  return state.customerUrl
 }
+export const getName = (rootState) => {
+  const state = getReducer(rootState)
+  return state.name
+}
+export const getOrderNumber = (rootState) => {
+  const state = getReducer(rootState)
+  return state.orderNumber
+}
+export const getProcessedAt = (rootState) => {
+  const state = getReducer(rootState)
+  return state.processedAt
+}
+export const getShippingAddress = (rootState) => {
+  const state = getReducer(rootState)
+  return state.shippingAddress
+}
+export const getSubtotalPrice = (rootState) => {
+  const state = getReducer(rootState)
+  return state.subtotalPrice
+}
+export const getTotalPrice = (rootState) => {
+  const state = getReducer(rootState)
+  return state.totalPrice
+}
+export const getTotalShippingPrice = (rootState) => {
+  const state = getReducer(rootState)
+  return state.totalShippingPrice
+}
+export const getTotalTax = (rootState) => {
+  const state = getReducer(rootState)
+  return state.totalTax
+}
+
+
 //Normaliza
 const normalizeProducts = (graphQLOrders) => {
   const node = graphQLOrders
@@ -97,6 +135,7 @@ const normalizeProducts = (graphQLOrders) => {
     const quantity = node.quantity
     const title = node.title
     const variantTitle = node.variant.title
+    
     return ({
       [id]: {
         id: id,
