@@ -561,12 +561,16 @@ export const getOrderDetail = (config, id, customerAccessToken) => {
                         name: true,
                         processedAt: true,
                         customerUrl: true,
+                        subtotalPrice: true,
+                        totalShippingPrice: true,
+                        totalTax: true,
                         id: true,
                         lineItems: {
                             __args: {
-                                first: 10
+                                first: 20
                             },
                             edges: {
+                                cursor: true,
                                 node: {
                                     title: true,
                                     quantity: true,

@@ -1,5 +1,6 @@
 import { createActions, createReducer } from 'reduxsauce'
 import Immutable from 'seamless-immutable'
+import { OrderTypes } from './order';
 
 const { Types, Creators } = createActions({
   requestUserOrderDetail: ['id'],
@@ -42,12 +43,20 @@ const requestUserOrderDetail = (state, action) => {
   })
 }
 const requestUserOrderDetailSuccess = (state, action) => {
-  const orders = normalizeOrders(action.payload.customer)
-  const lastOrder = orders.allIds[orders.allIds.length - 1]
-  const order = orders.byIds[lastOrder]
-  const cursor = order.cursor
+  const order = action.payload.data.node
+  const products = normalizeProducts(order)
   return state.merge({
-    isFetching: true,
+    isFetching: false,
+    customerUrl: order.customerUrl,
+    name: order.name,
+    orderNumber: order.orderNumber,
+    processedAt: order.processedAt,
+    shippingAddress: order.shippingAddress,
+    subtotalPrice: order.subtotalPrice,
+    totalPrice: order.totalPrice,
+    totalShippingPrice: order.totalShippingPrice,
+    totalTax: order.totalTax,
+    products: products
   })
 }
 const requestUserOrderDetailFail = (state, action) => {
@@ -75,34 +84,25 @@ export const getOrderById = (rootState, id) => {
   return state.orders.byId[id]
 }
 //Normaliza
-const normalizeOrders = (graphQLOrders) => {
+const normalizeProducts = (graphQLOrders) => {
   const node = graphQLOrders
 
-
-  const allOrderIds = node.orders.edges.map(edge => {
-    const node = edge.node
-    const id = node.id
-    return id
+  const productIds = node.lineItems.edges.map(edge => {
+    return edge.cursor
   })
 
-  const orderByIds = node.orders.edges.map(edge => {
+  const productById = node.lineItems.edges.map(edge => {
     const node = edge.node
-    const id = node.id
-    const name = node.name
-    const processedAt = node.processedAt
-    const orderNumber = node.orderNumber
-    const totalPrice = node.totalPrice
-    const customerUrl = node.customerUrl
-    const cursor = edge.cursor
+    const id = edge.cursor
+    const quantity = node.quantity
+    const title = node.title
+    const variantTitle = node.variant.title
     return ({
       [id]: {
         id: id,
-        cursor: cursor,
-        orderNumber: orderNumber,
-        totalPrice: totalPrice,
-        customerUrl: customerUrl,
-        name: name,
-        processedAt: processedAt
+        quantity: quantity,
+        title: title,
+        variantTitle: variantTitle
       }
     })
   }).reduce((acc, ele) => {
@@ -113,8 +113,8 @@ const normalizeOrders = (graphQLOrders) => {
   }, {});
 
   return {
-      byIds: orderByIds,
-      allIds: allOrderIds,
+      byIds: productById,
+      allIds: productIds,
   }
 
 }

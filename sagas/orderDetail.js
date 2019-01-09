@@ -1,7 +1,7 @@
 import { takeLatest, call, select, put } from 'redux-saga/effects';
 import { OrderDetailTypes } from '../redux/orderDetail'
 import { getAccessToken } from '../redux/user'
-import OrderActions from '../redux/order'
+import OrderDetailActions from '../redux/orderDetail'
 import { getOrderDetail } from '../api'
 import { getConfig } from '../redux/config'
 
@@ -14,19 +14,15 @@ export function* fetchOrderDetail(action) {
     try {
         const response = yield call(getOrderDetail, config, id, accessToken)
         const payload = yield response.json()
-        console.log('sadfasdfasdf', response)
         if (response.ok) {
-            if (payload.data.customer.orders.edges.length > 0) {
-                yield put(OrderActions.requestUserOrderDetailSuccess(payload.data))
-            } else {
-                yield put(OrderActions.requestUserOrderDetailFail())
-            }
+            yield put(OrderDetailActions.requestUserOrderDetailSuccess(payload))
+
         } else {
-            yield put(OrderActions.requestUserOrderDetailFail())
+            yield put(OrderDetailActions.requestUserOrderDetailFail())
         }
     } catch (e) {
         console.log(e)
-        yield put(OrderActions.requestUserOrderDetailFail())
+        yield put(OrderDetailActions.requestUserOrderDetailFail())
     }
 }
 

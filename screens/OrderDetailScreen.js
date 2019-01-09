@@ -9,7 +9,7 @@ class OrderList extends React.Component {
     super(props)
   }
   static navigationOptions = {
-   headerTitle: 'Orders',
+   headerTitle: 'Order Detail',
   };
   
   componentDidMount() {
