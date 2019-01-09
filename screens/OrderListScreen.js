@@ -1,7 +1,7 @@
 import React from 'react';
 import { SafeAreaView, Alert } from 'react-native'
 import { connect } from 'react-redux'
-import AddressListContainer  from '../containers/AddressList'
+import OrderListContainer  from '../containers/OrderList'
 import { Checkout }  from '../components/Checkout'
 import { getTotalPrice, getShippingAddress, getCartItemCount } from '../redux/cart'
 import { getIsLogin } from '../redux/user'
@@ -24,7 +24,7 @@ class OrderList extends React.Component {
   render = () => {
     return (
         <SafeAreaView style = {{flex:1}}>
-            <AddressListContainer/>
+            <OrderListContainer/>
         </SafeAreaView>
     )
   }

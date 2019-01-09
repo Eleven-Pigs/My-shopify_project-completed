@@ -5,10 +5,15 @@ const { Types, Creators } = createActions({
   requestUserOrders: null,
   requestUserOrdersSuccess: ['payload'],
   requestUserOrdersFail: null,
-  })
+})
 
 const INITIAL_STATE = Immutable({
   isFetching: false,
+  cursor: null,
+  orders: {
+    allIds: [],
+    byId: {}
+  }
 })
 
 export const OrderTypes = Types
@@ -21,8 +26,17 @@ const requestUserOrders = (state, action) => {
   })
 }
 const requestUserOrdersSuccess = (state, action) => {
+  const orders = normalizeOrders(action.payload.customer)
+  const lastOrder = orders.allIds[orders.allIds.length - 1]
+  const order = orders.byIds[lastOrder]
+  const cursor = order.cursor
   return state.merge({
-    isFetching: true
+    isFetching: true,
+    orders:{
+      byId: {...state.orders.byId, ...orders.byIds},
+      allIds: state.orders.allIds.concat(orders.allIds)
+    },
+    cursor: cursor
   })
 }
 const requestUserOrdersFail = (state, action) => {
@@ -42,51 +56,63 @@ export const order = createReducer(INITIAL_STATE, {
 const getReducer = (rootState) => {
   return rootState.order
 }
+export const getOrderCursor = (rootState) =>{
+  const state = getReducer(rootState)
+  return state.cursor
+}
+export const getAllOrderIds = (rootState) => {
+  const state = getReducer(rootState)
+  return state.orders.allIds
+}
+
+export const getOrderById = (rootState, id) => {
+  const state = getReducer(rootState)
+  return state.orders.byId[id]
+}
+
+
 
 //Normaliza
-const normalizeProducts = (graphQLProducts) => {
-  const node = graphQLProducts
+const normalizeOrders = (graphQLOrders) => {
+  const node = graphQLOrders
 
 
-  const allProductIds = node.products.edges.map(edge => {
-      const node = edge.node
-      const id = node.id
-      return id
+  const allOrderIds = node.orders.edges.map(edge => {
+    const node = edge.node
+    const id = node.id
+    return id
   })
 
-  const productByIds = node.products.edges.map(edge => {
-      const cursor = edge.cursor
-      const node = edge.node 
-      const id = node.id
-      const title = node.title
-      const image = node.images.edges.length > 0 ? node.images.edges[0].node.originalSrc : null
-      const maxVariantPrice = node.priceRange.maxVariantPrice.amount
-      const minVariantPrice = node.priceRange.minVariantPrice.amount
-      const currencyCode = node.priceRange.maxVariantPrice.currencyCode
-
-      return({
-          [id]: {
-              id: id,
-              cursor: cursor,
-              title: title,
-              image: image,
-              maxVariantPrice: maxVariantPrice,
-              minVariantPrice: minVariantPrice,
-              currencyCode: currencyCode
-          }
-      })
-  }).reduce((acc,ele) => {
-      const keys = Object.keys(ele)
-      const key = keys[0]
-      acc[key] = ele[key]
-      return acc
+  const orderByIds = node.orders.edges.map(edge => {
+    const node = edge.node
+    const id = node.id
+    const name = node.name
+    const processedAt = node.processedAt
+    const orderNumber = node.orderNumber
+    const totalPrice = node.totalPrice
+    const customerUrl = node.customerUrl
+    const cursor = edge.cursor
+    return ({
+      [id]: {
+        id: id,
+        cursor: cursor,
+        orderNumber: orderNumber,
+        totalPrice: totalPrice,
+        customerUrl: customerUrl,
+        name: name,
+        processedAt: processedAt
+      }
+    })
+  }).reduce((acc, ele) => {
+    const keys = Object.keys(ele)
+    const key = keys[0]
+    acc[key] = ele[key]
+    return acc
   }, {});
 
   return {
-      products: {
-          byIds: productByIds,
-          allIds: allProductIds
-      },
+      byIds: orderByIds,
+      allIds: allOrderIds,
   }
 
 }

@@ -1,10 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import { getAddressById , getIsAddressDefault} from '../redux/user'
+import { getIsAddressDefault} from '../redux/user'
 import { OrderListItem as Item}  from '../components/OrderListItem'
 import { withNavigation } from 'react-navigation';
 import { Alert } from 'react-native'
 import  CartActions  from '../redux/cart'
+import { getOrderById } from '../redux/order';
 
 class OrderListItem extends React.Component {
   navigateToProductList = () => {
@@ -24,7 +25,7 @@ class OrderListItem extends React.Component {
 
   render() {
     return (
-        <Item isDefault={this.props.isDefault} onRemoveProduct={this.removeProduct} onPressItem={this.navigateToProductList} onDeletePress={this.onDeletePress}  address={this.props.address} />
+        <Item onPressItem={this.navigateToProductList} order={this.props.order} />
     );
   }
 
@@ -32,7 +33,7 @@ class OrderListItem extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    address: getAddressById(state, ownProps.id),
+    order: getOrderById(state, ownProps.id),
     isDefault: getIsAddressDefault(state, ownProps.id)
   }
 }

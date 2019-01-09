@@ -1,10 +1,11 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { OrderList as Item } from '../components/OrderList'
-import { getAllAddressIds, getIsFetching } from '../redux/user'
+import { getIsFetching } from '../redux/user'
 import CartActions from '../redux/cart'
 import { getButtonBackgroundColor, getButtonTextColor } from '../redux/config'
 import { withNavigation } from 'react-navigation'
+import { getAllOrderIds } from '../redux/order';
 
 class OrderList extends React.Component {
 
@@ -15,7 +16,7 @@ class OrderList extends React.Component {
     return(
       <Item 
         addNewAddressPressed={this.addNewAddressPressed} 
-        addressIds={this.props.addressIds} 
+        orderIds={this.props.orderIds} 
         isFetching={this.props.isFetching} 
         buttonTextColor={this.props.buttonTextColor}
         buttonBackgroundColor={this.props.buttonBackgroundColor}/>
@@ -24,7 +25,7 @@ class OrderList extends React.Component {
 }
 const mapStateToProps = (state) => {
   return {
-    addressIds: getAllAddressIds(state),
+    orderIds: getAllOrderIds(state),
     isFetching: getIsFetching(state),
     buttonBackgroundColor: getButtonBackgroundColor(state),
     buttonTextColor: getButtonTextColor(state)
