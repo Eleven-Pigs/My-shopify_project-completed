@@ -6,6 +6,7 @@ import { withNavigation } from 'react-navigation';
 import { Alert } from 'react-native'
 import  CartActions  from '../redux/cart'
 import { getOrderById } from '../redux/order';
+import { getMoneyFormat } from '../redux/shop';
 
 class OrderListItem extends React.Component {
   navigateToProductList = () => {
@@ -25,7 +26,7 @@ class OrderListItem extends React.Component {
 
   render() {
     return (
-        <Item onPressItem={this.navigateToProductList} order={this.props.order} />
+        <Item moneyFormat={this.props.moneyFormat} onPressItem={this.navigateToProductList} order={this.props.order} />
     );
   }
 
@@ -34,6 +35,7 @@ class OrderListItem extends React.Component {
 const mapStateToProps = (state, ownProps) => {
   return {
     order: getOrderById(state, ownProps.id),
+    moneyFormat: getMoneyFormat(state),
     isDefault: getIsAddressDefault(state, ownProps.id)
   }
 }

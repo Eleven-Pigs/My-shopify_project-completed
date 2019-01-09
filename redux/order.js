@@ -69,9 +69,6 @@ export const getOrderById = (rootState, id) => {
   const state = getReducer(rootState)
   return state.orders.byId[id]
 }
-
-
-
 //Normaliza
 const normalizeOrders = (graphQLOrders) => {
   const node = graphQLOrders
