@@ -1,18 +1,14 @@
 export const theme = {
-    primary: {
-        light: '#757ce8',
-        main: '#3f50b5',
-        dark: '#002884',
-        contrastText: '#fff',
-    },
-    secondary: {
-        light: '#ff7961',
-        main: '#f44336',
-        dark: '#ba000d',
-        contrastText: '#000',
-    },
+    primaryColor: 'red',
     iconLight: '#d7d7d7',
     iconDark: '#000',
     background: '#81cee6',
-    listBackground: '#e9ebee'
+    listBackground: '#e9ebee',
+    activeBottomIconColor: 'red',
+    inactiveBottomIconColor: 'lightgrey',
+    bottomTabBarColor: 'white',
+    buttonBackgroundColor: 'red',
+    buttonTextColor: 'white',
+    headerBackIconColor: 'red',
+    generalIconColor: 'red'
 };

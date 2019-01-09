@@ -9,7 +9,7 @@ export default class Entypo extends React.Component {
         name={this.props.name}
         size={26}
         style={ styles.icon }
-        color={this.props.focused ? theme.background : theme.iconLight }
+        color={this.props.focused ? this.props.activeColor : this.props.inactiveColor  }
       />
     );
   }

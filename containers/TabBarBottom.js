@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import { getPrimaryColor } from '../redux/config'
+import { getBottomTabBarColor } from '../redux/config'
 import { BottomTabBar }  from 'react-navigation-tabs'
 
 class TabBar extends React.Component {
@@ -9,14 +9,14 @@ class TabBar extends React.Component {
   }
 
   render() {
-    return <BottomTabBar {...this.props}/>
+    return <BottomTabBar {...this.props} style = {{backgroundColor: this.props.bottomTabBarColor}}/>
   }
 
 }
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    primaryColor: getPrimaryColor(state)
+    bottomTabBarColor: getBottomTabBarColor(state)
   }
 }
 

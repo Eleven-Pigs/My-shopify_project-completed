@@ -49,7 +49,7 @@ export default class SearchBox extends React.Component {
                     returnKeyType= "search"
                     onChangeText= {(text) => this.changeTextInput(text)}
                     defaultValue={this.props.defaultValue}
-                    titleCancelColor= {this.props.primaryColor}
+                    titleCancelColor= {this.props.iconColor}
                    
                     /**
                     * There many props that can customizable

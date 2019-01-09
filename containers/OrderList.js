@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { OrderList as Item } from '../components/OrderList'
 import { getAllAddressIds, getIsFetching } from '../redux/user'
 import CartActions from '../redux/cart'
-import { getPrimaryColor } from '../redux/config'
+import { getButtonBackgroundColor, getButtonTextColor } from '../redux/config'
 import { withNavigation } from 'react-navigation'
 
 class OrderList extends React.Component {
@@ -13,7 +13,12 @@ class OrderList extends React.Component {
   }
   render(){
     return(
-      <Item addNewAddressPressed={this.addNewAddressPressed} addressIds={this.props.addressIds} isFetching={this.props.isFetching} primaryColor={this.props.primaryColor}/>
+      <Item 
+        addNewAddressPressed={this.addNewAddressPressed} 
+        addressIds={this.props.addressIds} 
+        isFetching={this.props.isFetching} 
+        buttonTextColor={this.props.buttonTextColor}
+        buttonBackgroundColor={this.props.buttonBackgroundColor}/>
     )
   }
 }
@@ -21,7 +26,8 @@ const mapStateToProps = (state) => {
   return {
     addressIds: getAllAddressIds(state),
     isFetching: getIsFetching(state),
-    primaryColor: getPrimaryColor(state)
+    buttonBackgroundColor: getButtonBackgroundColor(state),
+    buttonTextColor: getButtonTextColor(state)
   }
 }
 const mapDispatchToProps = dispatch => {

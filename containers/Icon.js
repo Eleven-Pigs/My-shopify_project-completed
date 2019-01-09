@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import { View, Text } from 'react-native'
-import { getPrimaryColor } from '../redux/config'
+import { getActiveBottomIconColor, getInactiveBottomIconColor } from '../redux/config'
 import Ionicons from '../components/Reusable/TabBarIcon/Ionicons';
 import Materialicons from '../components/Reusable/TabBarIcon/Materialicons';
 
@@ -10,29 +10,31 @@ class Icon extends React.Component {
     super(props)
   }
 
-  _renderIonicons = (focused, name, primaryColor) => (
+  _renderIonicons = (focused, name, activeIconColor, inactiveIconColor) => (
     <Ionicons
       focused={focused}
       name={name}
-      primaryColor={primaryColor}
+      activeColor={activeIconColor}
+      inactiveColor={inactiveIconColor}
     />
   )
-  _renderMaterialicons = (focused, name, primaryColor) => (
+  _renderMaterialicons = (focused, name, activeIconColor, inactiveIconColor) => (
     <Materialicons
     focused={focused}
     name={name}
-    primaryColor={primaryColor}
+    activeColor={activeIconColor}
+    inactiveColor={inactiveIconColor}
     />
   )
 
   render() {
-    const {icon, focused, name, primaryColor} = this.props
+    const {icon, focused, name, activeIconColor, inactiveIconColor} = this.props
     switch(icon){
       case 'Materialicon':
-        return this._renderMaterialicons(focused, name, primaryColor)
+        return this._renderMaterialicons(focused, name, activeIconColor, inactiveIconColor)
         break
       case 'Ionicon':
-        return this._renderIonicons(focused, name, primaryColor)
+        return this._renderIonicons(focused, name, activeIconColor, inactiveIconColor)
         break
     }
   }
@@ -41,7 +43,8 @@ class Icon extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    primaryColor: getPrimaryColor(state)
+    activeIconColor: getActiveBottomIconColor(state),
+    inactiveIconColor: getInactiveBottomIconColor(state),
   }
 }
 

@@ -5,7 +5,7 @@ import UserActions from '../redux/user'
 import { withNavigation, StackActions, NavigationActions } from 'react-navigation';
 import { getIsLogin, getIsFetching, getLoginError } from '../redux/user'
 import { getName } from '../redux/shop'
-import { getPrimaryColor } from '../redux/config';
+import { getButtonBackgroundColor, getButtonTextColor } from '../redux/config';
 import { Alert } from 'react-native'
 
 
@@ -53,7 +53,13 @@ class Login extends React.Component {
 
   render() {
     return (
-        <LoginComponent isFetching={this.props.isFetching} primaryColor={this.props.primaryColor} shopName={this.props.shopName} onPressed={this.props.onPressed} registerPressed={this.navigateToRegister}/>
+        <LoginComponent 
+          isFetching={this.props.isFetching} 
+          buttonBackgroundColor={this.props.buttonBackgroundColor} 
+          buttonTextColor={this.props.buttonTextColor}
+          shopName={this.props.shopName} 
+          onPressed={this.props.onPressed} 
+          registerPressed={this.navigateToRegister}/>
     );
   }
 
@@ -64,7 +70,8 @@ const mapStateToProps = state => {
   return {
     isLogin: getIsLogin(state),
     shopName: getName(state),
-    primaryColor: getPrimaryColor(state),
+    buttonBackgroundColor: getButtonBackgroundColor(state),
+    buttonTextColor: getButtonTextColor(state),
     isFetching: getIsFetching(state),
     loginError: getLoginError(state)
   }

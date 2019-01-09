@@ -45,11 +45,11 @@ export default class LoginComponent extends React.Component {
                     secureTextEntry={true}
                     error={this.state.passwordError}
                 />
-                <TouchableOpacity disabled={this.props.isFetching} style = {{marginTop: 20, width: '50%', alignSelf: 'center',padding: 10,backgroundColor: this.props.primaryColor}} onPress={this.loginPressed}>
-                    <Text style = {{color:'white', textAlign: 'center', fontSize: 15, fontWeight: 'bold'}}>SIGN IN</Text>
+                <TouchableOpacity disabled={this.props.isFetching} style = {{marginTop: 20, width: '50%', alignSelf: 'center',padding: 10,backgroundColor: this.props.buttonBackgroundColor}} onPress={this.loginPressed}>
+                    <Text style = {{color: this.props.buttonTextColor, textAlign: 'center', fontSize: 15, fontWeight: 'bold'}}>SIGN IN</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style = {{width: '50%', alignSelf: 'center', marginTop: 20}} onPress={this.registerPressed}>
-                    <Text style = {{color: this.props.primaryColor, textAlign: 'center', fontSize: 15,}}>Register</Text>
+                    <Text style = {{color: this.props.buttonBackgroundColor, textAlign: 'center', fontSize: 15,}}>Register</Text>
                 </TouchableOpacity>
 
 

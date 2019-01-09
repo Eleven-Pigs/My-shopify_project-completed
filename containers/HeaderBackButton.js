@@ -1,9 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import { View, Text } from 'react-native'
-import { getPrimaryColor } from '../redux/config'
-import Ionicons from '../components/Reusable/TabBarIcon/Ionicons';
-import Materialicons from '../components/Reusable/TabBarIcon/Materialicons';
+import { getHeaderBackIconColor } from '../redux/config'
 import { HeaderBackButton as ReactNavigationHeaderBackButton, withNavigation } from 'react-navigation';
 
 class HeaderBackButtonContainer extends React.Component {
@@ -12,9 +9,9 @@ class HeaderBackButtonContainer extends React.Component {
   }
 
   render() {
-    const {primaryColor} = this.props
+    const {headerBackIconColor} = this.props
     return(
-      <ReactNavigationHeaderBackButton onPress={() => this.props.navigation.goBack(null)} tintColor= {primaryColor}/>
+      <ReactNavigationHeaderBackButton onPress={() => this.props.navigation.goBack(null)} tintColor= {headerBackIconColor}/>
     )
   }
 
@@ -22,7 +19,7 @@ class HeaderBackButtonContainer extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    primaryColor: getPrimaryColor(state)
+    headerBackIconColor: getHeaderBackIconColor(state)
   }
 }
 

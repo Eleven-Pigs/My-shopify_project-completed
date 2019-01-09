@@ -11,8 +11,8 @@ export class AddressList extends React.Component {
     renderFooter = () => {
         return (
             <View style ={{alignItems: 'center', marginTop: 20, marginBottom: 30}}>
-                <TouchableOpacity onPress={this.props.addNewAddressPressed} style = {{width: 200,backgroundColor: this.props.primaryColor, padding: 20 }}>
-                    <Text style={{color: 'white', fontSize: 18, textAlign: 'center'}}>Add new address</Text>
+                <TouchableOpacity onPress={this.props.addNewAddressPressed} style = {{width: 200,backgroundColor: this.props.buttonBackgroundColor, padding: 20 }}>
+                    <Text style={{color: this.props.buttonTextColor, fontSize: 18, textAlign: 'center'}}>Add new address</Text>
                 </TouchableOpacity>
             </View>
         )

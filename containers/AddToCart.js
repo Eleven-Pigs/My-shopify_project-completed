@@ -3,13 +3,16 @@ import {  getAvailableForSale, getTotalPrice } from '../redux/productDetail'
 import {  getIsAddingProductToCart } from '../redux/cart'
 import { AddToCart } from '../components/AddToCart'
 import CartActions from '../redux/cart'
-import { getPrimaryColor } from '../redux/config'
+import { getButtonBackgroundColor, getButtonTextColor } from '../redux/config'
+
+
 const mapStateToProps = state => {
   return {
     price: getTotalPrice(state),
     isAvailableForSale: getAvailableForSale(state),
     isAddingProduct: getIsAddingProductToCart(state),
-    primaryColor: getPrimaryColor(state),
+    buttonBackgroundColor: getButtonBackgroundColor(state),
+    buttonTextColor: getButtonTextColor(state)
   }
 }
 const mapDispatchToProps = dispatch => {
