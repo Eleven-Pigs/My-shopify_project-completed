@@ -1,10 +1,10 @@
 import styled from 'styled-components';
-import { Text, View } from 'react-native'
+import { Text, TouchableOpacity } from 'react-native'
 
 export const Title = styled(Text)`
 
 `
-export const Item = styled(View)`
+export const Item = styled(TouchableOpacity)`
    
 `
 

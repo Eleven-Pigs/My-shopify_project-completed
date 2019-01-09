@@ -9,24 +9,16 @@ import { getOrderById } from '../redux/order';
 import { getMoneyFormat } from '../redux/shop';
 
 class OrderListItem extends React.Component {
-  navigateToProductList = () => {
-    const id = this.props.productId
-     this.props.navigation.navigate('ProductDetailScreen',{
-       productId: id
+  navigateToOrderDetail = () => {
+     this.props.navigation.navigate('OrderDetailScreen',{
+       id: this.props.id
      })
   }
 
-  removeProduct = () => {
-
-  }
-
-  onDeletePress = () => {
-
-  }
 
   render() {
     return (
-        <Item moneyFormat={this.props.moneyFormat} onPressItem={this.navigateToProductList} order={this.props.order} />
+        <Item moneyFormat={this.props.moneyFormat} onPressItem={this.navigateToOrderDetail} order={this.props.order} />
     );
   }
 

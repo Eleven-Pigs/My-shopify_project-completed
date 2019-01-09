@@ -8,6 +8,8 @@ import { collection } from './collection'
 import { productList } from './productList'
 import { shop } from './shop'
 import { order } from './order'
+import { orderDetail } from './orderDetail'
+
 export default combineReducers({
   user,
   config,
@@ -16,6 +18,7 @@ export default combineReducers({
   collection,
   productList,
   shop,
-  order
+  order,
+  orderDetail,
 })
 

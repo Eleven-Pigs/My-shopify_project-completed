@@ -13,6 +13,7 @@ import { theme } from '../constants/Theme'
 import HeaderBackButton  from '../containers/HeaderBackButton'
 import {Platform} from 'react-native';
 import OrderListScreen from '../screens/OrderListScreen'
+import OrderDetailScreen from '../screens/OrderDetailScreen'
 
 const ProductDetailStack = createStackNavigator({
   ProductDetailScreen: ProductDetailScreen,
@@ -74,6 +75,7 @@ const AddressScreenStack = createStackNavigator({
 })
 const OrderScreenStack = createStackNavigator({
   OrderListScreen: OrderListScreen,
+  OrderDetailScreen: OrderDetailScreen
 },{
   defaultNavigationOptions: ({navigation}) => ({
     headerLeft: <HeaderBackButton/>,

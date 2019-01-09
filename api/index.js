@@ -548,7 +548,52 @@ export const getOrderList = (config, cursor, customerAccessToken) => {
     const graphQLQuery = '{' + jsonToGraphQLQuery(query, { pretty: true }) + '}'
     return fetchShopifyGraphql(config, graphQLQuery)
 }
-
+export const getOrderDetail = (config, id, customerAccessToken) => {
+    const query = {
+            node: {
+                __args: {
+                    id: id,
+                },
+                __on: {
+                    __typeName: "Order",
+                        totalPrice: true,
+                        orderNumber: true,
+                        name: true,
+                        processedAt: true,
+                        customerUrl: true,
+                        id: true,
+                        lineItems: {
+                            __args: {
+                                first: 10
+                            },
+                            edges: {
+                                node: {
+                                    title: true,
+                                    quantity: true,
+                                    variant: {
+                                        title: true
+                                    }
+                                }
+                            }
+                        },
+                        shippingAddress: {
+                            id: true,
+                            address1: true,
+                            address2: true,
+                            city: true,
+                            country: true,
+                            firstName: true,
+                            lastName: true,
+                            province: true,
+                            zip: true,
+                        }
+                    
+                },
+            },
+    }
+    const graphQLQuery = '{' + jsonToGraphQLQuery(query, { pretty: true }) + '}'
+    return fetchShopifyGraphql(config, graphQLQuery)
+}
 
 export const createCheckout = (config) => {
     const mutation = 'mutation {checkoutCreate(input: { lineItems: [] }) { checkout { id webUrl } } }'

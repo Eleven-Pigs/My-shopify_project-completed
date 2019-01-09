@@ -16,6 +16,7 @@ export class OrderList extends React.Component {
             renderItem={({item}) => <OrderListItemContainer id={item}/> }
             keyExtractor={(item) => item}
             refreshing={this.props.isFetching}
+            onEndReached= {this.props.onEndReached}
             />
         )
     }
