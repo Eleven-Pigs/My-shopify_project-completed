@@ -1,7 +1,9 @@
 import React from 'react';
-import { SafeAreaView, Text } from 'react-native'
+import { SafeAreaView, Text, ScrollView, View } from 'react-native'
 import { connect } from 'react-redux'
-import OrderDetailActions,  { getTotalPrice, getCustomerUrl, getName, getOrderNumber, getProcessedAt, getShippingAddress, getSubtotalPrice, getTotalShippingPrice, getTotalTax} from '../redux/orderDetail'
+import OrderDetailActions,  { getTotalPrice, getCustomerUrl, getName, getOrderNumber, getProcessedAt, getShippingAddress, getSubtotalPrice, getTotalShippingPrice, getTotalTax, getProductIds, getProductById} from '../redux/orderDetail'
+import  OrderDetailProductItem  from '../containers/OrderDetailProductItem'
+import {theme} from '../constants/Theme'
 class OrderList extends React.Component {
   constructor(props){
     super(props)
@@ -12,21 +14,48 @@ class OrderList extends React.Component {
   
   componentDidMount() {
     const id = this.props.navigation.getParam('id')
-    console.log(this.props.navigation)
     this.props.requestUserOrderDetail(id)
   
+  }
+  _renderProducts = (productIds) => {
+    return (
+      productIds.map(id => {
+        return(
+          <OrderDetailProductItem key= {id} id = {id}/>
+        )
+      })
+    )
+  }
+  formatDate = (date) => {
+    const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    const d = new Date(date);
+    return `${months[d.getMonth()]} ${d.getDay()}, ${d.getFullYear()}`
   }
 
   render = () => {
     return (
         <SafeAreaView style = {{flex:1}}>
-            <Text>{this.props.name}</Text>
-            <Text>{this.props.processedAt}</Text>
-            <Text>{this.props.subtotalPrice}</Text>
-            <Text>{this.props.totalPrice}</Text>
-            <Text>{this.props.totalShippingPrice}</Text>
-            <Text>{this.props.totalTax}</Text>
-            <Text>{this.props.customerUrl}</Text>
+          <ScrollView style = {{backgroundColor: theme.listBackground}}>
+            <View style = {{padding: 20}}>
+              <Text style = {{fontSize: 20, fontWeight:'bold'}}>Order {this.props.name}</Text>
+              <Text>Processed at {this.formatDate(this.props.processedAt)}</Text>
+            </View>
+            <View style = {{padding: 20,backgroundColor: 'white'}}>
+              {this._renderProducts(this.props.productIds)}
+              <Text>Subtotal Price: {this.props.subtotalPrice}</Text>
+              <Text>Shipping Price: {this.props.totalShippingPrice}</Text>
+              <Text>Total Tax: {this.props.totalTax}</Text>
+              <Text>Total Price: {this.props.totalPrice}</Text>
+            </View>
+            <View style = {{marginTop: 20, padding: 20,backgroundColor: 'white'}}>
+              <Text>{this.props.shippingAddress.address1}</Text>
+              <Text>{this.props.shippingAddress.address2}</Text>
+              <Text>{this.props.shippingAddress.zip}</Text>
+              <Text>{this.props.shippingAddress.city}</Text>
+              <Text>{this.props.shippingAddress.province}</Text>
+              <Text>{this.props.shippingAddress.country}</Text>
+            </View>
+          </ScrollView>
         </SafeAreaView>
     )
   }
@@ -35,6 +64,8 @@ class OrderList extends React.Component {
 
 const mapStateToProps = state => {
   return {
+    state: state,
+    productIds: getProductIds(state),
     customerUrl: getCustomerUrl(state),
     name: getName(state),
     orderNumber: getOrderNumber(state),

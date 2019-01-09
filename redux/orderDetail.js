@@ -74,13 +74,13 @@ export const orderDetail = createReducer(INITIAL_STATE, {
 const getReducer = (rootState) => {
   return rootState.orderDetail
 }
-export const getProductsIds = (rootState) => {
+export const getProductIds = (rootState) => {
   const state = getReducer(rootState)
   return state.products.allIds
 }
-export const getProductById = (rootState) => {
+export const getProductById = (rootState, id) => {
   const state = getReducer(rootState)
-  return state.orders.allIds
+  return state.products.byId[id]
 }
 
 export const getCustomerUrl = (rootState) => {
@@ -152,7 +152,7 @@ const normalizeProducts = (graphQLOrders) => {
   }, {});
 
   return {
-      byIds: productById,
+      byId: productById,
       allIds: productIds,
   }
 
