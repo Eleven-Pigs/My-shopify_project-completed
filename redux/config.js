@@ -25,7 +25,7 @@ const INITIAL_STATE = Immutable({
     modalHeaderColor: theme.primaryColor,
     modalHeaderContentColor: theme.buttonTextColor,
     backgroundColor: theme.listBackground,
-    colorSelectionList: ['#C0392B', '#E74C3C', '#9B59B6', '#8E44AD', '#2980B9', '#694b37', '#303F9F', '#7C4DFF', '#FF5252', '#5D4037', '#607D8B','#FF5722','#0097A7','#03A9F4']
+    colorSelectionList: ['#C0392B', '#E74C3C', '#9B59B6', '#8E44AD', '#2980B9', '#694b37', '#303F9F', '#7C4DFF', '#FF5252', '#5D4037', '#607D8B','#FF5722','#0097A7','#03A9F4', '#000000']
 })
 
 const setPrimaryColor = (state, action) => {

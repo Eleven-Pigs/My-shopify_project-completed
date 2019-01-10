@@ -66,7 +66,7 @@ class ChangeColor extends React.Component {
             colors={this.props.colorSelectionList}
             title={""}
             icon={
-              <Icon.MaterialCommunityIcons name={'check-circle-outline'} size={25} color={'black'} />
+              <Icon.Ionicons name={'md-checkmark'} size={25} color={'white'} />
               // React-Native-Vector-Icons Example
             }
           />
