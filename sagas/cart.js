@@ -48,12 +48,18 @@ export function* requestAddProductToCheckout() {
     const variantCount = yield select(getSelectedCount)
     const cartId = yield select(getId) 
     const config =  yield select(getConfig)
-    const response = yield call(addProductToCheckout, config, variantId, variantCount, cartId)
-    const payload = yield response.json()
-    if(response.ok){
-        yield put(CartActions.requestAddProductToCheckoutSuccess(payload)) 
+    try{
+        const response = yield call(addProductToCheckout, config, variantId, variantCount, cartId)
+        const payload = yield response.json()
+        if(response.ok){
+            yield put(CartActions.requestAddProductToCheckoutSuccess(payload)) 
 
-    }else{
+        }else{
+            yield put(CartActions.requestAddProductToCheckoutFail())
+        }
+    }catch(e){
+        alert('Error')
+        console.log('rewr',e)
         yield put(CartActions.requestAddProductToCheckoutFail())
     }
 }

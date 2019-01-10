@@ -603,7 +603,7 @@ export const createCheckout = (config) => {
     const mutation = 'mutation {checkoutCreate(input: { lineItems: [] }) { checkout { id webUrl } } }'
     return fetchShopifyGraphql(config, mutation)
 }
-export const addProductToCheckout = (variantId, quantity, checkoutId) => {
+export const addProductToCheckout = (config, variantId, quantity, checkoutId) => {
     const mutation = `mutation {
         checkoutLineItemsAdd(lineItems: [{ variantId: "${variantId}", quantity: ${quantity} }], checkoutId: "${checkoutId}",
         ) {
