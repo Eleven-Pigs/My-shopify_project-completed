@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { View, TouchableOpacity, Text, Modal, FlatList, Image} from 'react-native'
+import { View, TouchableOpacity, Text, Modal, FlatList, Image, Animated} from 'react-native'
 
 
 export const StyledImage = styled(Image)`
@@ -17,7 +17,7 @@ export const HeaderView = styled(View)`
     padding-left: 10px;
     
 `
-export const StyledView = styled(View)`
+export const StyledView = styled(Animated.View)`
     flex: 1;
     justify-content: flex-end;
 `
