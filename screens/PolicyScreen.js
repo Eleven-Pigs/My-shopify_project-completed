@@ -4,7 +4,7 @@ import { theme } from '../constants/Theme'
 import { connect } from 'react-redux'
 
 import { SHOPIFY_STOREFRONT_ACCESS_TOKEN, SHOPIFY_URL } from '../config/application'
-
+import { getShopUrl } from '../redux/shop'
 
 class Policy extends React.Component {
   static navigationOptions = ({navigation}) =>  ({
@@ -37,7 +37,7 @@ class Policy extends React.Component {
   }
 
   getPrivacyPolicy = () => {
-    fetch(SHOPIFY_URL + '/api/graphql', {
+    fetch(this.props.shopifyUrl + '/api/graphql', {
       method: 'POST',
       headers: {
       'Content-Type': 'application/graphql',
@@ -61,7 +61,7 @@ class Policy extends React.Component {
 
 
   getRefundPolicy = () => {
-    fetch(SHOPIFY_URL + '/api/graphql', {
+    fetch(this.props.shopifyUrl + '/api/graphql', {
       method: 'POST',
       headers: {
       'Content-Type': 'application/graphql',
@@ -84,7 +84,7 @@ class Policy extends React.Component {
   }
 
   getTermsOfService = () => {
-    fetch(SHOPIFY_URL + '/api/graphql', {
+    fetch(this.props.shopifyUrl + '/api/graphql', {
       method: 'POST',
       headers: {
       'Content-Type': 'application/graphql',
@@ -122,7 +122,7 @@ class Policy extends React.Component {
 
 const mapStateToProps = state => {
   return {
-  
+    shopifyUrl: getShopUrl(state)
   }
 }
 

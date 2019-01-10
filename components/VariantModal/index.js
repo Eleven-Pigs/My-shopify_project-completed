@@ -3,42 +3,17 @@ import { StyledQty, HeaderView, StyledImage, StyledText, StyledModal, StyledView
 import { Icon } from 'expo'
 import { theme } from '../../constants/Theme'
 import VariantModalItem  from '../../containers/VariantModalItem'
-import { View } from 'react-native'
 import AddToCart from '../../containers/AddToCart'
-import {TouchableOpacity, TouchableWithoutFeedback, Animated}  from 'react-native'
+import {View, TouchableOpacity, TouchableWithoutFeedback}  from 'react-native'
 
 export default class VariantModal extends React.Component {
     constructor(props){
         super(props)
         this.state = {
-            backgroundColor: 'rgba(0,0,0,0)',
-            fadeAnim: new Animated.Value(0),
         }
     }
 
     _keyExtractor = (item, index) => item;
-
-    onShow = () => {
-        Animated.timing(
-            // Uses easing functions
-            this.state.fadeAnim, // The value to drive
-            {
-                toValue: 0.5,
-                duration: 100,
-            }, // Configuration
-          ).start(); // Don't forget start!  
-    }
-    cancelPressed = () => {
-        Animated.timing(
-            // Uses easing functions
-            this.state.fadeAnim, // The value to drive
-            {
-                toValue: 0,
-                duration: 0.5,
-            }, // Configuration
-          ).start( () => {this.props.cancelPressed()}); 
-        
-    }
 
 
     render (){
@@ -48,19 +23,18 @@ export default class VariantModal extends React.Component {
           transparent={true}
           visible={this.props.visible}
           onRequestClose={() => {}}
-          onShow={() => {this.onShow()}}
           >
             <StyledView>
-                    <Animated.View style = {{height: '100%', backgroundColor: 'black', opacity: this.state.fadeAnim}}>
-
-                    </Animated.View>
+                    <TouchableWithoutFeedback onPress={this.props.cancelPressed}style = {{ backgroundColor: 'black'}}>
+                        <View style = {{height: '100%'}}></View>
+                    </TouchableWithoutFeedback>
                     <ModalContainer>
                         <ModalHeader>
                             <StyledImage resizeMode='contain' source = {{uri: this.props.selectedVariantImage}}/>
                             <HeaderView>
                                 <View style = {{ flexDirection: 'row'}}>
                                     <StyledText style ={{flex:8}}>{this.props.title}</StyledText>
-                                    <TouchableOpacity onPress={this.cancelPressed} style = {{flex:2, flexDirection: 'row',  justifyContent: 'flex-end' }} >
+                                    <TouchableOpacity onPress={this.props.cancelPressed} style = {{flex:2, flexDirection: 'row',  justifyContent: 'flex-end' }} >
                                         <Icon.Entypo
                                             name='cross'
                                             size={26}

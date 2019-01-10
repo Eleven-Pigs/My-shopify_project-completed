@@ -45,7 +45,8 @@ export default class App extends React.Component {
       return (
         <View style={styles.container}>
            <StatusBar
-            barStyle="dark-content"
+            barStyle="light-content"
+            
           />
           <ThemeProvider theme={theme}>
             <Provider store={store}>

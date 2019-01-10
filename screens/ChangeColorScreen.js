@@ -53,9 +53,9 @@ class ChangeColor extends React.Component {
       <SafeAreaView style = {{flex:1}}>
         <View style = {{flex:1, paddingTop: 20}}>
          <View style = {{paddingLeft: 30, paddingRight: 30, flexDirection: 'row', justifyContent: 'center'}}>
-          <Text style = {{fontSize: 30, textAlign: 'right'}}>#</Text>
+          <Text style = {{fontSize: 30, textAlign: 'right', color: this.props.primaryColor}}>#</Text>
           <TextInput
-              style={{fontSize: 30, borderColor: 'gray'}}
+              style={{fontSize: 30, borderColor: 'gray', color: this.props.primaryColor}}
               onChangeText={(text) => this.onChangeText(text)}
               value={this.state.textHexColor}
             />
