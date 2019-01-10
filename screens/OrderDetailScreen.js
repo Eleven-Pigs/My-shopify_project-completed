@@ -42,12 +42,15 @@ class OrderList extends React.Component {
             </View>
             <View style = {{padding: 20,backgroundColor: 'white'}}>
               {this._renderProducts(this.props.productIds)}
-              <Text>Subtotal Price: {this.props.subtotalPrice}</Text>
+              <Text style = {{marginTop: 20}}>Subtotal Price: {this.props.subtotalPrice}</Text>
               <Text>Shipping Price: {this.props.totalShippingPrice}</Text>
               <Text>Total Tax: {this.props.totalTax}</Text>
               <Text>Total Price: {this.props.totalPrice}</Text>
             </View>
-            <View style = {{marginTop: 20, padding: 20,backgroundColor: 'white'}}>
+            <View style = {{marginTop: 15, paddingLeft: 20 }}>
+              <Text style = {{fontSize: 18, fontWeight: 'bold', }}>Shipping Address</Text>
+            </View>
+            <View style = {{marginTop: 5,padding: 20,backgroundColor: 'white'}}>
               <Text>{this.props.shippingAddress.address1}</Text>
               <Text>{this.props.shippingAddress.address2}</Text>
               <Text>{this.props.shippingAddress.zip}</Text>

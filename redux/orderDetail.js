@@ -1,6 +1,6 @@
 import { createActions, createReducer } from 'reduxsauce'
 import Immutable from 'seamless-immutable'
-import { OrderTypes } from './order';
+import {getMoneyFormat} from './shop'
 
 const { Types, Creators } = createActions({
   requestUserOrderDetail: ['id'],
@@ -105,19 +105,23 @@ export const getShippingAddress = (rootState) => {
 }
 export const getSubtotalPrice = (rootState) => {
   const state = getReducer(rootState)
-  return state.subtotalPrice
+  const moneyFormat = getMoneyFormat(rootState)
+  return moneyFormat.replace(/{{amount}}/,state.subtotalPrice)
 }
 export const getTotalPrice = (rootState) => {
   const state = getReducer(rootState)
-  return state.totalPrice
+  const moneyFormat = getMoneyFormat(rootState)
+  return moneyFormat.replace(/{{amount}}/,state.totalPrice)
 }
 export const getTotalShippingPrice = (rootState) => {
   const state = getReducer(rootState)
-  return state.totalShippingPrice
+  const moneyFormat = getMoneyFormat(rootState)
+  return moneyFormat.replace(/{{amount}}/,state.totalShippingPrice)
 }
 export const getTotalTax = (rootState) => {
   const state = getReducer(rootState)
-  return state.totalTax
+  const moneyFormat = getMoneyFormat(rootState)
+  return moneyFormat.replace(/{{amount}}/,state.totalTax)
 }
 
 

@@ -12,9 +12,9 @@ class OrderDetailProductItem extends React.Component {
   render() {
     const product = this.props.product
     return (
-      <View>
-        <Text>{product.title}</Text>
-        <Text>Quantity: {product.quantity}</Text>
+      <View style = {{flex: 1, flexDirection: 'row'}}>
+        <Text numberOfLines={1} style ={{flex: 8}}>{product.title}</Text>
+        <Text style = {{flex: 2}}>x {product.quantity}</Text>
       </View>
     );
   }
