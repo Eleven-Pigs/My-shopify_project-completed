@@ -9,7 +9,7 @@ import createSagaMiddleware from 'redux-saga'
 import rootSaga from './sagas';
 import { theme } from './constants/Theme'
 import { ThemeProvider } from 'styled-components'
-
+import { StatusBar } from 'react-native'
 
 const logger = store => next => action => {
   //console.log('prev state', store.getState())
@@ -44,6 +44,9 @@ export default class App extends React.Component {
     } else {
       return (
         <View style={styles.container}>
+           <StatusBar
+            barStyle="dark-content"
+          />
           <ThemeProvider theme={theme}>
             <Provider store={store}>
               <RootContainer />
