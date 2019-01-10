@@ -9,7 +9,7 @@ import { getEndOfProduct, getIsLoading, getProductCount } from '../redux/product
 import { theme } from '../constants/Theme'
 import ProductListPlaceholder from '../components/Placeholder/ProductListPlaceholder'
 import  FilterTab  from '../components/FilterTab';
-import { getPrimaryColor } from '../redux/config'
+import { getPrimaryColor, getHeaderBackgroundColor, getHeaderBackIconColor } from '../redux/config'
 import HeaderBackButton  from '../containers/HeaderBackButton'
 
 class ProductList extends React.Component {
@@ -162,7 +162,9 @@ const mapStateToProps = state => {
     endOfProduct: getEndOfProduct(state),
     isLoading: getIsLoading(state),
     productCount: getProductCount(state),
-    primaryColor: getPrimaryColor(state)
+    primaryColor: getPrimaryColor(state),
+    headerBackgroundColor: getHeaderBackgroundColor(state),
+    headerIconColor: getHeaderBackIconColor(state),
   }
 }
 

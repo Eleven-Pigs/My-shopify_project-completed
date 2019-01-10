@@ -4,16 +4,23 @@ import  UserActions  from '../redux/user'
 import { connect } from 'react-redux'
 import { theme } from '../constants/Theme'
 import { getIsLogin } from '../redux/user'
-import { getPrimaryColor } from '../redux/config';
+import { getPrimaryColor, getHeaderBackgroundColor, getHeaderBackIconColor } from '../redux/config';
 
 
 class Account extends React.Component {
-  static navigationOptions = {
-    title: 'Account',
-  };
+  static navigationOptions =( { navigation } ) => {
+    return(
+      {
+        title: 'Account',
+        headerTintColor: navigation.state.params ? navigation.state.params.headerContentColor : 'white',
+        headerStyle: {
+          backgroundColor: navigation.state.params ? navigation.state.params.color : 'white',
+        },
+      }
+    )
+  }
   componentDidMount(){
-    
-    
+    this.props.navigation.setParams({ color: this.props.headerBackroundColor, headerContentColor: this.props.headerContentColor});
   }
   onPress = ({title}) => {
     switch(title) {
@@ -80,7 +87,9 @@ class Account extends React.Component {
 const mapStateToProps = state => {
   return {
     isLogin: getIsLogin(state),
-    primaryColor: getPrimaryColor(state)
+    primaryColor: getPrimaryColor(state),
+    headerBackroundColor: getHeaderBackgroundColor(state),
+    headerContentColor: getHeaderBackIconColor(state)
   }
 }
 

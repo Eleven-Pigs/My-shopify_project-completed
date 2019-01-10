@@ -9,18 +9,22 @@ import BestSellingProductsContainer from '../containers/BestSellingProducts'
 import LatestProductsContainer from '../containers/LatestProducts'
 import { theme } from '../constants/Theme';
 import HomePlaceholder from '../components/Placeholder/HomePlaceholder';
+import { getHeaderBackgroundColor } from '../redux/config';
 
 class Home extends React.Component {
   static navigationOptions =( { navigation } ) => {
     return(
       {
         headerTitle: navigation.state.params ? navigation.state.params.title : '',
+        headerStyle: {
+          backgroundColor:navigation.state.params ? navigation.state.params.color : 'white'
+        },
       }
     )
   }
 
   componentDidMount(){
-    this.props.navigation.setParams({ title: this.props.shopName });
+    this.props.navigation.setParams({ color: this.props.headerBackroundColor, title: this.props.shopName });
   }
 
   renderHomePage = (finishLoad) => {
@@ -51,7 +55,8 @@ const mapStateToProps = state => {
   return {
     shopName: getName(state),
     shopUrl: getShopUrl(state),
-    finishLoad: getFinishLoad(state)
+    finishLoad: getFinishLoad(state),
+    headerBackroundColor: getHeaderBackgroundColor(state)
   }
 }
 const mapDispatchToProps = dispatch => {

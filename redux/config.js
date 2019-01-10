@@ -15,12 +15,15 @@ const INITIAL_STATE = Immutable({
     shopifyStoreAccessToken: SHOPIFY_STOREFRONT_ACCESS_TOKEN,
     primaryColor: theme.primaryColor,
     headerBackIconColor: theme.primaryColor,
+    headerBackgroundColor: 'white',
     activeBottomIconColor: theme.primaryColor,
     inactiveBottomIconColor: theme.inactiveBottomIconColor,
     generalIconColor: theme.primaryColor,
     bottomTabBarColor: theme.bottomTabBarColor,
     buttonBackgroundColor: theme.primaryColor,
     buttonTextColor: theme.buttonTextColor,
+    modalHeaderColor: theme.primaryColor,
+    modalHeaderContentColor: theme.buttonTextColor,
     backgroundColor: theme.listBackground
 })
 
@@ -69,6 +72,18 @@ export const getHeaderBackIconColor = (rootState) => {
 export const getGeneralIconColor = (rootState) => {
     state = getReducer(rootState)
     return state.generalIconColor
+}
+export const getModalHeaderColor = (rootState) => {
+    state = getReducer(rootState)
+    return state.modalHeaderColor
+}
+export const getModalHeaderContentColor = (rootState) => {
+    state = getReducer(rootState)
+    return state.modalHeaderContentColor
+}
+export const getHeaderBackgroundColor = (rootState) => {
+    state = getReducer(rootState)
+    return state.headerBackgroundColor
 }
 const getBackgroundColor = (rootState) => {
     state = getReducer(rootState)

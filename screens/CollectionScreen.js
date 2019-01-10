@@ -5,6 +5,7 @@ import  CollectionListContainer  from '../containers/CollectionList'
 import SearchContainer from '../containers/Search'
 import CollectionPlaceholder from '../components/Placeholder/CollectionPlaceholder'
 import { getIsLoading } from '../redux/collection'
+import { getHeaderBackgroundColor, getHeaderBackIconColor } from '../redux/config';
 
 class Collection extends React.Component {
   constructor(props){
@@ -18,12 +19,19 @@ class Collection extends React.Component {
   }
 
 
+
   static navigationOptions =  ({navigation}) => ({
     headerTitle: <SearchContainer defaultValue="" searchPressed={(text) => {navigation.navigate("ProductListScreen",{query: text})}}/>,
     headerStyle: {
       width: '100%',
+      backgroundColor:navigation.state.params ? navigation.state.params.color : 'white'
     },
+
   });
+
+  componentDidMount(){
+    this.props.navigation.setParams({ color: this.props.headerBackgroundColor, headerContentColor: this.props.headerContentColor});
+  }
 
   _renderContent = (isLoading) => {
     if(isLoading){
@@ -45,7 +53,9 @@ class Collection extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    isLoading: getIsLoading(state)
+    isLoading: getIsLoading(state),
+    headerBackgroundColor: getHeaderBackgroundColor(state),
+    headerIconColor: getHeaderBackIconColor(state)
   }
 }
 
