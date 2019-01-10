@@ -48,7 +48,7 @@ class OrderList extends React.Component {
               <Text>Total Price: {this.props.totalPrice}</Text>
             </View>
             <View style = {{marginTop: 15, paddingLeft: 20 }}>
-              <Text style = {{fontSize: 18, fontWeight: 'bold', }}>Shipping Address</Text>
+              <Text style = {{fontSize: 18, fontWeight: 'bold' }}>Shipping Address</Text>
             </View>
             <View style = {{marginTop: 5,padding: 20,backgroundColor: 'white'}}>
               <Text>{this.props.shippingAddress.address1}</Text>
