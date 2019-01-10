@@ -16,6 +16,7 @@
     "json-to-graphql-query": "1.9.0",
     "react": "16.5.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-31.0.0.tar.gz",
+    "react-native-color-palette": "^2.0.2",
     "react-native-material-textfield": "^0.12.0",
     "react-native-search-box": "^0.0.19",
     "react-native-swiper": "^1.5.14",

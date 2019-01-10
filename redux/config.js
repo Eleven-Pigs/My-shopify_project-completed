@@ -30,7 +30,11 @@ const INITIAL_STATE = Immutable({
 const setPrimaryColor = (state, action) => {
     const color = action.color
     return state.merge({
-        primaryColor: color
+        primaryColor: color,
+        headerBackIconColor: color,
+        activeBottomIconColor: color,
+        buttonBackgroundColor: color,
+        modalHeaderColor: color,
     })
 }
 

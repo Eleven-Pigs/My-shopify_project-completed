@@ -14,6 +14,7 @@ import HeaderBackButton  from '../containers/HeaderBackButton'
 import {Platform} from 'react-native';
 import OrderListScreen from '../screens/OrderListScreen'
 import OrderDetailScreen from '../screens/OrderDetailScreen'
+import ChangeColorScreen from '../screens/ChangeColorScreen'
 
 const ProductDetailStack = createStackNavigator({
   ProductDetailScreen: ProductDetailScreen,
@@ -44,6 +45,14 @@ const PaymentStack = createStackNavigator({
     headerLeft: <HeaderBackButton/>,
   })
 })
+const ChangeColorStack = createStackNavigator({
+  ChangeColorScreen: ChangeColorScreen,
+},{
+  defaultNavigationOptions: ({navigation}) => ({
+    headerLeft: <HeaderBackButton/>,
+  })
+})
+
 
 const AddAdressScreenStack = createStackNavigator({
   AddAddressScreen: AddAddressScreen,
@@ -92,7 +101,8 @@ const MainStack = createStackNavigator({
   Login: LoginStack,
   AddAddressScreen: AddAdressScreenStack,
   AddressScreen: AddressScreenStack,
-  OrderScreen: OrderScreenStack
+  OrderScreen: OrderScreenStack,
+  ChangeColorScreen: ChangeColorStack
 },{
   headerMode: 'none',
   transitionConfig: () => ({

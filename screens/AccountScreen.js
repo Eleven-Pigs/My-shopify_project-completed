@@ -12,7 +12,6 @@ class Account extends React.Component {
     return(
       {
         title: 'Account',
-        headerTintColor: navigation.state.params ? navigation.state.params.headerContentColor : 'white',
         headerStyle: {
           backgroundColor: navigation.state.params ? navigation.state.params.color : 'white',
         },
@@ -52,6 +51,9 @@ class Account extends React.Component {
           this.props.navigation.navigate('LoginScreen')
         }
         break;
+      case 'Change Color':
+        this.props.navigation.navigate('ChangeColorScreen')
+        break
       case 'Privacy Policy':
       case 'Refund Policy':
       case 'Terms of Service':
@@ -74,6 +76,7 @@ class Account extends React.Component {
           sections={[
             {title: 'Account', data: [{title: this.props.isLogin ? 'Logout': 'Login'}, {title: 'Orders',}, {title: 'Address',}]},
             {title: 'Shop', data: [{title: 'Privacy Policy'},{title: 'Refund Policy'},{title: 'Terms of Service'}]},
+            {title: 'Customize', data: [{title: 'Shopify Login'},{title: 'Change Color'},{title: 'Create App'}]},
           ]}
           keyExtractor={(item, index) => item + index}
           style = {{backgroundColor: theme.listBackground, height: '100%'}}

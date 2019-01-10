@@ -4804,6 +4804,10 @@ react-native-branch@2.2.5:
   version "2.2.5"
   resolved "https://registry.yarnpkg.com/react-native-branch/-/react-native-branch-2.2.5.tgz#4074dd63b4973e6397d9ce50e97b57c77a518e9d"
 
+react-native-color-palette@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/react-native-color-palette/-/react-native-color-palette-2.0.2.tgz#ed898cb03839bb6f25d5cfff13d440bbf7f79690"
+
 react-native-gesture-handler@1.0.9:
   version "1.0.9"
   resolved "https://registry.yarnpkg.com/react-native-gesture-handler/-/react-native-gesture-handler-1.0.9.tgz#ddec4d19d51cb6fb54df6eca792ebd76aaef083f"
