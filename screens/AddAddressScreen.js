@@ -109,7 +109,7 @@ class AddAddress extends React.Component {
     return (
       <View style = {{paddingLeft: 20, paddingRight: 20}}>
         <TextField
-        placeholder="Email"
+        label="Email"
         onChangeText={(text) => this.setState({email: text})}
         keyboardType="email-address"
         textContentType="emailAddress"
@@ -117,56 +117,56 @@ class AddAddress extends React.Component {
         />
         <TextField
  
-              placeholder="Address 1"
+              label="Address 1"
               onChangeText={(text) => this.setState({address1: text})}
               textContentType="streetAddressLine1"
               error={this.state.address1Error}
         />
         <TextField
             
-              placeholder="Address 2"
+              label="Address 2"
               onChangeText={(text) => this.setState({address2: text})}
               textContentType="streetAddressLine2"
               error={this.state.address2Error}
         />
         <TextField
       
-              placeholder="Zip / Postal Code"
+             label="Zip / Postal Code"
               onChangeText={(text) => this.setState({zip: text})}
               textContentType="postalCode"
               error={this.state.zipError}
         />
         <TextField
               
-              placeholder="City"
+              label="City"
               onChangeText={(text) => this.setState({city: text})}
               textContentType="addressCity"
               error={this.state.cityError}
         />
         <TextField
         
-              placeholder="Province / State"
+              label="Province / State"
               onChangeText={(text) => this.setState({province: text})}
               textContentType="addressState"
               error={this.state.provinceError}
         />
         <TextField
 
-              placeholder="Country"
+              label="Country"
               onChangeText={(text) => this.setState({country: text})}
               textContentType="countryName"
               error={this.state.countryError}
         />
         <TextField
     
-              placeholder="First Name"
+              label="First Name"
               onChangeText={(text) => this.setState({firstName: text})}
               textContentType="name"
               error={this.state.firstNameError}
         />
         <TextField
   
-              placeholder="Last Name"
+              label="Last Name"
               onChangeText={(text) => this.setState({lastName: text})}
               textContentType="name"
               error={this.state.lastNameError}
