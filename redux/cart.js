@@ -33,6 +33,7 @@ export default Creators
 const INITIAL_STATE = Immutable({
     isAddingToCart: false,
     isFetching: false,
+    isAddingProduct: false,
     numberOfItems: 0,
     isAdded: false,
     id: '',
@@ -74,13 +75,14 @@ const setCartId = (state, action) => {
 
 const requestAddProductToCheckout = (state, action) => {
     return state.merge({
-        isFetching: true,
+        isAddingProduct: true,
     })  
 }
 const requestAddProductToCheckoutSuccess = (state, action) => {
     return state.merge({
         isFetching: false,
         isAdded: true,
+        isAddingProduct: false,
     })  
 }
 
@@ -216,7 +218,7 @@ export const getCartItemCount = (rootState) => {
 
 export const getIsAddingProductToCart = (rootState) => {
     const state = getReducer(rootState)
-    return state.isFetching
+    return state.isAddingProduct
 }
 export const getIsFetching = (rootState) => {
     const state = getReducer(rootState)
