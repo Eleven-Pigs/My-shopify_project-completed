@@ -47,23 +47,24 @@ class ShoppingCart extends React.Component {
     this.props.requestCartDetail()
   }
   componentDidUpdate(prevProps){
-    if(this.props.isLogin){
       if(prevProps.order === null && this.props.order != null){
-        const orderId = this.props.order.id 
-        this.props.navigation.navigate('OrderDetailScreen',{
-          id: orderId
-        })
+        if(this.props.isLogin){
+          const orderId = this.props.order.id 
+          this.props.navigation.navigate('OrderDetailScreen',{
+            id: orderId
+          })
+        }else{
+          Alert.alert(
+            'Payment Success',
+            'Please check your email for details.',
+            [
+              {text: 'Okay', onPress: () => console.log('guest')},
+            ],
+            { cancelable: false }
+          )
+        }
       }
-    }else{
-      Alert.alert(
-        'Payment Success',
-        'Please check your email for details.',
-        [
-          {text: 'Okay', onPress: () => console.log('guest')},
-        ],
-        { cancelable: false }
-      )
-    }
+
   }
 
   render = () => {
