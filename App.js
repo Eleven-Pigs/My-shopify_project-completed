@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, View, Platform } from 'react-native'
 import { AppLoading, Asset, Font, Icon } from 'expo'
 import RootContainer from './containers/RootContainer'
 import { createStore, applyMiddleware } from 'redux'
@@ -45,8 +45,7 @@ export default class App extends React.Component {
       return (
         <View style={styles.container}>
            <StatusBar
-            barStyle="light-content"
-            
+            barStyle={Platform.OS === 'ios' ? 'dark-content' : 'light-content'}
           />
           <ThemeProvider theme={theme}>
             <Provider store={store}>
