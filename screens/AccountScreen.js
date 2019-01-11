@@ -59,6 +59,9 @@ class Account extends React.Component {
       case 'Terms of Service':
         this.props.navigation.navigate('Policy',{title: title})
         break;
+      case 'Shopify Login':
+        this.props.navigation.navigate('ShopifyInstallScreen')
+      break;
       default:
         // code block
     } 

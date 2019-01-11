@@ -6,6 +6,7 @@ import ProductDescriptionScreen from '../screens/ProductDescriptionScreen'
 import ProductListScreen from '../screens/ProductListScreen'
 import PaymentScreen from '../screens/PaymentScreen'
 import LoginScreen from '../screens/LoginScreen'
+import ShopifyInstallScreen from '../screens/ShopifyInstallScreen'
 import RegisterScreen from '../screens/RegisterScreen'
 import AddAddressScreen from '../screens/AddAddressScreen'
 import AddressScreen from '../screens/AddressScreen'
@@ -73,6 +74,16 @@ const LoginStack = createStackNavigator({
     
   }),
 })
+const ShopifyInstallStack = createStackNavigator({
+  ShopifyInstallScreen: ShopifyInstallScreen,
+},{
+  defaultNavigationOptions: ({navigation}) => ({
+    headerLeft: <HeaderBackButton/>,
+    mode: 'modal',
+    
+  }),
+})
+
 const AddressScreenStack = createStackNavigator({
   AddressScreen: AddressScreen,
   AddNewAddressScreen: AddNewAddressScreen,
@@ -103,7 +114,8 @@ const MainStack = createStackNavigator({
   AddAddressScreen: AddAdressScreenStack,
   AddressScreen: AddressScreenStack,
   OrderScreen: OrderScreenStack,
-  ChangeColorScreen: ChangeColorStack
+  ChangeColorScreen: ChangeColorStack,
+  ShopifyInstallStack: ShopifyInstallStack,
 },{
   headerMode: 'none',
   transitionConfig: () => ({
