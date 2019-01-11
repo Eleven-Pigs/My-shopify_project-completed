@@ -16,7 +16,7 @@ export default class ProductDetailComponent extends React.Component {
         this.setState({visible: true})
     }
     openDescriptionModal = () => {
-        this.setState({descriptionVisible: true})
+        this.props.navigateToProductDescription()
     }
     cancelPressed = () => {
         this.setState({visible: false, descriptionVisible: false})

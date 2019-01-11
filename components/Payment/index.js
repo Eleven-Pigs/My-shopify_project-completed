@@ -10,6 +10,7 @@ export class PaymentComponent extends React.Component {
             this.props.paymentCompleted()
         }else if(url.includes('login')){
             //Go to login page
+            this.props.goToLogin()
             this.WebView.stopLoading();
             this.WebView.goBack();
         }

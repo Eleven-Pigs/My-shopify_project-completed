@@ -14,6 +14,9 @@ class ProductDetail extends React.Component {
   navigateToCart = () => {
      this.props.navigation.navigate('ShoppingCart')
   }
+  navigateToProductDescription = () => {
+    this.props.navigation.navigate('ProductDescriptionScreen')
+  }
 
   render() {
     return (
@@ -30,6 +33,7 @@ class ProductDetail extends React.Component {
           resetIsAddedToCart={this.props.resetIsAddedToCart}
           addToCart={this.addToCart}
           variantCount={this.props.variantCount}
+          navigateToProductDescription={this.navigateToProductDescription}
         />
     );
   }

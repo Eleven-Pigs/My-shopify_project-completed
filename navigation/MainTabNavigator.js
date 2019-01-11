@@ -10,6 +10,7 @@ import ShoppingCartScreen from '../screens/ShoppingCartScreen';
 import CartCounterContainer  from '../containers/CartCounter'
 import PolicyScreen from '../screens/PolicyScreen';
 import Icon from '../containers/Icon'
+import HeaderBackButton  from '../containers/HeaderBackButton'
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
@@ -63,9 +64,19 @@ ShoppingCartStack.navigationOptions = {
 };
 
 
+const PolicyStack = createStackNavigator({
+  Policy: PolicyScreen
+},{
+  defaultNavigationOptions: ({navigation}) => ({
+    headerLeft: <HeaderBackButton/>,
+  })
+});
+
 const AccountStack = createStackNavigator({
   Account: AccountScreen,
-  Policy: PolicyScreen
+  Policy: PolicyStack
+},{
+  headerMode: 'none',
 });
 
 AccountStack.navigationOptions = {

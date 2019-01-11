@@ -1,6 +1,6 @@
 import React from 'react';
 import { Item, Title } from './style'
-import { Image, View, TouchableOpacity } from 'react-native'
+import { View, TouchableOpacity } from 'react-native'
 const renderDefault = (isDefault, onDeletePress) => {
     if(isDefault){
         return(

@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, TouchableOpacity, ScrollView} from 'react-native'
+import {View, Text, TouchableOpacity, ScrollView, KeyboardAvoidingView} from 'react-native'
 import { connect } from 'react-redux'
 import CartActions from '../redux/cart'
 import { TextField } from 'react-native-material-textfield';
@@ -185,12 +185,16 @@ class AddAddress extends React.Component {
 
   render() {
     return (
+      <KeyboardAvoidingView behavior="padding" enabled>
       <ScrollView style = {{textAlign: 'center', paddingBottom: 80}}>
-      {this._renderAddressInput()}
-      <TouchableOpacity disabled={this.props.isFetching} style = {{marginBottom: 80, marginTop: 20, width: '50%', alignSelf: 'center',padding: 10,backgroundColor: this.props.primaryColor}} onPress={this.onPress}>
-          <Text style = {{color:'white', textAlign: 'center', fontSize: 15, fontWeight: 'bold'}}>CONTINUE</Text>
-      </TouchableOpacity>
+
+        {this._renderAddressInput()}
+        <TouchableOpacity disabled={this.props.isFetching} style = {{marginBottom: 80, marginTop: 20, width: '50%', alignSelf: 'center',padding: 10,backgroundColor: this.props.primaryColor}} onPress={this.onPress}>
+            <Text style = {{color:'white', textAlign: 'center', fontSize: 15, fontWeight: 'bold'}}>CONTINUE</Text>
+        </TouchableOpacity>
+
       </ScrollView>
+      </KeyboardAvoidingView>
     );
   }
 }

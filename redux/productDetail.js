@@ -20,6 +20,7 @@ const INITIAL_STATE = Immutable({
     isFetching: false,
     title:  '',
     descriptionHtml:'',
+    description: '',
     id: '' ,
     availableForSale: true,
     productType :'',

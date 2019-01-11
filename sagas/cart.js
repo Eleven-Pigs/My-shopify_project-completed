@@ -19,6 +19,7 @@ export function* fetchCartDetail() {
             if(payload.data.node.order === null ){
                 yield put(CartActions.requestCartDetailSuccess(payload)) 
             }else{
+                yield put(CartActions.requestCartDetailSuccess(payload)) 
                 yield put(CartActions.requestCreateCheckout()) 
             }
         }else{
@@ -147,4 +148,7 @@ export const cartSaga = [
     takeLatest(UserProfileTypes.REQUEST_LOGIN_SUCCESS, setAddressToCheckout),
     takeLatest(CartTypes.REQUEST_CART_DETAIL_SUCCESS, setAddressToCheckout),
     takeLatest(UserProfileTypes.LOGOUT, clearCart),
+    takeLatest(CartTypes.PAYMENT_SUCCESS, fetchCartDetail),
+    takeLatest(CartTypes.REQUEST_CREATE_CHECKOUT_SUCCESS, fetchCartDetail),
+    
 ]

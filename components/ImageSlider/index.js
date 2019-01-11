@@ -9,12 +9,11 @@ const renderImage = (images) => {
     return (
         images.map((image, index) => {
             return (
-                <StyledView key={index} >
                     <StyledImage
+                    key={index}
                             source={{uri: image}}
                             resizeMode={ImageResizeMode.contain}
                     />
-                </StyledView>
             )
         })
     )

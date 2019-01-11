@@ -3,10 +3,10 @@ import { SafeAreaView, Alert } from 'react-native'
 import { connect } from 'react-redux'
 import CartListContainer  from '../containers/CartList'
 import { Checkout }  from '../components/Checkout'
-import { getTotalPrice, getShippingAddress, getCartItemCount } from '../redux/cart'
+import { getTotalPrice, getShippingAddress, getCartItemCount, getOrder } from '../redux/cart'
 import { getIsLogin } from '../redux/user'
 import { getPrimaryColor } from '../redux/config'
-
+import CartActions from '../redux/cart'
 class ShoppingCart extends React.Component {
   constructor(props){
     super(props)
@@ -43,6 +43,28 @@ class ShoppingCart extends React.Component {
     }
     
   }
+  componentDidMount(){
+    this.props.requestCartDetail()
+  }
+  componentDidUpdate(prevProps){
+    if(this.props.isLogin){
+      if(prevProps.order === null && this.props.order != null){
+        const orderId = this.props.order.id 
+        this.props.navigation.navigate('OrderDetailScreen',{
+          id: orderId
+        })
+      }
+    }else{
+      Alert.alert(
+        'Payment Success',
+        'Please check your email for details.',
+        [
+          {text: 'Okay', onPress: () => console.log('guest')},
+        ],
+        { cancelable: false }
+      )
+    }
+  }
 
   render = () => {
     return (
@@ -61,13 +83,19 @@ const mapStateToProps = state => {
     isLogin: getIsLogin(state),
     shippingAddress: getShippingAddress(state),
     cartItemCount: getCartItemCount(state),
-    primaryColor: getPrimaryColor(state)
+    primaryColor: getPrimaryColor(state),
+    order: getOrder(state)
   }
 }
 
 
 const mapDispatchToProps = dispatch => {
-  return {}
+  return {
+    requestCartDetail: () => {
+      dispatch(CartActions.requestCartDetail())
+    },
+    
+  }
 }
 
 const ShoppingCartScreen = connect(

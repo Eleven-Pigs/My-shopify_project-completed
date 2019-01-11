@@ -24,7 +24,9 @@ const { Types, Creators } = createActions({
     setAddressToCheckoutSuccess: null,
     setAddressToCheckoutFail: null,
     clearCart: null,
-    resetEmailAddress: null
+    resetEmailAddress: null,
+    paymentSuccess: null,
+    paymentFail: null
   })
 
 export const CartTypes = Types
@@ -42,7 +44,7 @@ const INITIAL_STATE = Immutable({
         byIds: {},
         allIds: []
     },
-    order: {},
+    order: null,
     shippingAddress: {},
     subTotalPrice: '',
     totalPrice: '',
@@ -131,6 +133,7 @@ export const cart = createReducer(INITIAL_STATE, {
     [Types.RESET_IS_ADDED_TO_CART]: resetIsAddedToCart,
     [Types.ADD_NUMBER_OF_ITEMS]: addNumberOfItems,
     [Types.REQUEST_CREATE_CHECKOUT_SUCCESS]: requestCreateCheckoutSuccess,
+    [Types.SET_CART_ID]: clearCart,
     [Types.SET_CART_ID]: setCartId,
     [Types.REQUEST_ADD_PRODUCT_TO_CHECKOUT]: requestAddProductToCheckout,
     [Types.REQUEST_ADD_PRODUCT_TO_CHECKOUT_SUCCESS]: requestAddProductToCheckoutSuccess,
@@ -150,6 +153,10 @@ const getReducer = (rootState) => {
 export const getId = (rootState) => {
     const state = getReducer(rootState)
     return state.id
+}
+export const getOrder = (rootState) => {
+    const state = getReducer(rootState)
+    return state.order
 }
 export const getIsProductAdded = (rootState) => {
     const state = getReducer(rootState)
@@ -277,7 +284,7 @@ const normalizeCartDetail = (graphQLCart) => {
     }, {});
 
     const numberOfItems = allProducts.length
-
+    const order = node.order
     return {
         products: {
             byIds: productsByIds,
@@ -289,6 +296,7 @@ const normalizeCartDetail = (graphQLCart) => {
         webUrl: webUrl,
         ready: ready,
         numberOfItems: numberOfItems,
+        order: order
     }
 
 }

@@ -2,6 +2,7 @@ import { createSwitchNavigator, createAppContainer, createStackNavigator } from 
 import MainTabNavigator from './MainTabNavigator';
 import React from 'react';
 import ProductDetailScreen from '../screens/ProductDetailScreen'
+import ProductDescriptionScreen from '../screens/ProductDescriptionScreen'
 import ProductListScreen from '../screens/ProductListScreen'
 import PaymentScreen from '../screens/PaymentScreen'
 import LoginScreen from '../screens/LoginScreen'
@@ -9,7 +10,6 @@ import RegisterScreen from '../screens/RegisterScreen'
 import AddAddressScreen from '../screens/AddAddressScreen'
 import AddressScreen from '../screens/AddressScreen'
 import AddNewAddressScreen from '../screens/AddNewAddressScreen'
-import { theme } from '../constants/Theme'
 import HeaderBackButton  from '../containers/HeaderBackButton'
 import {Platform} from 'react-native';
 import OrderListScreen from '../screens/OrderListScreen'
@@ -18,6 +18,7 @@ import ChangeColorScreen from '../screens/ChangeColorScreen'
 
 const ProductDetailStack = createStackNavigator({
   ProductDetailScreen: ProductDetailScreen,
+  ProductDescriptionScreen: ProductDescriptionScreen,
 },{
   defaultNavigationOptions: ({navigation}) => ({
     headerTitle: 'Product Detail',

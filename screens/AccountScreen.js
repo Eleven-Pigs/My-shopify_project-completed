@@ -71,7 +71,7 @@ class Account extends React.Component {
         <SectionList
           renderItem={({item, index, section}) => <TouchableOpacity  key={index} style = {{padding: 10, paddingLeft: 20,backgroundColor: 'white'}} onPress={() => this.onPress(item)}><Text style = {{fontSize: 18,  color: item.title === 'Login' ? this.props.primaryColor : 'black' }}>{item.title}</Text></TouchableOpacity>}
           renderSectionHeader={() => (
-            <View style={{height: 50}}></View>
+            <View style={{height: 30}}></View>
           )}
           sections={[
             {title: 'Account', data: [{title: this.props.isLogin ? 'Logout': 'Login'}, {title: 'Orders',}, {title: 'Address',}]},
