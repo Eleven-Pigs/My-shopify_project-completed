@@ -254,7 +254,7 @@ const normalizeCartDetail = (graphQLCart) => {
         const title = node.title
         const quantity = node.quantity
         const variantTitle = node.variant.title
-        const image = node.variant.image.originalSrc
+        const image = node.variant.image ? node.variant.image.originalSrc : null
         const price = node.variant.price
         return({
             [id]: {
