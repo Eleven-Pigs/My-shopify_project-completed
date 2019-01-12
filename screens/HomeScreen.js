@@ -41,11 +41,23 @@ class Home extends React.Component {
     }
 
   }
+
+  handleProductClick = (handle) => {
+    this.props.navigation.navigate('ProductDetailScreen', {
+      handle: handle
+    })
+  }
+  handleCollectionClick = (handle) => {
+    this.props.navigation.navigate('ProductListScreen', {
+      handle: handle
+    })
+}
+
   render() {
     return (
-      <SafeAreaView>
-        {this.renderHomePage(this.props.finishLoad)}
-      </SafeAreaView>
+      
+       <HomeComponent handleProductClick={this.handleProductClick} handleCollectionClick={this.handleCollectionClick} shopUrl = {this.props.shopUrl}/>
+      
     );
   }
 

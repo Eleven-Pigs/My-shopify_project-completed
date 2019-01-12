@@ -5,7 +5,7 @@ import Placeholder from "rn-placeholder";
 import { theme } from "../../constants/Theme";
 
 const Banner = props => {
-  const style = { backgroundColor: '#e3e3e3', width: "100%", height:500};
+  const style = { backgroundColor: '#e3e3e3', width: "100%", height:300};
   return (
       <View>
         <View style={style}>
