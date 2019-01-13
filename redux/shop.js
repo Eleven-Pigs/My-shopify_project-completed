@@ -68,7 +68,7 @@ export const getMoneyFormat = (rootState) => {
 
 export const getShopUrl = (rootState) => {
   const state = getReducer(rootState)
-  return state.domain
+  return 'https://jp.maisondesabre.com'
 }
 
 export const getName = (rootState, id) => {
