@@ -1,5 +1,6 @@
 import { CartTypes } from '../redux/cart'
 import { UserProfileTypes, getDefaultAddressId, getAddressById, getIsLogin } from '../redux/user'
+import { ConfigTypes } from '../redux/config'
 import { takeLatest, call, select, put } from 'redux-saga/effects';
 import { createCheckout, addProductToCheckout, getCheckout, addAddresstoCheckout, addEmailToCheckout, removeProductFromCheckout } from '../api'
 import { getId, getShippingAddress } from '../redux/cart'
@@ -16,10 +17,9 @@ export function* fetchCartDetail() {
         const response =  yield call(getCheckout, config, cartId)
         const payload = yield response.json()
         if(response.ok){     
-            if(payload.data.node.order === null ){
+            if(payload.data.node != null && payload.data.node.order === null ){
                 yield put(CartActions.requestCartDetailSuccess(payload)) 
             }else{
-                yield put(CartActions.requestCartDetailSuccess(payload)) 
                 yield put(CartActions.requestCreateCheckout()) 
             }
         }else{
@@ -148,6 +148,7 @@ export const cartSaga = [
     takeLatest(UserProfileTypes.REQUEST_LOGIN_SUCCESS, setAddressToCheckout),
     takeLatest(CartTypes.REQUEST_CART_DETAIL_SUCCESS, setAddressToCheckout),
     takeLatest(UserProfileTypes.LOGOUT, clearCart),
+    takeLatest(ConfigTypes.SET_SHOPIFY_STORE, clearCart),
     takeLatest(CartTypes.PAYMENT_SUCCESS, fetchCartDetail),
     takeLatest(CartTypes.REQUEST_CREATE_CHECKOUT_SUCCESS, fetchCartDetail),
     

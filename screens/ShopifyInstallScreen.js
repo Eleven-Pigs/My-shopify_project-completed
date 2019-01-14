@@ -3,33 +3,31 @@ import React from 'react';
 import { connect } from 'react-redux'
 import { SafeAreaView, View, WebView } from 'react-native';
 import { getHeaderBackgroundColor, getColorSelectionList, getPrimaryColor } from '../redux/config';
-import ColorPalette from 'react-native-color-palette'
-import { Icon } from 'expo'
 import { getDescriptionHtml } from '../redux/productDetail';
-
+import ConfigActions from '../redux/config'
 class ShopifyInstall extends React.Component {
 
-
-  onMessage = (event) => {
-    console.log(event)
-  }
-  render() {
-    jscript = `
-    var hidden = document.getElementById("hiddenValue");
-    if(hidden){
-      window.postMessage(hidden.value); 
-      window.postMessage = String(Object.hasOwnProperty).replace('hasOwnProperty', 'postMessage');
+  navigationStateChangedHandler = (navigation) => {
+    if(navigation.url.includes('callback_success')){
+        const urls = navigation.url.split("?")
+        const params = urls[1]
+        const paramList = params.split("&")
+        const baseUrls = paramList[0].split("=")
+        const baseUrl = baseUrls[1]
+        const access_tokens = paramList[1].split("=")
+        const access_token = access_tokens[1]
+        this.props.setShopifyStore(baseUrl,access_token)
+        this.props.navigation.goBack(null)
     }
-    window.postMessage = String(Object.hasOwnProperty).replace('hasOwnProperty', 'postMessage');
-    
-    `
+  };
+  render() {
+
     return (
       <SafeAreaView style = {{flex:1}}>
           <WebView
-              source={{uri: 'https://6e3253bb.ngrok.io/auth/new'}}
+              source={{uri: 'https://gentle-thicket-95714.herokuapp.com/auth/callback_success?baseUrl=https://animalcontour.myshopify.com&access_token=12944475fc5070228860ddecf1970bd9'}}
               scalesPageToFit={false}
-              onMessage={event => this.onMessage(event.nativeEvent.data)}
-              injectedJavaScript={jscript}
+              onNavigationStateChange={this.navigationStateChangedHandler}
           />
       </SafeAreaView>
     );
@@ -47,6 +45,9 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = dispatch => {
   return {
+    setShopifyStore: (baseUrl, access_token) => {
+      dispatch(ConfigActions.setShopifyStore(baseUrl, access_token))
+    },
   }
 }
 

@@ -5,6 +5,7 @@ const { Types, Creators } = createActions({
     requestCollectionList: null,
     requestCollectionListSuccess: ['payload'],
     requestCollectionListFail: null,
+    clearCollections: null,
   })
 
 export const CollectionTypes = Types
@@ -31,11 +32,15 @@ const requestCollectionListSuccess = (state, action) => {
         ...collection
     })
 }
+const clearCollections = (state, action) => {
+    return INITIAL_STATE
+}
 
 
 export const collection = createReducer(INITIAL_STATE, {
     [Types.REQUEST_COLLECTION_LIST]: requestCollectionList,
     [Types.REQUEST_COLLECTION_LIST_SUCCESS]: requestCollectionListSuccess,
+    [Types.CLEAR_COLLECTIONS]: clearCollections,
 })
 
 const getReducer = (rootState) => {

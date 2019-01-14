@@ -40,27 +40,29 @@ export class HomeComponent extends React.Component {
             const coordinate = event.split(',');
             this.setState({ sx: coordinate[0], sy: coordinate[1], showLoading: true})
         }
-
+       
         
     }
 
+    componentDidUpdate(prevProps){
+        if(prevProps.shopUrl != this.props.shopUrl){
+            this.setState({key: this.state.key + 1})
+        }
+    }
 
 
     render() {
         const jsCode = `
             window.scrollTo(${this.state.sx}, ${this.state.sy});
-                    window.addEventListener("beforeunload", function (event) {
+            window.addEventListener("beforeunload", function (event) {
                         var sx, sy, d = document,
                         r = d.documentElement,
                         b = d.body;
                         sx = r.scrollLeft || b.scrollLeft || 0;
                         sy = r.scrollTop || b.scrollTop || 0;
-                        alert('aaaa');
                         window.postMessage(sx.toString() + ","+ sy.toString() + ",Opal");
-                      });  
-                  window.postMessage = String(Object.hasOwnProperty).replace('hasOwnProperty', 'postMessage');
-
-                
+                      });                  
+            window.postMessage = String(Object.hasOwnProperty).replace('hasOwnProperty', 'postMessage');
             document.getElementById("shopify-section-header").style.display = "none";
             document.getElementById("shopify-section-footer").style.display = "none";
 

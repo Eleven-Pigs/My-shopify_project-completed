@@ -5,6 +5,7 @@ import { theme } from '../constants/Theme'
 
 const { Types, Creators } = createActions({
     setPrimaryColor: ['color'],
+    setShopifyStore: ['baseUrl', 'access_token']
   })
 
 export const ConfigTypes = Types
@@ -38,9 +39,16 @@ const setPrimaryColor = (state, action) => {
         modalHeaderColor: color,
     })
 }
+const setShopifyStore = (state, action) => {
+    return state.merge({
+        baseURL: action.baseUrl,
+        shopifyStoreAccessToken: action.access_token,
+    })
+}
 
 export const config = createReducer(INITIAL_STATE, {
     [Types.SET_PRIMARY_COLOR]: setPrimaryColor,
+    [Types.SET_SHOPIFY_STORE]: setShopifyStore,
 })
 
 const getReducer = (rootState) => {
@@ -105,4 +113,5 @@ export const getConfig = (rootState) => {
         baseUrl: state.baseURL
     }
 }
+
 

@@ -1,6 +1,6 @@
 import { createActions, createReducer } from 'reduxsauce'
 import Immutable from 'seamless-immutable'
-
+import { UserProfileTypes } from '../redux/user'
 const { Types, Creators } = createActions({
   requestUserOrders: null,
   requestUserOrdersSuccess: ['payload'],
@@ -44,6 +44,9 @@ const requestUserOrdersFail = (state, action) => {
     isFetching: true
   })
 }
+const clearOrder = (state, action) => {
+  return INITIAL_STATE
+}
 
 
 
@@ -51,6 +54,7 @@ export const order = createReducer(INITIAL_STATE, {
   [Types.REQUEST_USER_ORDERS]: requestUserOrders,
   [Types.REQUEST_USER_ORDERS_SUCCESS]: requestUserOrdersSuccess,
   [Types.REQUEST_USER_ORDERS_FAIL]: requestUserOrdersFail,
+  [UserProfileTypes.LOGOUT]: clearOrder,
 })
 
 const getReducer = (rootState) => {

@@ -246,7 +246,6 @@ const normalizeCartDetail = (graphQLCart) => {
         webUrl,
         ready,
     } = node
-
     const allProducts = node.lineItems.edges.map(lineItem => {
         const node = lineItem.node
         const id = node.id

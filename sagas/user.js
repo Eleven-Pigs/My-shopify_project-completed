@@ -7,7 +7,7 @@ import { getAccessToken, getExpiryAt } from '../redux/user'
 import { getId } from '../redux/cart'
 import { AsyncStorage } from "react-native"
 import { getConfig } from '../redux/config'
-
+import {ConfigTypes} from '../redux/config'
 
 
 
@@ -149,6 +149,7 @@ export const userSaga = [
     takeLatest(UserProfileTypes.REQUEST_REGISTER, requestRegister),
     takeLatest(UserProfileTypes.REQUEST_RENEW_ACCESS_TOKEN, requestRenewAccessToken),
     takeLatest(UserProfileTypes.LOGOUT, logout),
+    takeLatest(ConfigTypes.SET_SHOPIFY_STORE, logout),
     takeLatest(UserProfileTypes.REQUEST_CREATE_USER_ADDRESS, requestCreateUserAddress),
     takeLatest(UserProfileTypes.REQUEST_USER_ADDRESS, requestUserAddress),
     takeLatest(UserProfileTypes.REQUEST_LOGIN_SUCCESS, requestUserAddress),

@@ -1,5 +1,6 @@
 import { takeLatest, select, put, call } from 'redux-saga/effects';
 import { StartupTypes } from '../redux/startup'
+import { ConfigTypes } from '../redux/config'
 import CartActions from '../redux/cart'
 import { AsyncStorage } from "react-native"
 import CollectionActions from '../redux/collection'
@@ -45,4 +46,5 @@ export function* start() {
 
 export const startupSaga = [
     takeLatest(StartupTypes.START, start),
+    takeLatest(ConfigTypes.SET_SHOPIFY_STORE, start),
 ]
