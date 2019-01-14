@@ -17,8 +17,6 @@ export class HomeComponent extends React.Component {
   
         const url = navigation.url.replace(/\/+$/, "");
         const loading = navigation.loading
-        console.log(navigation)
-
        if(!loading){
            this.setState({showLoading: false})
        }
@@ -38,11 +36,8 @@ export class HomeComponent extends React.Component {
         }
       };
     onMessage = (event) => {
-        
-        console.log(event)
         if(event.includes("Opal") && event.includes(",")){
             const coordinate = event.split(',');
-            console.log('dddd')
             this.setState({ sx: coordinate[0], sy: coordinate[1], showLoading: true})
         }
 

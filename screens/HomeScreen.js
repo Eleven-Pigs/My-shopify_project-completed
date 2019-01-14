@@ -26,6 +26,11 @@ class Home extends React.Component {
   componentDidMount(){
     this.props.navigation.setParams({ color: this.props.headerBackroundColor, title: this.props.shopName });
   }
+  componentDidUpdate(prevProps){
+    if (prevProps.shopName != this.props.shopName){
+      this.props.navigation.setParams({title: this.props.shopName });
+    }
+  }
 
   renderHomePage = (finishLoad) => {
     if(finishLoad){
