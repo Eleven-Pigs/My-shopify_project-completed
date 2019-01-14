@@ -12,7 +12,6 @@ import {getConfig} from '../redux/config'
 export function* fetchCartDetail() {
     const cartId = yield select(getId)
     const config = yield select(getConfig)
-
     try{
         const response =  yield call(getCheckout, config, cartId)
         const payload = yield response.json()
@@ -20,7 +19,12 @@ export function* fetchCartDetail() {
             if(payload.data.node != null && payload.data.node.order === null ){
                 yield put(CartActions.requestCartDetailSuccess(payload)) 
             }else{
+                if(payload.data.node === null){
+                    yield put(CartActions.requestCartDetailFail())
+                }else{
+                yield put(CartActions.requestCartDetailSuccess(payload)) 
                 yield put(CartActions.requestCreateCheckout()) 
+                }
             }
         }else{
             yield put(CartActions.requestCartDetailFail())
