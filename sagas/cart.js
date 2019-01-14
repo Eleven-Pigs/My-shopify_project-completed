@@ -98,6 +98,7 @@ export function* requestAddEmailAddress(action) {
             yield put(CartActions.requestAddEmailAddressFail())
         }
     }catch(e){
+        yield put(CartActions.requestAddEmailAddressFail())
         console.log(e)
     }
 }
