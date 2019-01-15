@@ -37,14 +37,20 @@ export function* fetchCartDetail() {
 
 export function* requestCreateCheckout() {
     const config =  yield select(getConfig)
-    const response =  yield call(createCheckout, config)
-    const payload = yield response.json()
-    if(response.ok){     
-        yield put.resolve(CartActions.requestCreateCheckoutSuccess(payload))
-        const cartId = yield select(getId)
-        yield call([AsyncStorage, 'setItem'], 'cartId', cartId)    
-    }else{
-        yield put(CartActions.requestCreateCheckoutFail(payload))
+    try{
+        const response =  yield call(createCheckout, config)
+        const payload = yield response.json()
+        if(response.ok){     
+            yield put.resolve(CartActions.requestCreateCheckoutSuccess(payload))
+            const cartId = yield select(getId)
+            yield call([AsyncStorage, 'setItem'], 'cartId', cartId)    
+        }else{
+            yield put(CartActions.requestCreateCheckoutFail(payload))
+        }
+    }
+    catch(e){
+        console.log(e)
+        yield put(CartActions.requestCreateCheckoutFail())
     }
 }
 

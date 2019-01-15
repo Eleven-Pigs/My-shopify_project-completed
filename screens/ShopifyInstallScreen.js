@@ -13,7 +13,7 @@ class ShopifyInstall extends React.Component {
         const params = urls[1]
         const paramList = params.split("&")
         const baseUrls = paramList[0].split("=")
-        const baseUrl = baseUrls[1]
+        const baseUrl = baseUrls[1].replace("%3A%2F%2F", "://")
         const access_tokens = paramList[1].split("=")
         const access_token = access_tokens[1]
         this.props.setShopifyStore(baseUrl,access_token)
@@ -25,7 +25,7 @@ class ShopifyInstall extends React.Component {
     return (
       <SafeAreaView style = {{flex:1}}>
           <WebView
-              source={{uri: 'https://gentle-thicket-95714.herokuapp.com/auth/callback_success?baseUrl=https://animalcontour.myshopify.com&access_token=12944475fc5070228860ddecf1970bd9'}}
+              source={{uri: 'https://gentle-thicket-95714.herokuapp.com/auth/new'}}
               scalesPageToFit={false}
               onNavigationStateChange={this.navigationStateChangedHandler}
           />
