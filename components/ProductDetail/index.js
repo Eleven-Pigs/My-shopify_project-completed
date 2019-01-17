@@ -29,11 +29,11 @@ export default class ProductDetailComponent extends React.Component {
         // Typical usage (don't forget to compare props):
         if (this.props.isProductAdded === true && prevProps.isProductAdded === false) {
             Alert.alert(
-                'Successfull',
                 'Product added to cart',
+                'Do you want to proceed to checkout?',
                 [
-                  {text: 'Checkout', onPress: () => this.props.navigateToCart(), style: 'cancel'},
-                  {text: 'Continue Shopping', onPress: () => console.log('OK Pressed')},
+                  {text: 'No', onPress: () => {},style: 'cancel'},
+                  {text: 'Yes', onPress: () => this.props.navigateToCart()},
                 ],
                 { cancelable: false }
               )

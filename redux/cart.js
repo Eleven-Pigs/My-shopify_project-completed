@@ -101,6 +101,11 @@ const requestCartDetailSuccess = (state, action) => {
         ...cart
     }) 
 }
+const requestCartDetailFail = (state, action) => {
+    return state.merge({
+        isFetching: false,
+    }) 
+}
 const resetIsAddedToCart = (state, action) => {
     return state.merge({
         isAdded: false,
@@ -115,6 +120,12 @@ const requestAddEmailAddressSuccess = (state, action) => {
     return state.merge({
         isFetching: false,
         addEmailAddressSuccess: true,
+    })
+}
+const requestAddEmailAddressFail = (state, action) => {
+    return state.merge({
+        isFetching: false,
+        addEmailAddressSuccess: false,
     })
 }
 const clearCart = (state, action) => {
@@ -139,9 +150,10 @@ export const cart = createReducer(INITIAL_STATE, {
     [Types.REQUEST_ADD_PRODUCT_TO_CHECKOUT_SUCCESS]: requestAddProductToCheckoutSuccess,
     [Types.REQUEST_CART_DETAIL]: requestCartDetail,
     [Types.REQUEST_CART_DETAIL_SUCCESS]: requestCartDetailSuccess,
+    [Types.REQUEST_CART_DETAIL_FAIL]: requestCartDetailFail,
     [Types.REQUEST_ADD_EMAIL_ADDRESS]: requestAddEmailAddress,
     [Types.REQUEST_ADD_EMAIL_ADDRESS_SUCCESS]: requestAddEmailAddressSuccess,
-    [Types.REQUEST_ADD_EMAIL_ADDRESS_SUCCESS]: requestAddEmailAddressSuccess,
+    [Types.REQUEST_ADD_EMAIL_ADDRESS_FAIL]: requestAddEmailAddressFail,
     [Types.CLEAR_CART]: clearCart,
     [Types.RESET_EMAIL_ADDRESS]: resetEmailAddress,
 })

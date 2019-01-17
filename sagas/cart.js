@@ -5,22 +5,23 @@ import { takeLatest, call, select, put } from 'redux-saga/effects';
 import { createCheckout, addProductToCheckout, getCheckout, addAddresstoCheckout, addEmailToCheckout, removeProductFromCheckout } from '../api'
 import { getId, getShippingAddress } from '../redux/cart'
 import CartActions from '../redux/cart'
-import { AsyncStorage } from "react-native"
+import { AsyncStorage, Alert } from "react-native"
 import { getSelectedVariant, getSelectedCount } from '../redux/productDetail';
 import {getConfig} from '../redux/config'
-
 export function* fetchCartDetail() {
     const cartId = yield select(getId)
     const config = yield select(getConfig)
     try{
         const response =  yield call(getCheckout, config, cartId)
         const payload = yield response.json()
+        
         if(response.ok){     
             if(payload.data.node != null && payload.data.node.order === null ){
                 yield put(CartActions.requestCartDetailSuccess(payload)) 
             }else{
                 if(payload.data.node === null){
                     yield put(CartActions.requestCartDetailFail())
+                    yield put(CartActions.requestCreateCheckout())
                 }else{
                 yield put(CartActions.requestCartDetailSuccess(payload)) 
                 yield put(CartActions.requestCreateCheckout()) 
@@ -69,8 +70,6 @@ export function* requestAddProductToCheckout() {
             yield put(CartActions.requestAddProductToCheckoutFail())
         }
     }catch(e){
-        alert('Error')
-        console.log('rewr',e)
         yield put(CartActions.requestAddProductToCheckoutFail())
     }
 }
@@ -101,6 +100,29 @@ export function* requestAddEmailAddress(action) {
             if(addressPayload.data.checkoutShippingAddressUpdateV2.userErrors.length === 0 && emailPayload.data.checkoutEmailUpdateV2.userErrors.length === 0){
                 yield put(CartActions.requestAddEmailAddressSuccess()) 
             }else{
+                if(emailPayload.data.checkoutEmailUpdateV2.userErrors.length > 0){
+                    const userError = emailPayload.data.checkoutEmailUpdateV2.userErrors[0]
+                    const errorMessage = userError.message
+                    Alert.alert(
+                        'Error',
+                        errorMessage,
+                        [
+                          {text: 'Okay', onPress: () => {}},
+                        ],
+                        { cancelable: false }
+                      )
+                }else if(addressPayload.data.checkoutShippingAddressUpdateV2.userErrors.length > 0){
+                    const userError = addressPayload.data.checkoutShippingAddressUpdateV2.userErrors[0]
+                    const errorMessage = userError.message
+                    Alert.alert(
+                        'Error',
+                        errorMessage,
+                        [
+                          {text: 'Okay', onPress: () => {}},
+                        ],
+                        { cancelable: false }
+                      )
+                }
                 yield put(CartActions.requestAddEmailAddressFail())
             }
             

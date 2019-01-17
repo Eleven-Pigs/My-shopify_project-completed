@@ -32,11 +32,11 @@ class ShoppingCart extends React.Component {
       this.props.navigation.navigate('PaymentScreen',{})
     }else{
       Alert.alert(
-        'Checkout',
-        'Continue as guest?',
+        'Do you want to login before proceed?',
+        '',
         [
-          {text: 'Login', onPress: () => this.navigateToLogin(), style: 'cancel'},
-          {text: 'Yes', onPress: () => this.continueAsGuest()},
+          {text: 'Continue as guest', onPress: () => this.continueAsGuest(), style: 'cancel'},
+          {text: 'Yes', onPress: () => this.navigateToLogin()},
         ],
         { cancelable: false }
       )
