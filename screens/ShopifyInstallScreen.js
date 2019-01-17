@@ -28,6 +28,7 @@ class ShopifyInstall extends React.Component {
               source={{uri: 'https://gentle-thicket-95714.herokuapp.com/shopify/auth/new'}}
               scalesPageToFit={false}
               onNavigationStateChange={this.navigationStateChangedHandler}
+              startInLoadingState={true}
           />
       </SafeAreaView>
     );

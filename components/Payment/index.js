@@ -36,6 +36,7 @@ export class PaymentComponent extends React.Component {
                 ref={c => {
                     this.WebView = c;
                   }}
+                startInLoadingState={true}
                 />
 
         )
