@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyledFlatList } from './style'
 import ProductItem  from '../../containers/ProductItem'
+import { View, Text} from 'react-native'
 
 
 export const ProductList = ({ productIds, endReached }) => {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyledSafeAreaView } from '../components/Styled'
-import { View } from 'react-native'
+import { View, Text } from 'react-native'
 import { connect } from 'react-redux'
 import ProductListActions  from '../redux/productList'
 import ProductListContainer  from '../containers/ProductList'
@@ -84,6 +84,13 @@ class ProductList extends React.Component {
       this.props.requestProductListBySearch(this.state.search, this.state.sortKey, this.state.reverse)
     }
   }
+  renderEmptyList = () => {
+    return(
+        <View style = {{height: '100%', alignItems: 'center', justifyContent: 'center'}}>
+          <Text>No product found.</Text>
+        </View>
+    )
+} 
 
 
   _renderContent = (isLoading, productCount) => {
@@ -91,9 +98,18 @@ class ProductList extends React.Component {
       return <ProductListPlaceholder/>
     }else if (!isLoading && productCount === 0){
       //return empty
-      <ProductListContainer />
+      return this.renderEmptyList()
     }else{
       return <ProductListContainer endReached={this.loadMore}/>
+    }
+  }
+  sortProduct = (id, sort, reverse) => {
+    if(this.state.mode === 'ID'){
+      this.props.requestProductListFromCollection(id, sort, reverse)
+    }else if(this.state.mode === 'HANDLE'){
+      this.props.requestProductListFromCollectionByHandle(id, sort, reverse)
+    }else{
+      this.props.requestProductListBySearch(id, sort, reverse)
     }
   }
 
@@ -106,37 +122,38 @@ class ProductList extends React.Component {
         break;
       case 2:
         //Best Selling  
-        this.props.requestProductListFromCollection(this.state.id, 'BEST_SELLING', false)
+        this.sortProduct(this.state.id, 'BEST_SELLING', false)
+        
         this.setState({sortKey: 'BEST_SELLING', reverse: false})
         break;
       case 3:
         //Alphabetically, A - Z 
-        this.props.requestProductListFromCollection(this.state.id, 'TITLE', false)
+        this.sortProduct(this.state.id, 'TITLE', false)
         this.setState({sortKey: 'TITLE', reverse: false})
         break;
       case 4:
         //Alphabetically, Z - A 
-        this.props.requestProductListFromCollection(this.state.id, 'TITLE', true)
+        this.sortProduct(this.state.id, 'TITLE', true)
         this.setState({sortKey: 'TITLE', reverse: true})
         break;
       case 5:
-        this.props.requestProductListFromCollection(this.state.id, 'PRICE', false)
+        this.sortProduct(this.state.id, 'PRICE', false)
         this.setState({sortKey: 'PRICE', reverse: false})
         //Price, low to high
         break;
       case 6:
-        this.props.requestProductListFromCollection(this.state.id, 'PRICE', true)
+        this.sortProduct(this.state.id, 'PRICE', true)
         this.setState({sortKey: 'PRICE', reverse: true})
         //Price, high to low
         break;
       case 7:
         //Date, new to old
-        this.props.requestProductListFromCollection(this.state.id, 'CREATED', false)
+        this.sortProduct(this.state.id, 'CREATED', false)
         this.setState({sortKey: 'CREATED', reverse: false})
         break;
       case 8:
         //Date, old to new
-        this.props.requestProductListFromCollection(this.state.id, 'CREATED', true)
+        this.sortProduct(this.state.id, 'CREATED', true)
         this.setState({sortKey: 'CREATED', reverse: true})
         break;
     }

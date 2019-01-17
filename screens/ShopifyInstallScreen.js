@@ -25,7 +25,7 @@ class ShopifyInstall extends React.Component {
     return (
       <SafeAreaView style = {{flex:1}}>
           <WebView
-              source={{uri: 'https://gentle-thicket-95714.herokuapp.com/auth/new'}}
+              source={{uri: 'https://gentle-thicket-95714.herokuapp.com/shopify/auth/new'}}
               scalesPageToFit={false}
               onNavigationStateChange={this.navigationStateChangedHandler}
           />
