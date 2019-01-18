@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { connect } from 'react-redux'
-import { SafeAreaView, View, WebView } from 'react-native';
+import { SafeAreaView, View, WebView, Alert } from 'react-native';
 import { getHeaderBackgroundColor, getColorSelectionList, getPrimaryColor } from '../redux/config';
 import { getDescriptionHtml } from '../redux/productDetail';
 import ConfigActions from '../redux/config'
@@ -17,6 +17,14 @@ class ShopifyInstall extends React.Component {
         const access_tokens = paramList[1].split("=")
         const access_token = access_tokens[1]
         this.props.setShopifyStore(baseUrl,access_token)
+        Alert.alert(
+          'You have successfully login.',
+          '',
+          [
+            {text: 'OK', onPress: () => console.log('OK Pressed')},
+          ],
+          { cancelable: false }
+        )
         this.props.navigation.goBack(null)
     }
   };
