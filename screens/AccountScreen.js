@@ -51,7 +51,7 @@ class Account extends React.Component {
           this.props.navigation.navigate('LoginScreen')
         }
         break;
-      case 'Change Color':
+      case 'Change Theme Color':
         this.props.navigation.navigate('ChangeColorScreen')
         break
       case 'Privacy Policy':
@@ -59,7 +59,7 @@ class Account extends React.Component {
       case 'Terms of Service':
         this.props.navigation.navigate('Policy',{title: title})
         break;
-      case 'Shopify Login':
+      case 'Preview Shopify Shop':
         this.props.navigation.navigate('ShopifyInstallScreen')
       break;
       default:
@@ -79,7 +79,7 @@ class Account extends React.Component {
           sections={[
             {title: 'Account', data: [{title: this.props.isLogin ? 'Logout': 'Login'}, {title: 'Orders',}, {title: 'Address',}]},
             {title: 'Shop', data: [{title: 'Privacy Policy'},{title: 'Refund Policy'},{title: 'Terms of Service'}]},
-            {title: 'Customize', data: [{title: 'Shopify Login'},{title: 'Change Color'},{title: 'Create App'}]},
+            {title: 'Customize', data: [{title: 'Preview Shopify Shop'},{title: 'Change Theme Color'}]},
           ]}
           keyExtractor={(item, index) => item + index}
           style = {{backgroundColor: theme.listBackground, height: '100%'}}

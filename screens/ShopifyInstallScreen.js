@@ -5,10 +5,11 @@ import { SafeAreaView, View, WebView, Alert } from 'react-native';
 import { getHeaderBackgroundColor, getColorSelectionList, getPrimaryColor } from '../redux/config';
 import { getDescriptionHtml } from '../redux/productDetail';
 import ConfigActions from '../redux/config'
+import {StackActions, NavigationActions} from 'react-navigation'
 class ShopifyInstall extends React.Component {
 
   navigationStateChangedHandler = (navigation) => {
-    if(navigation.url.includes('callback_success')){
+    if(navigation.url.includes('callback_success') && navigation.loading === true){
         const urls = navigation.url.split("?")
         const params = urls[1]
         const paramList = params.split("&")
@@ -25,7 +26,16 @@ class ShopifyInstall extends React.Component {
           ],
           { cancelable: false }
         )
-        this.props.navigation.goBack(null)
+
+
+        const resetAction = StackActions.reset({
+          index: 0,
+          actions: [
+            NavigationActions.navigate({ routeName: 'Main', action: NavigationActions.navigate({routeName: 'HomeScreen'}) }),
+          ],
+          key: null 
+        })
+        this.props.navigation.dispatch(resetAction)
     }
   };
   render() {

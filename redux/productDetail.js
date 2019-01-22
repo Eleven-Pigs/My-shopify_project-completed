@@ -19,6 +19,7 @@ export default Creators
 const INITIAL_STATE = Immutable({
     isFetching: false,
     title:  '',
+    isError: true,
     descriptionHtml:'',
     description: '',
     id: '' ,
@@ -39,6 +40,7 @@ const INITIAL_STATE = Immutable({
 const requestProductDetail = (state) => {
     return state.merge({
         isFetching: true,
+        isError: true,
     })
 }
 const requestProductDetailSuccess = (state, action) => {
@@ -47,6 +49,7 @@ const requestProductDetailSuccess = (state, action) => {
     
     return state.merge({
         isFetching: false,
+        isError: false,
         ...product,
         selectedVariant: defaultVariantId
     })
@@ -226,6 +229,12 @@ export const getAllVariantsId = (rootState) => {
     
     return state.variants.allIds
 }
+export const getIsError = (rootState) => {
+    const state = getReducer(rootState)
+    
+    return state.isError
+}
+
 
 const normalizeProductDetail = (graphQLProduct) => {
     const node = graphQLProduct
